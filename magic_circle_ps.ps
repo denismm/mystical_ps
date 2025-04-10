@@ -1,0 +1,141 @@
+%!
+(dmmlib/base.ps) run
+(dmmlib/textbase.ps) run
+(dmmlib/lines.ps) run
+
+/code {
+    0 0 1 0 360 arc stroke
+    0 0 0.5 180 360 arc
+    0 0 0.375 360 180 arcn closepath
+    fill
+    2 {
+        0.375 dup dot
+        -1 1 scale
+    } repeat
+} cvlit def
+
+/sigil_bank <<
+    /arc {
+        0 0 0.5 -45 90 sparc 
+        0 0 0.5 90 215 sparc 
+        gsave currentpoint newpath dot grestore
+        cstroke
+        -0.5 0 goto 0.5 0 goto cstroke
+    } 
+    /arcn {
+        -1 1 scale
+        0 0 0.5 -45 90 sparc 
+        0 0 0.5 90 215 sparc 
+        gsave currentpoint newpath dot grestore
+        cstroke
+        -0.5 0 goto
+        -0.125 dup goto
+        0.125 dup goto
+        0.5 0 goto cstroke
+    } 
+    /stroke {
+        0 0.25 0.25 90 -90 arc
+        0 -0.25 0.25 90 -90 arcn
+        cstroke
+        0 -0.5 dot
+    }
+    /repeat {
+        gsave
+            3 {
+                0.25 0 goto
+                0.5 -0.5 goto
+                cstroke
+                -0.25 0 translate
+            } repeat
+        grestore
+        -0.5 -0.5 goto
+        -0.5 0.5 goto
+        0.25 0.25 0.25 90 -90 sparcn
+        -0.5 0 goto
+        whitefill cstroke
+    }
+    /scale {
+        6 recip softscale
+        0 1 translate
+        0 1 1 0 270 arc
+        0 -2 2 90 -180 arcn cstroke
+    }
+>> def
+/sigil { /capsule arg
+    10 dict begin
+    capsule 0 get 
+    dup type cvlit /otype arg
+    dup xcheck /xflag arg
+    cvlit /in_token arg
+    /skip_sigil false def
+    otype /nametype eq {
+        xflag not {
+            3 {
+                0.25 0 goto
+            } circrepeat closepath cstroke
+        }
+    } if
+    otype /arraytype eq {
+        /skip_sigil true def
+        0 0 goto 5 0 lineto cstroke
+        gsave
+            5 0 translate
+            180 rotate
+            in_token mahoujin
+        grestore
+        xflag {
+            0 0 0.125 spcircle whitefill cstroke
+        } {
+            doot
+        } ifelse
+    } if
+    0.75 softscale
+    90 rotate
+    skip_sigil not {
+        sigil_bank in_token known {
+            gsave
+                sigil_bank in_token get exec
+            grestore
+        } {
+            in_token buffer cvs centershow
+        } ifelse
+    } if
+    0 -0.75 translate
+    2 recip softscale
+    xflag {
+        /Times-Bold 0.5 selectfont
+    } if
+    otype buffer cvs centershow
+    end
+} def
+/mahoujin {
+    10 dict begin
+        /input_code arg
+        /Times 0.5 selectfont
+        /buffer 20 string def
+        input_code length 1 add /circ arg
+        /angle 360 circ div def
+        /rad angle sin recip def
+        0 0 rad 0.5 add circle whitefill cstroke
+        0 0 rad 0.5 sub circle cstroke
+        0 1 circ 1 sub { /i arg
+            gsave
+                angle i 1 add mul rotate
+                rad 0 translate
+                i circ 1 sub lt {
+                    [input_code i get] sigil
+                } {
+                    4 { 0.5 0 goto } circrepeat closepath cstroke
+                } ifelse
+            grestore
+        } for
+    end
+} def
+
+%%EndProlog
+72 softscale
+4.25 5.5 translate
+3 recip softscale
+code mahoujin
+code cvx exec
+showpage
