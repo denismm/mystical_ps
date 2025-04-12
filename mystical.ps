@@ -85,9 +85,75 @@
     } if
     end
 } def
+
+/parsecode {
+    10 dict begin
+        /code arg       % input code
+        /Ring arg       % Ring object to write into, type is set
+        
+        /code_len code length def
+        /components code_len 1 add array def
+        /circumference 0 def
+        0 1 code_len 1 sub { /i arg
+            /Token <<>> def
+            components i Token put
+            % careful not to execute code piece before cvlit
+            code i get
+            dup type cvlit /otype arg
+            dup xcheck /xflag arg
+            cvlit /literal arg
+            /aflag otype /arraytype eq def
+            
+            aflag {
+                0.25
+            } {
+                sigil_bank literal known {
+                    1
+                } {
+                    literal buffer cvs stringwidth pop
+                } ifelse
+            } ifelse
+            /width arg
+            /position circumference width half add def
+            /circumference circumference width add def
+
+            [/otype /xflag /aflag /position] {
+                Token exch dup cvx exec put
+            } forall
+
+            aflag {
+                /inner_ring <<
+                    /rtype xflag { /xarray } { /array } ifelse
+                >> def
+                Token /ring inner_ring put
+                inner_ring literal parsecode
+                % determine distance
+            } {
+                Token /name literal put
+            } ifelse
+        } for
+        /end_token <<
+            /otype /return
+            /xflag false
+            /aflag false
+            /position circumference 0.5 add
+        >> def
+        components code_len end_token put
+        /circumference circumference 1 add def
+        % determine angles
+        [/components /circumference] {
+            Ring exch dup cvx exec put
+        } forall
+    end
+} def
+
+/buffer 100 string def
 /mystical {
     10 dict begin
         /input_code arg
+        % parse into Ring object
+        /spell << /rtype /xarray >> def
+        spell input_code parsecode
         /Times 0.5 selectfont
         /buffer 20 string def
         input_code length 1 add /circ arg

@@ -1,0 +1,23 @@
+% ps object types
+
+/Ring: <<
+    /components [ Token ]
+    /circumference float
+    /rad float
+    /full_rad float
+    /rtype name         % options: array dict xarray
+>>
+
+/Token: <<
+    /name name
+    /otype name
+    /xflag bool
+    /aflag bool
+    /position float
+    /angle float
+
+    (if aflag)
+    /offset float
+    /ring_angle float
+    /ring Ring
+>>
