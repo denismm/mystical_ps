@@ -20,6 +20,14 @@
         grestore
         -1 1 scale
     } repeat
+    [ 0 45 135 180 225 -45 ] {
+        gsave
+            rotate
+            1 0 moveto
+            2 0 lineto stroke
+        grestore
+    } forall
+    << /a 1 /b 2 /c 3 >> pop
 } cvlit def
 
 /nib_angle -30 def
@@ -34,13 +42,11 @@
 } def
 
 (sigils.ps) run
-/sigil { /capsule arg
+/sigil { /Token arg
     10 dict begin
-    capsule 0 get 
-    dup type cvlit /otype arg
-    dup xcheck /xflag arg
-    cvlit /in_token arg
     /skip_sigil false def
+    /otype Token /otype get def
+    /xflag Token /xflag get def
     otype /nametype eq {
         xflag not {
             gsave
@@ -56,7 +62,7 @@
         gsave
             5 0 translate
             180 rotate
-            in_token mystical
+            Token /ring get draw_ring
         grestore
         xflag {
             0 0 0.125 spcircle whitefill nstroke
@@ -64,15 +70,18 @@
             doot
         } ifelse
     } if
-    0.75 softscale
-    90 rotate
+    otype /return ne {
+        0.75 softscale
+        90 rotate
+    } if
     skip_sigil not {
-        sigil_bank in_token known {
+        /literal Token /name get def
+        sigil_bank literal known {
             gsave
-                sigil_bank in_token get exec
+                sigil_bank literal get exec
             grestore
         } {
-            in_token buffer cvs centershow
+            literal buffer cvs centershow
         } ifelse
     } if
     false {
@@ -86,6 +95,7 @@
     end
 } def
 
+/kerning false def
 /parsecode {
     10 dict begin
         /code arg       % input code
@@ -93,7 +103,7 @@
         
         /code_len code length def
         /components code_len 1 add array def
-        /circumference 0 def
+        /circumference 0.5 def  % leave room for return
         0 1 code_len 1 sub { /i arg
             /Token <<>> def
             components i Token put
@@ -103,15 +113,21 @@
             dup xcheck /xflag arg
             cvlit /literal arg
             /aflag otype /arraytype eq def
-            
-            aflag {
-                0.25
-            } {
-                sigil_bank literal known {
-                    1
+            literal buffer cvs ([) eq {
+            } if
+
+            kerning {
+                aflag {
+                    0.75
                 } {
-                    literal buffer cvs stringwidth pop
+                    sigil_bank literal known {
+                        1.25
+                    } {
+                        literal buffer cvs stringwidth pop
+                    } ifelse
                 } ifelse
+            } {
+                1
             } ifelse
             /width arg
             /position circumference width half add def
@@ -137,43 +153,42 @@
             /xflag false
             /aflag false
             /position circumference 0.5 add
+            /name /RETURN
         >> def
         components code_len end_token put
-        /circumference circumference 1 add def
-        % determine angles
-        [/components /circumference] {
+        /circumference circumference 0.5 add def
+        /radius circumference PI div half def
+        components {
+            dup /angle exch
+            /position get circumference div 360 mul put
+        } forall
+        [/components /circumference /radius] {
             Ring exch dup cvx exec put
         } forall
     end
 } def
 
 /buffer 100 string def
+/Times 0.5 selectfont
+/draw_ring { /spell arg
+    /rad spell /radius get def
+    0 0 rad 0.5 add circle whitefill nstroke
+    0 0 rad 0.5 sub circle nstroke
+    spell /components get { /Token arg
+        gsave
+            Token /angle get rotate
+            rad 0 translate
+            Token sigil
+        grestore
+    } forall
+} def
 /mystical {
     10 dict begin
         /input_code arg
         % parse into Ring object
         /spell << /rtype /xarray >> def
         spell input_code parsecode
-        /Times 0.5 selectfont
-        /buffer 20 string def
-        input_code length 1 add /circ arg
-        /angle 360 circ div def
-        /rad angle sin recip def
-        0 0 rad 0.5 add circle whitefill nstroke
-        0 0 rad 0.5 sub circle nstroke
-        0 1 circ 1 sub { /i arg
-            gsave
-                angle i 1 add mul rotate
-                rad 0 translate
-                i circ 1 sub lt {
-                    [input_code i get] sigil
-                } {
-                    4 { 0.5 0 goto } circrepeat closepath nstroke
-                    0.5 0 goto 1 0 goto nstroke
-                    0.75 -0.25 goto 0.75 0.25 goto nstroke
-                } ifelse
-            grestore
-        } for
+        spell draw_ring
     end
 } def
 

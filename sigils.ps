@@ -83,4 +83,13 @@
             0 0.5 goto
         } circrepeat closepath nstroke
     }
+    /RETURN {
+        2 {
+            0.5 0 goto
+            0 0.375 goto
+        } circrepeat
+        closepath nstroke
+        0.5 0 goto 1 0 goto nstroke
+        0.75 -0.25 goto 0.75 0.25 goto nstroke
+    }
 >> def
