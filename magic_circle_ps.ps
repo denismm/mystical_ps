@@ -10,7 +10,7 @@
     0 0 0.375 360 180 arcn closepath
     fill
     2 {
-        0.375 dup currentlinewidth 2 mul 0 360 arc fill
+        0.375 dup dot
         -1 1 scale
     } repeat
 } cvlit def
@@ -167,6 +167,8 @@
                     [input_code i get] sigil
                 } {
                     4 { 0.5 0 goto } circrepeat closepath cstroke
+                    0.5 0 goto 1 0 goto cstroke
+                    0.75 -0.25 goto 0.75 0.25 goto cstroke
                 } ifelse
             grestore
         } for
