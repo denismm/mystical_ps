@@ -1,0 +1,86 @@
+/sigil_bank <<
+    /arc {
+        0 0 0.5 -45 90 sparc
+        0 0 0.5 90 215 sparc
+        gsave currentpoint newpath dot grestore
+        nstroke
+        -0.5 0 goto 0.5 0 goto nstroke
+    }
+    /arcn {
+        -1 1 scale
+        0 0 0.5 -45 90 sparc
+        0 0 0.5 90 215 sparc
+        gsave currentpoint newpath dot grestore
+        nstroke
+        -0.5 0 goto
+        -0.125 dup goto
+        0.125 dup goto
+        0.5 0 goto nstroke
+    }
+    /closepath {
+        0 0 0.5 60 180 sparc
+        0 0 0.5 180 -60 sparc
+        0 0 goto
+        % 0.5 0 0.5 240 180 sparcn
+        % 0.5 0 0.5 180 120 sparcn
+        closepath
+        gsave currentpoint newpath dot grestore
+        nstroke
+        % doot
+    }
+    /dup {
+        gsave
+            -0.125 0 translate
+            -0.25 0.5 goto
+            0 0 0.5 90 -90 arcn
+            -0.25 -0.5 goto
+            closepath nstroke
+            0 0.5 goto 0 -0.5 goto nstroke
+        grestore
+    }
+    /fill {
+        gsave
+            2 recip softscale
+            -0.75 -1 goto -0.75 1 goto 0.75 1 goto nstroke
+            -0.75 0 goto 0.75 0 goto nstroke
+            /step 0.25 def
+            -0.75 step add step 0.75 step sub {
+                0 goto 0 1 rgoto nstroke
+            } for
+        grestore
+    }
+    /stroke {
+        0 0.25 goto
+        0 0.25 0.25 90 -90 arc
+        0 -0.25 0.25 90 -90 arcn
+        nstroke
+        0 -0.5 dot
+    }
+    /repeat {
+        gsave
+            3 {
+                0.25 0 goto
+                0.5 -0.5 goto
+                nstroke
+                -0.25 0 translate
+            } repeat
+        grestore
+        -0.5 -0.5 goto
+        -0.5 0.5 goto
+        0.25 0.25 0.25 90 -90 sparcn
+        -0.5 0 goto
+        whitefill nstroke
+    }
+    /scale {
+        6 recip softscale
+        0 1 translate
+        0 1 1 0 270 arc
+        0 -2 2 90 -180 arcn nstroke
+    }
+    /def {
+        0 0 0.5 spcircle nstroke
+        3 {
+            0 0.5 goto
+        } circrepeat closepath nstroke
+    }
+>> def
