@@ -76,7 +76,11 @@
                 sigil_bank literal get exec
             grestore
         } {
-            literal buffer cvs centershow
+            gsave
+                /fakerad rad 0.75 div def
+                0 fakerad translate
+                literal buffer cvs fakerad neg circle_center_show
+            grestore
         } ifelse
     } if
     false {
