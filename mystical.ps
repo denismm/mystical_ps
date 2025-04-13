@@ -240,13 +240,18 @@
 } def
 
 /mystical {
-    10 dict begin
-        /input_code arg
-        % parse into Ring object
-        /spell << /rtype /xarray >> def
-        spell input_code parsecode
-        spell draw_ring
-    end
+    gsave
+        10 dict begin
+            /input_code arg
+            % parse into Ring object
+            /spell << /rtype /xarray >> def
+            spell input_code parsecode
+            spell /full_radius get recip dup scale
+            18 recip setlinewidth
+            spell draw_ring
+            code cvx exec
+        end
+    grestore
 } def
 
 %%EndProlog
@@ -288,8 +293,6 @@ sigil_bank /dot {
 
 72 softscale
 4.25 5.5 translate
-0 1 translate
-3 recip softscale
+4 dup scale
 code mystical
-code cvx exec
 showpage
