@@ -126,10 +126,12 @@
             /circumference Ring /circumference get def
             /cursor Ring /cursor get def
             /components Ring /components get def
-            % temporary shenanigans
+
+            % temporary shenanigans - cursor might be two off the end
             components cursor 1 sub get length 0 eq {
                 /cursor cursor 1 sub def
             } if
+
             /end_token <<
                 /otype /return
                 /xflag false
@@ -140,10 +142,8 @@
             components cursor end_token put
             /cursor cursor 1 add def
             /components components 0 cursor getinterval def
-            Ring /components components put
-            Ring /circumference Ring /circumference get 0.5 add put
-            /circumference Ring /circumference get def
-            Ring /radius circumference PI div half put
+            /circumference circumference 0.5 add def
+            /radius circumference PI div half def
             % find largest dependent ring
             /max_sub 0 def
             components { /component arg
@@ -158,11 +158,22 @@
                     } ifelse
                 } if
             } forall
-            Ring /full_radius Ring /radius get max_sub add put
+            /full_radius radius max_sub add def
+
+            Ring /components components put
+            Ring /circumference circumference put
+            Ring /radius radius put
+            Ring /full_radius full_radius put
+
             /stack_top stack_top 1 sub def
             stack_top 0 ge {
                 /Ring ring_stack stack_top get def
             } if
+        } def
+
+        /find_offset { /inner_ring arg /source arg
+            source /offset
+            inner_ring /full_radius get 1 add ring_spacing add put
         } def
 
         input_ring push_ring
@@ -190,7 +201,7 @@
                 /inner_ring Ring def
                 pop_ring
                 /source_token Ring /components get Ring /cursor get 1 sub get def
-                source_token /offset inner_ring /full_radius get 1 add ring_spacing add put
+                source_token inner_ring find_offset
             } {
 
                 kerning {
@@ -224,9 +235,7 @@
                     >> def
                     Token /ring inner_ring put
                     inner_ring literal parsecode
-                    % determine offset
-                    Token /offset inner_ring /full_radius get 1 add ring_spacing add put
-                    
+                    Token inner_ring find_offset
                 } {
                     Token /name literal put
                 } ifelse
