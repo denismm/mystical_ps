@@ -146,16 +146,26 @@
             /radius circumference PI div half def
             % find largest dependent ring
             /max_sub 0 def
+            /ring_spans <<>> def
             components { /component arg
-                component /angle 
-                component /position get circumference div 360 mul put
+                /angle component /position get circumference div 360 mul def
+                component /angle angle put
                 component /ring known {
-                    component /ring get /full_radius get 2 mul
+                    /c_ring component /ring get def
+                    c_ring /full_radius get 2 mul
                     dup max_sub gt {
                         /max_sub arg
                     } {
                         pop
                     } ifelse
+                    % we need:
+                    % angle
+                    % center_offset (ring radius plus offset)
+                    % angle span (radius in either direction)
+                    ring_spans component <<
+                        /angle angle
+                        /center_offset radius component /offset get add
+                    >> put
                 } if
             } forall
             /full_radius radius max_sub add def
