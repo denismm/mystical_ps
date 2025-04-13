@@ -3,32 +3,6 @@
 (dmmlib/textbase.ps) run
 (dmmlib/lines.ps) run
 
-/code {
-    /dot {currentlinewidth 1.5 mul 0 360 arc fill } def
-    0 0 1 0 360 arc stroke
-    0 0 0.5 180 360 arc
-    0 0 0.375 360 180 arcn closepath
-    fill
-    2 {
-        0.375 dup dot
-        gsave
-            0.375 dup translate
-            5 {
-                0 0 moveto 4 recip 0 lineto stroke
-                45 rotate
-            } repeat
-        grestore
-        -1 1 scale
-    } repeat
-    [ 0 45 135 180 225 -45 ] {
-        gsave
-            rotate
-            1 0 moveto
-            2 0 lineto stroke
-        grestore
-    } forall
-    << /a 1 /b 2 /c 3 >> pop
-} cvlit def
 
 /nib_angle -30 def
 
@@ -65,15 +39,6 @@
     /otype Token /otype get def
     /aflag Token /aflag get def
     /xflag Token /xflag get def
-    otype /nametype eq {
-        xflag not {
-            gsave
-                3 {
-                    -0.75 0 goto
-                } circrepeat closepath nstroke
-            grestore
-        } if
-    } if
     aflag {
         /skip_sigil true def
         gsave
@@ -93,6 +58,16 @@
     otype /return ne {
         0.75 softscale
         90 rotate
+    } if
+    otype /nametype eq {
+        xflag not {
+            gsave
+                3 {
+                    0 1 goto
+                } circrepeat closepath nstroke
+            grestore
+            0.75 softscale
+        } if
     } if
     skip_sigil not {
         /literal Token /name get def
@@ -115,7 +90,7 @@
     end
 } def
 
-/kerning false def
+/kerning true def
 /parsecode {
     10 dict begin
         /code arg       % input code
@@ -221,9 +196,12 @@
                         sigil_bank literal known {
                             1.25
                         } {
-                            literal buffer cvs stringwidth pop
+                            literal buffer cvs stringwidth pop ( ) stringwidth pop add
                         } ifelse
                     } ifelse
+                    otype /nametype eq {
+                        1.25 max
+                    } if
                 } {
                     1
                 } ifelse
@@ -268,6 +246,42 @@
 } def
 
 %%EndProlog
+
+sigil_bank /dot {
+    gsave
+        2 recip softscale
+        0 0 1 -90 90 arc closepath nstroke
+        0 0 0.5 circle nstroke
+        -1 1 goto 0 1 goto nstroke
+    grestore
+} put
+/code {
+    /dot {currentlinewidth 1.5 mul 0 360 arc fill } def
+    0 0 1 0 360 arc stroke
+    0 0 0.5 180 360 arc
+    0 0 0.375 360 180 arcn closepath
+    fill
+    2 {
+        0.375 dup dot
+        gsave
+            0.375 dup translate
+            5 {
+                0 0 moveto 0.25 0 lineto stroke
+                45 rotate
+            } repeat
+        grestore
+        -1 1 scale
+    } repeat
+    [ 0 45 135 180 225 -45 ] {
+        gsave
+            rotate
+            1 0 moveto
+            2 0 lineto stroke
+        grestore
+    } forall
+    << /a 1 /b 2 /c 3 >> pop
+} cvlit def
+
 72 softscale
 4.25 5.5 translate
 0 1 translate
