@@ -41,6 +41,7 @@
     newpath
 } def
 
+/ring_spacing 1 def
 (sigils.ps) run
 /sigil { /Token arg
     10 dict begin
@@ -59,11 +60,13 @@
     } if
     aflag {
         /skip_sigil true def
-        0 0 goto 5 0 lineto nstroke
         gsave
-            5 0 translate
+            0 0 goto
+            Token /offset get 0 translate
+            /inner_ring Token /ring get def
+            inner_ring /radius get neg 0 lineto nstroke
             180 rotate
-            Token /ring get draw_ring
+            inner_ring draw_ring
         grestore
         xflag {
             0 0 0.125 spcircle whitefill nstroke
@@ -146,10 +149,21 @@
             Ring /circumference Ring /circumference get 0.5 add put
             /circumference Ring /circumference get def
             Ring /radius circumference PI div half put
-            components {
-                dup /angle exch
-                /position get circumference div 360 mul put
+            % find largest dependent ring
+            /max_sub 0 def
+            components { /component arg
+                component /angle 
+                component /position get circumference div 360 mul put
+                component /ring known {
+                    component /ring get /full_radius get 2 mul
+                    dup max_sub gt {
+                        /max_sub arg
+                    } {
+                        pop
+                    } ifelse
+                } if
             } forall
+            Ring /full_radius Ring /radius get max_sub add put
             /stack_top stack_top 1 sub def
             stack_top 0 ge {
                 /Ring ring_stack stack_top get def
@@ -178,7 +192,10 @@
             } if
             literal buffer cvs (]) eq {
                 % don't otherwise deal with this token
+                /inner_ring Ring def
                 pop_ring
+                /source_token Ring /components get Ring /cursor get 1 sub get def
+                source_token /offset inner_ring /full_radius get 1 add ring_spacing add put
             } {
 
                 kerning {
@@ -198,17 +215,20 @@
                 /position Ring /circumference get width half add def
                 Ring /circumference Ring /circumference get width add put
 
-                [/otype /xflag /aflag /position] {
+                [/otype /xflag /aflag /position /width] {
                     Token exch dup cvx exec put
                 } forall
 
+                % this only works for executable arrays
                 otype /arraytype eq {
                     /inner_ring <<
                         /rtype xflag { /xarray } { /array } ifelse
                     >> def
                     Token /ring inner_ring put
                     inner_ring literal parsecode
-                    % determine distance
+                    % determine offset
+                    Token /offset inner_ring /full_radius get 1 add ring_spacing add put
+                    
                 } {
                     Token /name literal put
                 } ifelse
