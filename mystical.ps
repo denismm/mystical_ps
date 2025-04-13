@@ -42,8 +42,24 @@
 } def
 
 /ring_spacing 1 def
+/buffer 100 string def
+/Times 0.5 selectfont
+/draw_ring { /spell arg
+    /rad spell /radius get def
+    0 0 rad 0.5 add circle whitefill nstroke
+    0 0 rad 0.5 sub circle nstroke
+    spell /components get { /Token arg
+        gsave
+            Token /angle get rotate
+            rad 0 translate
+            Token draw_sigil
+        grestore
+    } forall
+} def
+
+% sigil_bank is in the other file
 (sigils.ps) run
-/sigil { /Token arg
+/draw_sigil { /Token arg
     10 dict begin
     /skip_sigil false def
     /otype Token /otype get def
@@ -241,20 +257,6 @@
     end
 } def
 
-/buffer 100 string def
-/Times 0.5 selectfont
-/draw_ring { /spell arg
-    /rad spell /radius get def
-    0 0 rad 0.5 add circle whitefill nstroke
-    0 0 rad 0.5 sub circle nstroke
-    spell /components get { /Token arg
-        gsave
-            Token /angle get rotate
-            rad 0 translate
-            Token sigil
-        grestore
-    } forall
-} def
 /mystical {
     10 dict begin
         /input_code arg
