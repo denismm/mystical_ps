@@ -89,6 +89,17 @@
         0.5 -0.5 goto nstroke
         0.5 -0.5 dot
     }
+    /pop {
+        -0.5 -0.5 goto
+        -0.5 0.5 goto
+        0.25 0.25 0.25 90 -90 sparcn
+        -0.5 0 goto
+        whitefill nstroke
+        3 {
+            -0.25 dup goto 0.25 dup goto nstroke
+            45 rotate
+        } repeat
+    }
     /repeat {
         gsave
             3 {
