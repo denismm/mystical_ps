@@ -99,14 +99,57 @@
 /parsecode {
     10 dict begin
         /code arg       % input code
-        /Ring arg       % Ring object to write into, type is set
-        
+        /input_ring arg       % Ring object to write into, type is set
+
+
+        /ring_stack [] def  % stack of parsing rings
+        /stack_top -1 def
+        /i 0 def
         /code_len code length def
-        /components code_len 1 add array def
-        /circumference 0.5 def  % leave room for return
+
+        /push_ring { /new_ring arg
+            new_ring /cursor 0 put
+            ring_stack length stack_top 1 add le {
+                /new_stack ring_stack length 2 add array def
+                0 1 stack_top { /copy_pos arg
+                    ring_stack copy_pos get new_stack exch copy_pos exch put
+                } for
+                /ring_stack new_stack def
+            } if
+            /stack_top stack_top 1 add def
+            ring_stack stack_top new_ring put
+            /Ring new_ring def
+            Ring /components code_len 1 add i sub array put
+            Ring /circumference 0.5 put  % leave room for return
+        } def
+
+        /pop_ring {
+            /circumference Ring /circumference get def
+            /end_token <<
+                /otype /return
+                /xflag false
+                /aflag false
+                /position circumference 0.5 add
+                /name /RETURN
+            >> def
+            Ring /components get Ring /cursor get end_token put
+            Ring /circumference Ring /circumference get 0.5 add put
+            /circumference Ring /circumference get def
+            Ring /radius circumference PI div half put
+            Ring /components get {
+                dup /angle exch
+                /position get circumference div 360 mul put
+            } forall
+            /stack_top stack_top 1 sub def
+        } def
+
+        input_ring push_ring
+        
         0 1 code_len 1 sub { /i arg
             /Token <<>> def
-            components i Token put
+            /components Ring /components get def
+            components Ring /cursor get Token put
+            Ring dup /cursor get 1 add /cursor exch put
             % careful not to execute code piece before cvlit
             code i get
             dup type cvlit /otype arg
@@ -114,6 +157,7 @@
             cvlit /literal arg
             /aflag otype /arraytype eq def
             literal buffer cvs ([) eq {
+                % push
             } if
 
             kerning {
@@ -130,8 +174,8 @@
                 1
             } ifelse
             /width arg
-            /position circumference width half add def
-            /circumference circumference width add def
+            /position Ring /circumference get width half add def
+            Ring /circumference Ring /circumference get width add put
 
             [/otype /xflag /aflag /position] {
                 Token exch dup cvx exec put
@@ -148,23 +192,7 @@
                 Token /name literal put
             } ifelse
         } for
-        /end_token <<
-            /otype /return
-            /xflag false
-            /aflag false
-            /position circumference 0.5 add
-            /name /RETURN
-        >> def
-        components code_len end_token put
-        /circumference circumference 0.5 add def
-        /radius circumference PI div half def
-        components {
-            dup /angle exch
-            /position get circumference div 360 mul put
-        } forall
-        [/components /circumference /radius] {
-            Ring exch dup cvx exec put
-        } forall
+        pop_ring
     end
 } def
 
