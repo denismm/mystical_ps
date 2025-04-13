@@ -46,6 +46,7 @@
     10 dict begin
     /skip_sigil false def
     /otype Token /otype get def
+    /aflag Token /aflag get def
     /xflag Token /xflag get def
     otype /nametype eq {
         xflag not {
@@ -56,7 +57,7 @@
             grestore
         } if
     } if
-    otype /arraytype eq {
+    aflag {
         /skip_sigil true def
         0 0 goto 5 0 lineto nstroke
         gsave
@@ -125,6 +126,12 @@
 
         /pop_ring {
             /circumference Ring /circumference get def
+            /cursor Ring /cursor get def
+            /components Ring /components get def
+            % temporary shenanigans
+            components cursor 1 sub get length 0 eq {
+                /cursor cursor 1 sub def
+            } if
             /end_token <<
                 /otype /return
                 /xflag false
@@ -132,15 +139,21 @@
                 /position circumference 0.5 add
                 /name /RETURN
             >> def
-            Ring /components get Ring /cursor get end_token put
+            components cursor end_token put
+            /cursor cursor 1 add def
+            /components components 0 cursor getinterval def
+            Ring /components components put
             Ring /circumference Ring /circumference get 0.5 add put
             /circumference Ring /circumference get def
             Ring /radius circumference PI div half put
-            Ring /components get {
+            components {
                 dup /angle exch
                 /position get circumference div 360 mul put
             } forall
             /stack_top stack_top 1 sub def
+            stack_top 0 ge {
+                /Ring ring_stack stack_top get def
+            } if
         } def
 
         input_ring push_ring
@@ -156,40 +169,52 @@
             dup xcheck /xflag arg
             cvlit /literal arg
             /aflag otype /arraytype eq def
+            /rpush false def
             literal buffer cvs ([) eq {
-                % push
+                /array_ring << /rtype /array >> def
+                Token /ring array_ring put
+                /aflag true def
+                /rpush true def
             } if
+            literal buffer cvs (]) eq {
+                % don't otherwise deal with this token
+                pop_ring
+            } {
 
-            kerning {
-                aflag {
-                    0.75
-                } {
-                    sigil_bank literal known {
-                        1.25
+                kerning {
+                    aflag {
+                        0.75
                     } {
-                        literal buffer cvs stringwidth pop
+                        sigil_bank literal known {
+                            1.25
+                        } {
+                            literal buffer cvs stringwidth pop
+                        } ifelse
                     } ifelse
+                } {
+                    1
                 } ifelse
-            } {
-                1
-            } ifelse
-            /width arg
-            /position Ring /circumference get width half add def
-            Ring /circumference Ring /circumference get width add put
+                /width arg
+                /position Ring /circumference get width half add def
+                Ring /circumference Ring /circumference get width add put
 
-            [/otype /xflag /aflag /position] {
-                Token exch dup cvx exec put
-            } forall
+                [/otype /xflag /aflag /position] {
+                    Token exch dup cvx exec put
+                } forall
 
-            aflag {
-                /inner_ring <<
-                    /rtype xflag { /xarray } { /array } ifelse
-                >> def
-                Token /ring inner_ring put
-                inner_ring literal parsecode
-                % determine distance
-            } {
-                Token /name literal put
+                otype /arraytype eq {
+                    /inner_ring <<
+                        /rtype xflag { /xarray } { /array } ifelse
+                    >> def
+                    Token /ring inner_ring put
+                    inner_ring literal parsecode
+                    % determine distance
+                } {
+                    Token /name literal put
+                } ifelse
+                rpush {
+                    Token /ring get push_ring
+                } if
             } ifelse
         } for
         pop_ring
@@ -223,7 +248,7 @@
 %%EndProlog
 72 softscale
 4.25 5.5 translate
--2 0 translate
+0 1 translate
 3 recip softscale
 code mystical
 code cvx exec
