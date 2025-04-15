@@ -1,11 +1,11 @@
 % ps object types
 
 /Ring: <<
-    /components [ Token ]
-    /circumference float
-    /rad float
-    /full_rad float
-    /rtype name         % options: array dict xarray
+    /components         [ Token ]
+    /circumference      float
+    /rad                float
+    /full_radius        float
+    /rtype              name         % options: array dict xarray
 >>
 
 /Token: <<

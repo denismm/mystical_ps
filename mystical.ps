@@ -151,6 +151,7 @@
                 /angle component /position get circumference div 360 mul def
                 component /angle angle put
                 component /ring known {
+                    component /ring_angle angle put
                     /c_ring component /ring get def
                     c_ring /full_radius get 2 mul
                     dup max_sub gt {
@@ -162,12 +163,20 @@
                     % angle
                     % center_offset (ring radius plus offset)
                     % angle span (radius in either direction)
+                    /center_offset radius component /offset get add def
+                    /angle_span c_ring /full_radius get center_offset div asin def
                     ring_spans component <<
-                        /angle angle
-                        /center_offset radius component /offset get add
+                        /ring_angle angle
+                        /center_offset center_offset
+                        /angle_span angle_span
                     >> put
                 } if
             } forall
+            ring_spans length 1 gt {
+                % check for everyone having room
+                % check for jostling
+            } if
+
             /full_radius radius max_sub add def
 
             Ring /components components put
