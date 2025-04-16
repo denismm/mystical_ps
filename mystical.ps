@@ -22,6 +22,9 @@
     /rad spell /radius get def
     0 0 rad 0.5 add circle whitefill nstroke
     0 0 rad 0.5 sub circle nstroke
+    spell /full_radius known {
+        spell /full_radius get buffer cvs centershow
+    } if
     spell /components get { /Token arg
         gsave
             Token /angle get rotate
@@ -147,6 +150,9 @@
             % find largest dependent ring
             /max_sub 0 def
             /ring_spans <<>> def
+            % also helpful to have an ordered list
+            /ring_components components length array def
+            /rci 0 def
             components { /component arg
                 /angle component /position get circumference div 360 mul def
                 component /angle angle put
@@ -159,6 +165,8 @@
                     } {
                         pop
                     } ifelse
+                    ring_components rci component put
+                    /rci rci 1 add def
                     % we need:
                     % angle
                     % center_offset (ring radius plus offset)
@@ -166,14 +174,35 @@
                     /center_offset radius component /offset get add def
                     /angle_span c_ring /full_radius get center_offset div asin def
                     ring_spans component <<
+                        /ring c_ring
+                        /full_radius c_ring /full_radius get
                         /ring_angle angle
                         /center_offset center_offset
                         /angle_span angle_span
                     >> put
                 } if
             } forall
+            /ring_components ring_components 0 rci 1 add getinterval def
             ring_spans length 1 gt {
                 % check for everyone having room
+                /total_spans 0 def
+                ring_spans { /ring_span arg /component arg
+                    ring_span /angle_span get 2 mul total_spans add
+                    /total_spans arg
+                } forall
+                Ring /total_spans total_spans put
+                total_spans 360 gt {
+                    /adjustment 360 total_spans div def
+                    ring_spans { /ring_span arg /component arg
+                        /increase
+                            ring_span /full_radius get
+                            ring_span /angle_span get sin adjustment mul div
+                            ring_span /center_offset get sub
+                        def
+                        component /offset get increase add component /offset 3 -1 roll put
+
+                    } forall
+                } if
                 % check for jostling
             } if
 
@@ -316,7 +345,55 @@ sigil_bank /dot {
             2 0 lineto stroke
         grestore
     } forall
-    << /a 1 /b 2 /c 3 >> pop
+    << /a 1 /b 2
+        /c [
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+        ]
+    >> pop
 } cvlit def
 
 72 softscale
