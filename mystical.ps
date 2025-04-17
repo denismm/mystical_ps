@@ -32,6 +32,16 @@
             Token draw_sigil
         grestore
     } forall
+    false {
+        gsave
+            1 0 0 setrgbcolor
+            0 0 rad circle stroke
+            0 1 0 setrgbcolor
+            spell /full_radius known {
+                0 0 spell /full_radius get circle stroke
+            } if
+        grestore
+    } if
 } def
 
 % sigil_bank is in the other file
@@ -148,7 +158,7 @@
             /circumference circumference 0.5 add def
             /radius circumference PI div half def
             % find largest dependent ring
-            /max_sub 0 def
+            /max_sub 0.5 def
             /ring_spans <<>> def
             % also helpful to have an ordered list
             /ring_components components length array def
@@ -159,12 +169,12 @@
                 component /ring known {
                     component /ring_angle angle put
                     /c_ring component /ring get def
-                    c_ring /full_radius get 2 mul
-                    dup max_sub gt {
-                        /max_sub arg
-                    } {
-                        pop
-                    } ifelse
+                    /sub_offset
+                        c_ring /full_radius get component /offset get add 
+                        def
+                    sub_offset max_sub gt {
+                        /max_sub sub_offset def
+                    } if
                     ring_components rci component put
                     /rci rci 1 add def
                     % we need:
@@ -347,51 +357,22 @@ sigil_bank /dot {
     } forall
     << /a 1 /b 2
         /c [
-            [
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
                 [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
         ]
     >> pop
 } cvlit def

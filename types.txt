@@ -3,7 +3,7 @@
 /Ring: <<
     /components         [ Token ]
     /circumference      float
-    /rad                float
+    /radius             float
     /full_radius        float
     /rtype              name         % options: array dict xarray
 >>
