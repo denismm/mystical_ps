@@ -10,14 +10,15 @@
 
 /Token: <<
     /name name
-    /otype name
-    /xflag bool
-    /aflag bool
-    /position float
-    /angle float
+    /otype      name
+    /xflag      bool
+    /aflag      bool
+    /position   float
+    /angle      float
+    /parent     Ring
 
     (if aflag)
-    /offset float
+    /offset     float
     /ring_angle float
-    /ring Ring
+    /ring       Ring
 >>

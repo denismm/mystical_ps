@@ -2,6 +2,7 @@
 (dmmlib/base.ps) run
 (dmmlib/textbase.ps) run
 (dmmlib/lines.ps) run
+(dmmlib/polar.ps) run
 
 
 /nib_angle -30 def
@@ -14,21 +15,17 @@
     grestore
     newpath
 } def
+/nstroke {stroke} def
 
-/ring_spacing 1 def
+/ring_spacing 2 def     % this needs to be at least 1
 /buffer 100 string def
 /Times 0.5 selectfont
 /draw_ring { /spell arg
     /rad spell /radius get def
     0 0 rad 0.5 add circle whitefill nstroke
     0 0 rad 0.5 sub circle nstroke
-    spell /full_radius known {
-        spell /full_radius get buffer cvs centershow
-    } if
     spell /components get { /Token arg
         gsave
-            Token /angle get rotate
-            rad 0 translate
             Token draw_sigil
         grestore
     } forall
@@ -52,22 +49,37 @@
     /otype Token /otype get def
     /aflag Token /aflag get def
     /xflag Token /xflag get def
+    /parent Token /parent get def
+    /angle Token /angle get def
     aflag {
         /skip_sigil true def
+        /ring_angle Token /ring_angle get def
+        /inner_ring Token /ring get def
         gsave
-            0 0 goto
-            Token /offset get 0 translate
-            /inner_ring Token /ring get def
-            inner_ring /radius get neg 0 lineto nstroke
+            /r0 parent /radius get def
+            /r4 r0 Token /offset get add def 
+            /r3 r4 inner_ring /radius get sub def
+            /rstep r3 r0 sub 3 div def
+            /r1 r0 rstep add def
+            /r2 r1 rstep add def
+            r0 angle polar
+            xflag {
+                0.125 spcircle whitefill nstroke
+            } {
+                dot
+            } ifelse
+            r0 angle polar goto
+            r1 angle polar
+            r2 ring_angle polar
+            r3 ring_angle polar curveto nstroke
+            ring_angle rotate
+            r4 0 translate
             180 rotate
             inner_ring draw_ring
         grestore
-        xflag {
-            0 0 0.125 spcircle whitefill nstroke
-        } {
-            doot
-        } ifelse
     } if
+    angle rotate
+    parent /radius get 0 translate
     otype /return ne {
         0.75 softscale
         90 rotate
@@ -128,7 +140,7 @@
                 } for
                 /ring_stack new_stack def
             } if
-            /stack_top stack_top 1 add def
+            /stack_top 1 adddef
             ring_stack stack_top new_ring put
             /Ring new_ring def
             Ring /components code_len 1 add i sub array put
@@ -142,7 +154,7 @@
 
             % temporary shenanigans - cursor might be two off the end
             components cursor 1 sub get length 0 eq {
-                /cursor cursor 1 sub def
+                /cursor -1 adddef
             } if
 
             /end_token <<
@@ -151,11 +163,12 @@
                 /aflag false
                 /position circumference 0.5 add
                 /name /RETURN
+                /parent Ring
             >> def
             components cursor end_token put
-            /cursor cursor 1 add def
+            /cursor 1 adddef
             /components components 0 cursor getinterval def
-            /circumference circumference 0.5 add def
+            /circumference 0.5 adddef
             /radius circumference PI div half def
             % find largest dependent ring
             /max_sub 0.5 def
@@ -176,7 +189,7 @@
                         /max_sub sub_offset def
                     } if
                     ring_components rci component put
-                    /rci rci 1 add def
+                    /rci 1 adddef
                     % we need:
                     % angle
                     % center_offset (ring radius plus offset)
@@ -203,13 +216,27 @@
                 Ring /total_spans total_spans put
                 total_spans 360 gt {
                     /adjustment 360 total_spans div def
+                    /angle_tracker 0 def
                     ring_spans { /ring_span arg /component arg
+                        /full_radius ring_span /full_radius get def
                         /increase
-                            ring_span /full_radius get
+                            full_radius
                             ring_span /angle_span get sin adjustment mul div
                             ring_span /center_offset get sub
                         def
-                        component /offset get increase add component /offset 3 -1 roll put
+                        /c_ring component /ring get def
+                        /new_offset component /offset get increase add def
+                        component /offset new_offset put
+                        /angle_span full_radius new_offset radius add div asin def
+                        component /ring_angle angle_tracker angle_span add put
+                        /angle_tracker angle_span 2 mul adddef
+
+                        /sub_offset
+                            c_ring /full_radius get component /offset get add 
+                            def
+                        sub_offset max_sub gt {
+                            /max_sub sub_offset def
+                        } if
 
                     } forall
                 } if
@@ -229,15 +256,16 @@
             } if
         } def
 
-        /find_offset { /inner_ring arg /source arg
+        /find_offset [/source /inner_ring] {
             source /offset
-            inner_ring /full_radius get 1 add ring_spacing add put
-        } def
+            inner_ring /full_radius get ring_spacing add put
+        } simplefunc
 
         input_ring push_ring
         
         0 1 code_len 1 sub { /i arg
-            /Token <<>> def
+            /Token << >> def
+            /parent Ring def
             /components Ring /components get def
             components Ring /cursor get Token put
             Ring dup /cursor get 1 add /cursor exch put
@@ -280,9 +308,9 @@
                 } ifelse
                 /width arg
                 /position Ring /circumference get width half add def
-                Ring /circumference Ring /circumference get width add put
+                Ring /circumference width addput
 
-                [/otype /xflag /aflag /position /width] {
+                [/otype /xflag /aflag /position /width /parent] {
                     Token exch dup cvx exec put
                 } forall
 
@@ -357,6 +385,49 @@ sigil_bank /dot {
     } forall
     << /a 1 /b 2
         /c [
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
+            [
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
@@ -365,14 +436,7 @@ sigil_bank /dot {
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
                 [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
+            ]
         ]
     >> pop
 } cvlit def
