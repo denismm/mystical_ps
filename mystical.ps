@@ -122,24 +122,13 @@
         % code:  input code
         % code_pos: position in code being parsed
 
-        /ring_stack [] def  % stack of parsing rings
-        /stack_top -1 def
         /i 0 def
         /code_len code length def
 
         /push_ring { /new_ring arg
             new_ring /cursor 0 put
-            ring_stack length stack_top 1 add le {
-                /new_stack ring_stack length 2 add array def
-                0 1 stack_top { /copy_pos arg
-                    ring_stack copy_pos get new_stack exch copy_pos exch put
-                } for
-                /ring_stack new_stack def
-            } if
-            /stack_top 1 adddef
-            ring_stack stack_top new_ring put
             /Ring new_ring def
-            Ring /components code_len 1 add i sub array put
+            Ring /components code_len 1 add code_pos sub array put
             Ring /circumference 0.5 put  % leave room for return
         } def
 
@@ -201,6 +190,7 @@
                     >> put
                 } if
             } forall
+
             /ring_components ring_components 0 rci 1 add getinterval def
             ring_spans length 1 gt {
                 % check for everyone having room
@@ -245,10 +235,6 @@
             Ring /radius radius put
             Ring /full_radius full_radius put
 
-            /stack_top stack_top 1 sub def
-            stack_top 0 ge {
-                /Ring ring_stack stack_top get def
-            } if
         } def
 
         /find_offset { /inner_ring arg /source arg
@@ -266,64 +252,61 @@
             components Ring /cursor get Token put
             Ring dup /cursor get 1 add /cursor exch put
             % careful not to execute code piece before cvlit
-            code i get
+            code code_pos get
             dup type cvlit /otype arg
             dup xcheck /xflag arg
             cvlit /literal arg
             /aflag otype /arraytype eq def
-            /rpush false def
             literal buffer cvs ([) eq {
                 /array_ring << /rtype /array >> def
                 Token /ring array_ring put
-                /aflag true def
-                /rpush true def
-            } if
-            literal buffer cvs (]) eq {
-                % don't otherwise deal with this token
-                /inner_ring Ring def
-                pop_ring
-                /source_token Ring /components get Ring /cursor get 1 sub get def
-                source_token inner_ring find_offset
+                /code_pos 1 adddef
+                array_ring code code_pos parsecode /code_pos arg
+                Ring /cursor -1 addput
             } {
-
-                kerning {
-                    aflag {
-                        0.75
-                    } {
-                        sigil_bank literal known {
-                            1.25
+                literal buffer cvs (]) eq {
+                    % don't otherwise deal with this token
+                    /inner_ring Ring def
+                    /code_pos 1 adddef
+                    exit
+                } {
+                    kerning {
+                        aflag {
+                            0.75
                         } {
-                            literal buffer cvs stringwidth pop ( ) stringwidth pop add
+                            sigil_bank literal known {
+                                1.25
+                            } {
+                                literal buffer cvs stringwidth pop ( ) stringwidth pop add
+                            } ifelse
                         } ifelse
+                        otype /nametype eq {
+                            1.25 max
+                        } if
+                    } {
+                        1
                     } ifelse
-                    otype /nametype eq {
-                        1.25 max
-                    } if
-                } {
-                    1
-                } ifelse
-                /width arg
-                /position Ring /circumference get width half add def
-                Ring /circumference width addput
+                    /width arg
+                    /position Ring /circumference get width half add def
+                    Ring /circumference width addput
 
-                [/otype /xflag /aflag /position /width /parent] {
-                    Token exch dup cvx exec put
-                } forall
+                    [/otype /xflag /aflag /position /width /parent] {
+                        Token exch dup cvx exec put
+                    } forall
 
-                % Handle recursion for executable arrays
-                otype /arraytype eq {
-                    /inner_ring <<
-                        /rtype xflag { /xarray } { /array } ifelse
-                    >> def
-                    Token /ring inner_ring put
-                    inner_ring literal 0 parsecode pop
-                    Token inner_ring find_offset
-                } {
-                    Token /name literal put
+                    % Handle recursion for executable arrays
+                    otype /arraytype eq {
+                        /inner_ring <<
+                            /rtype xflag { /xarray } { /array } ifelse
+                        >> def
+                        Token /ring inner_ring put
+                        inner_ring literal 0 parsecode pop
+                        Token inner_ring find_offset
+                        Token /name inner_ring /rtype get put
+                    } {
+                        Token /name literal put
+                    } ifelse
                 } ifelse
-                rpush {
-                    Token /ring get push_ring
-                } if
             } ifelse
             /i 1 adddef
             /code_pos 1 adddef
