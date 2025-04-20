@@ -20,111 +20,107 @@
 /ring_spacing 2 def     % this needs to be at least 1
 /buffer 100 string def
 /Times 0.5 selectfont
-/draw_ring { /spell arg
-    /rad spell /radius get def
-    0 0 rad 0.5 add circle whitefill nstroke
-    0 0 rad 0.5 sub circle nstroke
-    spell /components get { /Token arg
-        gsave
-            Token draw_sigil
-        grestore
-    } forall
-    false {
-        gsave
-            1 0 0 setrgbcolor
-            0 0 rad circle stroke
-            0 1 0 setrgbcolor
-            spell /full_radius known {
-                0 0 spell /full_radius get circle stroke
-            } if
-        grestore
-    } if
-} def
+/draw_ring [/spell] {
+    spell begin
+        0 0 radius 0.5 add circle whitefill
+        nstroke
+        0 0 radius 0.5 sub circle nstroke
+        components { /Token arg
+            gsave
+                Token /aflag get {
+                    Token draw_link
+                } {
+                    Token draw_sigil
+                } ifelse
+            grestore
+        } forall
+        false {
+            gsave
+                1 0 0 setrgbcolor
+                0 0 radius circle stroke
+                0 1 0 setrgbcolor
+                0 0 full_radius circle stroke
+            grestore
+        } if
+    end
+} 0 false dict_safe_func
 
 % sigil_bank is in the other file
 (sigils.ps) run
-/draw_sigil { /Token arg
-    10 dict begin
-    /skip_sigil false def
-    /otype Token /otype get def
-    /aflag Token /aflag get def
-    /xflag Token /xflag get def
-    /parent Token /parent get def
-    /angle Token /angle get def
-    aflag {
-        /skip_sigil true def
-        /ring_angle Token /ring_angle get def
-        /inner_ring Token /ring get def
-        gsave
-            /r0 parent /radius get def
-            /r4 r0 Token /offset get add def 
-            /r3 r4 inner_ring /radius get sub def
-            /rstep r3 r0 sub 3 div def
-            /r1 r0 rstep add def
-            /r2 r1 rstep add def
-            r0 angle polar
-            xflag {
-                0.125 spcircle whitefill nstroke
-            } {
-                dot
-            } ifelse
-            r0 angle polar goto
-            r1 angle polar
-            r2 ring_angle polar
-            r3 ring_angle polar curveto nstroke
-            ring_angle rotate
-            r4 0 translate
-            180 rotate
-            inner_ring draw_ring
-        grestore
-    } if
-    angle rotate
-    parent /radius get 0 translate
-    otype /return ne {
-        0.75 softscale
-        90 rotate
-    } if
-    otype /nametype eq {
-        xflag not {
-            gsave
-                3 {
-                    0 1 goto
-                } circrepeat closepath nstroke
-            grestore
+/draw_sigil [/Token] {
+    Token begin
+    gsave
+        angle rotate
+        parent /radius get 0 translate
+        otype /return ne {
             0.75 softscale
+            90 rotate
         } if
-    } if
-    skip_sigil not {
-        /literal Token /name get def
-        sigil_bank literal known {
+        otype /nametype eq {
+            xflag not {
+                gsave
+                    3 {
+                        0 1 goto
+                    } circrepeat closepath nstroke
+                grestore
+                0.75 softscale
+            } if
+        } if
+        sigil_bank name known {
             gsave
-                sigil_bank literal get exec
+                sigil_bank name get exec
             grestore
         } {
             gsave
-                /fakerad rad 0.75 div def
+                /fakerad parent /radius get 0.75 div def
                 0 fakerad translate
-                literal buffer cvs fakerad neg circle_center_show
+                name buffer cvs fakerad neg circle_center_show
             grestore
         } ifelse
-    } if
-    false {
-        0 -0.75 translate
-        2 recip softscale
-        xflag {
-            /Times-Bold 0.5 selectfont
+        false {
+            0 -0.75 translate
+            2 recip softscale
+            xflag {
+                /Times-Bold 0.5 selectfont
+            } if
+            otype buffer cvs centershow
         } if
-        otype buffer cvs centershow
-    } if
+    grestore
     end
-} def
+} 0 false dict_safe_func
+/draw_link [/Token] {
+    Token begin
+    gsave
+        /r0 parent /radius get def
+        /r4 r0 Token /offset get add def 
+        /r3 r4 ring /radius get sub def
+        /rstep r3 r0 sub 3 div def
+        /r1 r0 rstep add def
+        /r2 r1 rstep add def
+        r0 angle polar
+        xflag {
+            0.125 spcircle whitefill nstroke
+        } {
+            dot
+        } ifelse
+        r0 angle polar goto
+        r1 angle polar
+        r2 ring_angle polar
+        r3 ring_angle polar curveto nstroke
+        ring_angle rotate
+        r4 0 translate
+        180 rotate
+        ring draw_ring
+    grestore
+    end
+} 0 false dict_safe_func
 
 /kerning true def
-/parsecode {
+/parsecode [/input_ring /code /code_pos] {
     10 dict begin
-        /code arg       % input code
-        /input_ring arg       % Ring object to write into, type is set
-
+        % input_ring: Ring object to write into, type is set
+        % code:  input code
+        % code_pos: position in code being parsed
 
         /ring_stack [] def  % stack of parsing rings
         /stack_top -1 def
@@ -221,8 +217,8 @@
                         /full_radius ring_span /full_radius get def
                         /increase
                             full_radius
-                            ring_span /angle_span get sin adjustment mul div
-                            ring_span /center_offset get sub
+                            ring_span /angle_span get sin adjustment mul  div
+                            ring_span /center_offset get  sub
                         def
                         /c_ring component /ring get def
                         /new_offset component /offset get increase add def
@@ -237,7 +233,6 @@
                         sub_offset max_sub gt {
                             /max_sub sub_offset def
                         } if
-
                     } forall
                 } if
                 % check for jostling
@@ -256,14 +251,15 @@
             } if
         } def
 
-        /find_offset [/source /inner_ring] {
+        /find_offset { /inner_ring arg /source arg
             source /offset
             inner_ring /full_radius get ring_spacing add put
-        } simplefunc
+        } def
 
         input_ring push_ring
         
-        0 1 code_len 1 sub { /i arg
+        /i 0 def
+        {
             /Token << >> def
             /parent Ring def
             /components Ring /components get def
@@ -314,13 +310,13 @@
                     Token exch dup cvx exec put
                 } forall
 
-                % this only works for executable arrays
+                % Handle recursion for executable arrays
                 otype /arraytype eq {
                     /inner_ring <<
                         /rtype xflag { /xarray } { /array } ifelse
                     >> def
                     Token /ring inner_ring put
-                    inner_ring literal parsecode
+                    inner_ring literal 0 parsecode pop
                     Token inner_ring find_offset
                 } {
                     Token /name literal put
@@ -329,10 +325,14 @@
                     Token /ring get push_ring
                 } if
             } ifelse
-        } for
+            /i 1 adddef
+            /code_pos 1 adddef
+            code_pos code length ge { exit } if
+        } loop
         pop_ring
     end
-} def
+    code_pos
+} 1 false dict_safe_func
 
 /mystical {
     gsave
@@ -340,7 +340,7 @@
             /input_code arg
             % parse into Ring object
             /spell << /rtype /xarray >> def
-            spell input_code parsecode
+            spell input_code 0 parsecode pop
             spell /full_radius get recip dup scale
             18 recip setlinewidth
             spell draw_ring
@@ -383,62 +383,62 @@ sigil_bank /dot {
             2 0 lineto stroke
         grestore
     } forall
-    << /a 1 /b 2
-        /c [
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-            [
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-                [ 1 2 3 4 5 6 7 8 9 0]
-            ]
-        ]
-    >> pop
+   << /a 1 /b 2
+       /c [
+           [
+               [ 1 2 3 4 5 6 7 8 9 0]
+           ]
+           [
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+           ]
+           [
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+           ]
+           [
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+           ]
+           [
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+           ]
+           [
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+           ]
+           [
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+           ]
+           [
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+               [ 1 2 3 4 5 6 7 8 9 0]
+           ]
+       ]
+   >> pop
 } cvlit def
 
 72 softscale
