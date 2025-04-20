@@ -122,114 +122,9 @@
         % code:  input code
         % code_pos: position in code being parsed
 
+
         /i 0 def
         /code_len code length def
-
-
-        /pop_ring {
-            /circumference Ring /circumference get def
-            /cursor Ring /cursor get def
-            /components Ring /components get def
-
-            % temporary shenanigans - cursor might be two off the end
-            components cursor 1 sub get length 0 eq {
-                /cursor -1 adddef
-            } if
-
-            /end_token <<
-                /otype /return
-                /xflag false
-                /aflag false
-                /position circumference 0.5 add
-                /name /RETURN
-                /parent Ring
-            >> def
-            components cursor end_token put
-            /cursor 1 adddef
-            /components components 0 cursor getinterval def
-            /circumference 0.5 adddef
-            /radius circumference PI div half def
-            % find largest dependent ring
-            /max_sub 0.5 def
-            /ring_spans <<>> def
-            % also helpful to have an ordered list
-            /ring_components components length array def
-            /rci 0 def
-            components { /component arg
-                /angle component /position get circumference div 360 mul def
-                component /angle angle put
-                component /ring known {
-                    component /ring_angle angle put
-                    /c_ring component /ring get def
-                    /sub_offset
-                        c_ring /full_radius get component /offset get add 
-                        def
-                    sub_offset max_sub gt {
-                        /max_sub sub_offset def
-                    } if
-                    ring_components rci component put
-                    /rci 1 adddef
-                    % we need:
-                    % angle
-                    % center_offset (ring radius plus offset)
-                    % angle span (radius in either direction)
-                    /center_offset radius component /offset get add def
-                    /angle_span c_ring /full_radius get center_offset div asin def
-                    ring_spans component <<
-                        /ring c_ring
-                        /full_radius c_ring /full_radius get
-                        /ring_angle angle
-                        /center_offset center_offset
-                        /angle_span angle_span
-                    >> put
-                } if
-            } forall
-
-            /ring_components ring_components 0 rci 1 add getinterval def
-            ring_spans length 1 gt {
-                % check for everyone having room
-                /total_spans 0 def
-                ring_spans { /ring_span arg /component arg
-                    ring_span /angle_span get 2 mul total_spans add
-                    /total_spans arg
-                } forall
-                Ring /total_spans total_spans put
-                total_spans 360 gt {
-                    /adjustment 360 total_spans div def
-                    /angle_tracker 0 def
-                    ring_spans { /ring_span arg /component arg
-                        /full_radius ring_span /full_radius get def
-                        /increase
-                            full_radius
-                            ring_span /angle_span get sin adjustment mul  div
-                            ring_span /center_offset get  sub
-                        def
-                        /c_ring component /ring get def
-                        /new_offset component /offset get increase add def
-                        component /offset new_offset put
-                        /angle_span full_radius new_offset radius add div asin def
-                        component /ring_angle angle_tracker angle_span add put
-                        /angle_tracker angle_span 2 mul adddef
-
-                        /sub_offset
-                            c_ring /full_radius get component /offset get add 
-                            def
-                        sub_offset max_sub gt {
-                            /max_sub sub_offset def
-                        } if
-                    } forall
-                } if
-                % check for jostling
-            } if
-
-            /full_radius radius max_sub add def
-
-            Ring /components components put
-            Ring /circumference circumference put
-            Ring /radius radius put
-            Ring /full_radius full_radius put
-
-        } def
 
         /find_offset { /inner_ring arg /source arg
             source /offset
@@ -240,7 +135,6 @@
         Ring /components code_len 1 add code_pos sub array put
         Ring /circumference 0.5 put  % leave room for return
         
-        /i 0 def
         {
             /Token << >> def
             /parent Ring def
@@ -253,58 +147,61 @@
             dup xcheck /xflag arg
             cvlit /literal arg
             /aflag otype /arraytype eq def
-            literal buffer cvs ([) eq {
+            /literal_s literal buffer cvs def
+            % [ for vi
+            literal_s (]) eq {
+                % don't otherwise deal with this token
+                /code_pos 1 adddef
+                exit
+            } if
+            literal_s ([) eq {
+                % ] for vi
                 /array_ring << /rtype /array >> def
                 Token /ring array_ring put
+                Token /signal true put
                 /code_pos 1 adddef
                 array_ring code code_pos parsecode /code_pos arg
-                Ring /cursor -1 addput
+                Token array_ring find_offset
+                Token /name array_ring /rtype get put
+                /aflag true def
             } {
-                literal buffer cvs (]) eq {
-                    % don't otherwise deal with this token
-                    /inner_ring Ring def
-                    /code_pos 1 adddef
-                    exit
+                % Handle recursion for executable arrays
+                otype /arraytype eq {
+                    /inner_ring <<
+                        /rtype xflag { /xarray } { /array } ifelse
+                    >> def
+                    Token /ring inner_ring put
+                    inner_ring literal 0 parsecode pop
+                    Token inner_ring find_offset
+                    Token /name inner_ring /rtype get put
                 } {
-                    kerning {
-                        aflag {
-                            0.75
-                        } {
-                            sigil_bank literal known {
-                                1.25
-                            } {
-                                literal buffer cvs stringwidth pop ( ) stringwidth pop add
-                            } ifelse
-                        } ifelse
-                        otype /nametype eq {
-                            1.25 max
-                        } if
-                    } {
-                        1
-                    } ifelse
-                    /width arg
-                    /position Ring /circumference get width half add def
-                    Ring /circumference width addput
-
-                    [/otype /xflag /aflag /position /width /parent] {
-                        Token exch dup cvx exec put
-                    } forall
-
-                    % Handle recursion for executable arrays
-                    otype /arraytype eq {
-                        /inner_ring <<
-                            /rtype xflag { /xarray } { /array } ifelse
-                        >> def
-                        Token /ring inner_ring put
-                        inner_ring literal 0 parsecode pop
-                        Token inner_ring find_offset
-                        Token /name inner_ring /rtype get put
-                    } {
-                        Token /name literal put
-                    } ifelse
+                    Token /name literal put
                 } ifelse
             } ifelse
-            /i 1 adddef
+            kerning {
+                aflag {
+                    0.75
+                } {
+                    sigil_bank literal known {
+                        1.25
+                    } {
+                        literal buffer cvs stringwidth pop ( ) stringwidth pop add
+                    } ifelse
+                } ifelse
+                otype /nametype eq {
+                    1.25 max
+                } if
+            } {
+                1
+            } ifelse
+            /width arg
+            /position Ring /circumference get width half add def
+            Ring /circumference width addput
+
+            [/otype /xflag /aflag /position /width /parent] {
+                Token exch dup cvx exec put
+            } forall
+
             /code_pos 1 adddef
             code_pos code length ge { exit } if
         } loop
@@ -409,8 +306,8 @@
         Ring /circumference circumference put
         Ring /radius radius put
         Ring /full_radius full_radius put
+        code_pos
     end
-    code_pos
 } 1 false dict_safe_func
 
 /mystical {
