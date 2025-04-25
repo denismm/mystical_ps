@@ -151,7 +151,6 @@
             % [ for vi
             literal_s (]) eq {
                 % don't otherwise deal with this token
-                /code_pos 1 adddef
                 exit
             } if
             literal_s ([) eq {
@@ -416,6 +415,8 @@ sigil_bank /dot {
        ]
    >> pop
 } cvlit def
+
+% /code { 3 4 5 [6] {/g /h /i} pop } cvlit def
 
 72 softscale
 4.25 5.5 translate
