@@ -338,6 +338,14 @@
 
                 % calculate optimal diff_list
                 % update ring_angles to match diff_list
+                /ring_cursor 0 def
+                0 1 last_component { /i arg
+                    /current_component ring_components i get def
+                    /ring_cursor diff_list i get adddef
+                    /ring_cursor current_component 1 get /angle_span get adddef
+                    current_component 0 get /ring_angle ring_cursor put
+                    /ring_cursor current_component 1 get /angle_span get adddef
+                } for
 
             } ifelse
         } if
