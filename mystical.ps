@@ -281,10 +281,11 @@
                 /angle_tracker 0 def
                 ring_components { aload pop /ring_span arg /component arg
                     /full_radius ring_span /full_radius get def
+                    /new_span ring_span /angle_span get adjustment mul def
                     /increase
                         full_radius
-                        ring_span /angle_span get sin adjustment mul  div
-                        ring_span /center_offset get  sub
+                        new_span sin div
+                        ring_span /center_offset get sub
                     def
                     /c_ring component /ring get def
                     /new_offset component /offset get increase add def
@@ -300,8 +301,9 @@
                         /max_sub sub_offset def
                     } if
                 } forall
-            } if
-            % check for jostling
+            } {
+                % check for jostling
+            } ifelse
         } if
 
         /full_radius radius max_sub add def
