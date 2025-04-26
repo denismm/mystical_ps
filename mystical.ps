@@ -17,6 +17,7 @@
 } def
 % /nstroke {stroke} def
 
+/ring_debug true def
 /ring_spacing 2 def     % this needs to be at least 1
 /buffer 100 string def
 /Times 0.5 selectfont
@@ -34,8 +35,7 @@
                 } ifelse
             grestore
         } forall
-        % ring debug
-        false {
+        ring_debug {
             gsave
                 1 0 0 setrgbcolor
                 0 0 radius circle stroke
@@ -113,6 +113,19 @@
         180 rotate
         ring draw_ring
     grestore
+    % ring debug
+    ring_debug {
+        gsave
+            1 0.5 0 setrgbcolor
+            gsave
+                ring_angle rotate
+                0 0 goto
+                0 0 r4 
+                ring /full_radius get r4 div asin dup neg arcn
+                closepath stroke
+            grestore
+        grestore
+    } if
     end
 } 0 false dict_safe_func
 
@@ -303,6 +316,29 @@
                 } forall
             } {
                 % check for jostling
+                % create differential list
+                /last_component ring_components length 1 sub def
+                /diff_list ring_components length 1 add array def
+                diff_list 0 ring_components 0 get 1 get
+                    dup /ring_angle get exch /angle_span get sub
+                put
+                1 1 last_component { /i arg
+                    diff_list i
+                    /span_a ring_components i 1 sub get 1 get def
+                    /span_b ring_components i get 1 get def
+                    span_b dup /ring_angle get exch /angle_span get sub
+                    span_a dup /ring_angle get exch /angle_span get add sub 
+                    put
+                } for
+                diff_list last_component 1 add ring_components last_component get 1 get
+                    dup /ring_angle get exch /angle_span get add
+                    360 exch sub
+                put
+                diff_list ==
+
+                % calculate optimal diff_list
+                % update ring_angles to match diff_list
+
             } ifelse
         } if
 
@@ -366,60 +402,7 @@ sigil_bank /dot {
         grestore
     } forall
    << /a 1 /b 2
-       /c [
-           [
-               [ 1 2 3 4 5 6 7 8 9 0]
-           ]
-           [
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-           ]
-           [
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-           ]
-           [
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-           ]
-           [
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-           ]
-           [
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-           ]
-           [
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-           ]
-           [
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-               [ 1 2 3 4 5 6 7 8 9 0]
-           ]
-       ]
+       /c 3
    >> pop
 } cvlit def
 
