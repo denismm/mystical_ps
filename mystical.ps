@@ -24,9 +24,18 @@
 /Times 0.5 selectfont
 /draw_ring [/spell] {
     spell begin
-        0 0 radius ring_halfwidth add circle whitefill
-        nstroke
-        0 0 radius ring_halfwidth sub circle nstroke
+        rtype /dict eq {
+            components length circumference cvi maximum
+            dup { radius ring_halfwidth add 0 goto } circrepeat
+            closepath whitefill nstroke
+            dup { radius ring_halfwidth 0.75 mul add 0 goto } circrepeat
+            closepath nstroke
+            { radius ring_halfwidth sub 0 goto } circrepeat
+            closepath nstroke
+        } {
+            0 0 radius ring_halfwidth add circle whitefill nstroke
+            0 0 radius ring_halfwidth sub circle nstroke
+        } ifelse
         components { /Token arg
             gsave
                 Token /aflag get {
@@ -488,8 +497,11 @@ sigil_bank /dot {
    << /a 1 /b 2
        /c 3
    >> pop
-   {} {0} {pop} pop pop pop
-   {0 0 goto} pop
+   << 
+       /a 123 /b 1234 /c 1234 /d 789
+       /a 123 /b 1234 /c 1234 /d 789
+   >> pop
+   << >> pop
 } cvlit def
 
 % /code { 3 4 5 [6] {/g /h /i} pop } cvlit def
