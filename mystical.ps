@@ -4,7 +4,6 @@
 (dmmlib/lines.ps) run
 (dmmlib/polar.ps) run
 
-
 /nib_angle -30 def
 
 /nstroke {
@@ -163,13 +162,12 @@
             /aflag otype /arraytype eq def
             /literal_s literal buffer cvs def
             % [ for vi
-            literal_s (]) eq {
-                % don't otherwise deal with this token
-                exit
-            } if
-            literal_s ([) eq {
+            % don't otherwise deal with these tokens
+            literal_s (]) eq { exit } if
+            literal_s (>>) eq { exit } if
+            literal_s ([) eq literal_s (<<) eq or {
                 % ] for vi
-                /array_ring << /rtype /array >> def
+                /array_ring << /rtype literal_s (<<) eq {/dict} {/array} ifelse >> def
                 Token /ring array_ring put
                 Token /signal true put
                 /code_pos 1 adddef
