@@ -17,7 +17,7 @@
 } def
 % /nstroke {stroke} def
 
-/ring_debug true def
+/ring_debug false def
 /ring_spacing 2 def     % this needs to be at least 1
 /buffer 100 string def
 /Times 0.5 selectfont
@@ -317,8 +317,9 @@
             } {
                 % check for jostling
                 % create differential list
-                /last_component ring_components length 1 sub def
                 /diff_list ring_components length 1 add array def
+                /last_component ring_components length 1 sub def
+                /last_diff ring_components length def
                 diff_list 0 ring_components 0 get 1 get
                     dup /ring_angle get exch /angle_span get sub
                 put
@@ -330,13 +331,68 @@
                     span_a dup /ring_angle get exch /angle_span get add sub 
                     put
                 } for
-                diff_list last_component 1 add ring_components last_component get 1 get
+                diff_list last_diff ring_components last_component get 1 get
                     dup /ring_angle get exch /angle_span get add
                     360 exch sub
                 put
                 diff_list ==
 
                 % calculate optimal diff_list
+                % move negative edges to first positive neighbor
+                0 1 last_diff { /i arg
+                    {
+                        diff_list i get 0 ge { exit } if
+                        /left i 1 sub def
+                        {
+                            left 0 lt {exit} if
+                            diff_list left get 0 gt { exit } if
+                            /left -1 adddef
+                        } loop
+                        /right i 1 add def
+                        {
+                            right last_diff gt {exit} if
+                            diff_list right get 0 gt { exit } if
+                            /right 1 adddef
+                        } loop
+                        left 0 ge {
+                            right last_diff le {
+                                % both sides available
+                                /remove_amount 
+                                    diff_list left get
+                                    diff_list right get minimum
+                                    diff_list i get half minimum
+                                def
+                                diff_list left remove_amount addput
+                                diff_list right remove_amount addput
+                                diff_list i remove_amount -2 mul addput
+                            } {
+                                % only left is available
+                                (lremoving) ==
+                                /remove_amount diff_list left get diff_list i get minimum def
+                                diff_list left remove_amount addput
+                                diff_list i remove_amount neg addput
+                                (lremoved) ==
+                            } ifelse
+                        } {
+                            % left is off side
+                            right last_diff le {
+                                (rremoving) ==
+                                [/diff_list diff_list] ==
+                                [/right right /i i] ==
+                                % only right is available
+                                /remove_amount diff_list right get diff_list i get minimum def
+                                diff_list right remove_amount addput
+                                diff_list i remove_amount neg addput
+                                (rremoved) ==
+                            } {
+                                [(both sides off)] == die
+                            } ifelse
+                        } ifelse
+                        exit
+                    } loop
+                } for
+                (adjusted) ==
+                % spread negative centers to positive neighbors
                 % update ring_angles to match diff_list
                 /ring_cursor 0 def
                 0 1 last_component { /i arg
