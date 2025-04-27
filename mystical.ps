@@ -18,13 +18,15 @@
 
 /ring_debug false def
 /ring_spacing 2 def     % this needs to be at least 1
+/ring_width 1 def
+/ring_halfwidth 0.5 def
 /buffer 100 string def
 /Times 0.5 selectfont
 /draw_ring [/spell] {
     spell begin
-        0 0 radius 0.5 add circle whitefill
+        0 0 radius ring_halfwidth add circle whitefill
         nstroke
-        0 0 radius 0.5 sub circle nstroke
+        0 0 radius ring_halfwidth sub circle nstroke
         components { /Token arg
             gsave
                 Token /aflag get {
@@ -34,6 +36,30 @@
                 } ifelse
             grestore
         } forall
+        rtype /xarray eq {
+            /comp_n components length def
+            comp_n 4 gt {
+                gsave
+                comp_n 2 mod 0 eq {
+                    0 1 1 { /start arg
+                        start 2 comp_n 1 sub { /star_i arg
+                            /star_angle components star_i get /angle get def
+                            radius ring_halfwidth sub star_angle polar goto
+                        } for
+                        closepath nstroke
+                        % die
+                    } for
+                } {
+                    0 1 comp_n 1 sub { /j arg
+                        /i j 2 mul comp_n mod def
+                        radius ring_halfwidth sub components i get /angle get polar goto
+                    } for
+                    closepath nstroke
+                } ifelse
+                grestore
+            } {
+            } ifelse
+        } if
         ring_debug {
             gsave
                 1 0 0 setrgbcolor
@@ -333,7 +359,6 @@
                     dup /ring_angle get exch /angle_span get add
                     360 exch sub
                 put
-                diff_list ==
 
                 % calculate optimal diff_list
                 % move negative edges to first positive neighbor
@@ -365,23 +390,17 @@
                                 diff_list i remove_amount -2 mul addput
                             } {
                                 % only left is available
-                                (lremoving) ==
                                 /remove_amount diff_list left get diff_list i get minimum def
                                 diff_list left remove_amount addput
                                 diff_list i remove_amount neg addput
-                                (lremoved) ==
                             } ifelse
                         } {
                             % left is off side
                             right last_diff le {
-                                (rremoving) ==
-                                [/diff_list diff_list] ==
-                                [/right right /i i] ==
                                 % only right is available
                                 /remove_amount diff_list right get diff_list i get minimum def
                                 diff_list right remove_amount addput
                                 diff_list i remove_amount neg addput
-                                (rremoved) ==
                             } {
                                 [(both sides off)] == die
                             } ifelse
@@ -389,7 +408,6 @@
                         exit
                     } loop
                 } for
-                (adjusted) ==
                 % spread negative centers to positive neighbors
                 % update ring_angles to match diff_list
                 /ring_cursor 0 def
