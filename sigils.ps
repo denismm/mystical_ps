@@ -8,6 +8,9 @@
         0.5 0 goto 1 0 goto nstroke
         0.75 -0.25 goto 0.75 0.25 goto nstroke
     }
+    /COMPLETE {
+        0 -0.25 goto 0 0.25 goto 0.5 0 goto closepath nstroke
+    }
     /arc {
         0 0 0.5 -45 90 sparc
         0 0 0.5 90 215 sparc

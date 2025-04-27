@@ -17,8 +17,13 @@
 % /nstroke {stroke} def
 
 /ring_debug false def
-/ring_spacing 2 def     % this needs to be at least 1
+% ring_spacing is distance from parent ring radius to child ring full_radius
+% ring_spacing needs to be at least 1
+/ring_spacing 2 def
 /ring_width 1 def
+% sibling_spacing is distance between rings with same parent
+/sibling_spacing 0.5 def
+/sibling_hs sibling_spacing half def
 /ring_halfwidth 0.5 def
 /buffer 100 string def
 /Times 0.5 selectfont
@@ -261,7 +266,7 @@
             /xflag false
             /aflag false
             /position circumference 0.5 add
-            /name /RETURN
+            /name Ring /rtype get /xarray eq { /RETURN } { /COMPLETE } ifelse
             /parent Ring
         >> def
         components cursor end_token put
@@ -303,7 +308,7 @@
                 % center_offset (ring radius plus offset)
                 % angle span (radius in either direction)
                 /center_offset radius component /offset get add def
-                /angle_span c_ring /full_radius get center_offset div asin def
+                /angle_span c_ring /full_radius get sibling_hs add center_offset div asin def
                 /ring_span <<
                     /ring c_ring
                     /full_radius c_ring /full_radius get
@@ -333,14 +338,14 @@
                     /full_radius ring_span /full_radius get def
                     /new_span ring_span /angle_span get adjustment mul def
                     /increase
-                        full_radius
+                        full_radius sibling_hs add
                         new_span sin div
                         ring_span /center_offset get sub
                     def
                     /c_ring component /ring get def
                     /new_offset component /offset get increase add def
                     component /offset new_offset put
-                    /angle_span full_radius new_offset radius add div asin def
+                    /angle_span full_radius sibling_hs add new_offset radius add div asin def
                     component /ring_angle angle_tracker angle_span add put
                     /angle_tracker angle_span 2 mul adddef
 
