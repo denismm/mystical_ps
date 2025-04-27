@@ -38,26 +38,21 @@
         } forall
         rtype /xarray eq {
             /comp_n components length def
-            comp_n 4 gt {
-                gsave
-                comp_n 2 mod 0 eq {
-                    0 1 1 { /start arg
-                        start 2 comp_n 1 sub { /star_i arg
-                            /star_angle components star_i get /angle get def
-                            radius ring_halfwidth sub star_angle polar goto
-                        } for
-                        closepath nstroke
-                        % die
-                    } for
-                } {
-                    0 1 comp_n 1 sub { /j arg
-                        /i j 2 mul comp_n mod def
-                        radius ring_halfwidth sub components i get /angle get polar goto
-                    } for
-                    closepath nstroke
-                } ifelse
-                grestore
+            /star_radius radius ring_halfwidth sub def
+            comp_n 2 le {
+                5 { start_radius 0 goto } 2 schlafrepeat closepath nstroke
             } {
+                /full_step comp_n 3 idiv def
+                /star_rings comp_n full_step gcd def
+                /star_points comp_n star_rings idiv def
+                /star_step full_step star_rings idiv def
+                0 1 star_rings 1 sub {
+                    gsave
+                        360 comp_n div mul rotate
+                        star_points {star_radius 0 goto} star_step schlafrepeat 
+                        closepath nstroke
+                    grestore
+                } for
             } ifelse
         } if
         ring_debug {

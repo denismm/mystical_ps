@@ -1,0 +1,50 @@
+%!
+(dmmlib/base.ps) run
+(dmmlib/lines.ps) run
+
+/startest {
+    /size arg
+    0.5 softscale
+    1.1 recip softscale
+    size recip thicken
+    0 0 1 circle stroke
+    size (   ) cvs centershow
+    90 rotate
+    size {
+        1 0 goto 1.1 0 goto stroke
+    } circrepeat
+    size 2 le {
+        5 {0.5 0 goto} 2 schlafrepeat closepath cstroke
+    } {
+        /full_step size 3 idiv def
+        /rings size full_step gcd def
+        /points size rings idiv def
+        /step full_step rings idiv def
+        % [/s size /fs full_step /gcd rings /p points /step step ] == die
+        0 1 rings 1 sub {
+            gsave
+                360 size div mul rotate
+                points {1 0 goto} step schlafrepeat closepath stroke
+            grestore
+        } for
+    } ifelse
+} def
+
+72 softscale
+4.25 5.5 translate
+/Helvetica 0.5 selectfont
+/width 8 def
+/height 11 def
+width half neg 0.5 add height half 0.5 sub translate
+0 1 height 1 sub { /j arg
+    0 1 width 1 sub { /i arg
+        gsave
+            i j neg translate
+            j width mul i add 1 add startest
+        grestore
+    } for
+} for
+
+showpage
+
+
