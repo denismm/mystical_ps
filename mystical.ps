@@ -40,7 +40,7 @@
             /comp_n components length def
             /star_radius radius ring_halfwidth sub def
             comp_n 2 le {
-                5 { start_radius 0 goto } 2 schlafrepeat closepath nstroke
+                5 { star_radius half 0 goto } 2 schlafrepeat closepath nstroke
             } {
                 /full_step comp_n 3 idiv def
                 /star_rings comp_n full_step gcd def
@@ -48,6 +48,7 @@
                 /star_step full_step star_rings idiv def
                 0 1 star_rings 1 sub {
                     gsave
+                        % dup star_rings div 360 mul setkatebowcolor
                         360 comp_n div mul rotate
                         star_points {star_radius 0 goto} star_step schlafrepeat 
                         closepath nstroke
@@ -156,7 +157,6 @@
         % code:  input code
         % code_pos: position in code being parsed
 
-
         /i 0 def
         /code_len code length def
 
@@ -169,82 +169,83 @@
         Ring /components code_len 1 add code_pos sub array put
         Ring /circumference 0.5 put  % leave room for return
         
-        {
-            /Token << >> def
-            /parent Ring def
-            /components Ring /components get def
-            components Ring /cursor get Token put
-            Ring dup /cursor get 1 add /cursor exch put
-            % careful not to execute code piece before cvlit
-            code code_pos get
-            dup type cvlit /otype arg
-            dup xcheck /xflag arg
-            cvlit /literal arg
-            /aflag otype /arraytype eq def
-            /literal_s literal buffer cvs def
-            % [ for vi
-            % don't otherwise deal with these tokens
-            literal_s (]) eq { exit } if
-            literal_s (>>) eq { exit } if
-            literal_s ([) eq literal_s (<<) eq or {
-                % ] for vi
-                /array_ring << /rtype literal_s (<<) eq {/dict} {/array} ifelse >> def
-                Token /ring array_ring put
-                Token /signal true put
-                /code_pos 1 adddef
-                array_ring code code_pos parsecode /code_pos arg
-                Token array_ring find_offset
-                Token /name array_ring /rtype get put
-                /aflag true def
-            } {
-                % Handle recursion for executable arrays
-                otype /arraytype eq {
-                    /inner_ring <<
-                        /rtype xflag { /xarray } { /array } ifelse
-                    >> def
-                    Token /ring inner_ring put
-                    inner_ring literal 0 parsecode pop
-                    Token inner_ring find_offset
-                    Token /name inner_ring /rtype get put
+        code_len 0 gt {
+            {
+                /Token << >> def
+                /parent Ring def
+                /components Ring /components get def
+                components Ring /cursor get Token put
+                Ring dup /cursor get 1 add /cursor exch put
+                % careful not to execute code piece before cvlit
+                code code_pos get
+                dup type cvlit /otype arg
+                dup xcheck /xflag arg
+                cvlit /literal arg
+                /aflag otype /arraytype eq def
+                /literal_s literal buffer cvs def
+                % [ for vi
+                % don't otherwise deal with these tokens
+                literal_s (]) eq { exit } if
+                literal_s (>>) eq { exit } if
+                literal_s ([) eq literal_s (<<) eq or {
+                    % ] for vi
+                    /array_ring << /rtype literal_s (<<) eq {/dict} {/array} ifelse >> def
+                    Token /ring array_ring put
+                    Token /signal true put
+                    /code_pos 1 adddef
+                    array_ring code code_pos parsecode /code_pos arg
+                    Token array_ring find_offset
+                    Token /name array_ring /rtype get put
+                    /aflag true def
                 } {
-                    Token /name literal put
-                } ifelse
-            } ifelse
-            kerning {
-                aflag {
-                    0.75
-                } {
-                    sigil_bank literal known {
-                        1.25
+                    % Handle recursion for executable arrays
+                    otype /arraytype eq {
+                        /inner_ring <<
+                            /rtype xflag { /xarray } { /array } ifelse
+                        >> def
+                        Token /ring inner_ring put
+                        inner_ring literal 0 parsecode pop
+                        Token inner_ring find_offset
+                        Token /name inner_ring /rtype get put
                     } {
-                        literal buffer cvs stringwidth pop ( ) stringwidth pop add
+                        Token /name literal put
                     } ifelse
                 } ifelse
-                otype /nametype eq {
-                    1.25 max
-                } if
-            } {
-                1
-            } ifelse
-            /width arg
-            /position Ring /circumference get width half add def
-            Ring /circumference width addput
+                kerning {
+                    aflag {
+                        0.75
+                    } {
+                        sigil_bank literal known {
+                            1.25
+                        } {
+                            literal buffer cvs stringwidth pop ( ) stringwidth pop add
+                        } ifelse
+                    } ifelse
+                    otype /nametype eq {
+                        1.25 max
+                    } if
+                } {
+                    1
+                } ifelse
+                /width arg
+                /position Ring /circumference get width half add def
+                Ring /circumference width addput
 
-            [/otype /xflag /aflag /position /width /parent] {
-                Token exch dup cvx exec put
-            } forall
+                [/otype /xflag /aflag /position /width /parent] {
+                    Token exch dup cvx exec put
+                } forall
 
-            /code_pos 1 adddef
-            code_pos code length ge { exit } if
-        } loop
+                /code_pos 1 adddef
+                code_pos code length ge { exit } if
+            } loop
+            % temporary shenanigans - cursor might be two off the end
+            components Ring /cursor get 1 sub get length 0 eq {
+                Ring /cursor -1 addput
+            } if
+        } if
         /circumference Ring /circumference get def
         /cursor Ring /cursor get def
         /components Ring /components get def
-
-        % temporary shenanigans - cursor might be two off the end
-        components cursor 1 sub get length 0 eq {
-            /cursor -1 adddef
-        } if
 
         /end_token <<
             /otype /return
@@ -260,6 +261,15 @@
         % determine ring dimensions
         /components components 0 cursor getinterval def
         /circumference 0.5 adddef
+
+        % set angles of all sigils before messing with circumference
+        components { /component arg
+            /angle component /position get circumference div 360 mul def
+            component /angle angle put
+            component /position undef
+        } forall
+
+        /circumference circumference 2 PI mul maximum def
         /radius circumference PI div half def
 
         % layout
@@ -269,9 +279,8 @@
         /ring_components components length array def
         /rci 0 def
         components { /component arg
-            /angle component /position get circumference div 360 mul def
-            component /angle angle put
             component /ring known {
+                /angle component /angle get def
                 component /ring_angle angle put
                 /c_ring component /ring get def
                 /sub_offset
@@ -479,6 +488,8 @@ sigil_bank /dot {
    << /a 1 /b 2
        /c 3
    >> pop
+   {} {0} {pop} pop pop pop
+   {0 0 goto} pop
 } cvlit def
 
 % /code { 3 4 5 [6] {/g /h /i} pop } cvlit def
