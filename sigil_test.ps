@@ -1,0 +1,33 @@
+%!
+(dmmlib/base.ps) run
+(dmmlib/lines.ps) run
+
+72 softscale
+4.25 5.5 translate
+3 thicken
+
+0 1.25 translate
+
+2 {
+    gsave
+        -1.25 0 translate
+        0 1 1 0 -90 arcn
+        0 -1 1 90 0 arcn
+        cstroke
+        0 1 0.75 0 -90 arcn
+        0 -1 0.75 90 0 arcn
+        cstroke
+    grestore
+} circrepeat
+
+0 -2.5 translate
+2 {
+    gsave
+        -1.25 0 translate
+        0.75 0.5 goto
+        0.5 0.5 0.5 0 180 sparc
+        0.5 -0.5 0.5 180 0 sparc
+        0.75 -0.5 goto
+        cstroke
+    grestore
+} circrepeat
