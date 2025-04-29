@@ -20,8 +20,12 @@ examples of each
 Other commands like `gsave/grestore` and `begin/end` are more likely to be used in non-balanced ways so those are treated as normal sigils below.
 
 ## Sigils
+Many built-in operators have been given their own sigils.  These are used in place of the text of the operator.
+Any name, written in ps as `/name`, is instead written with a triangle surrounding the name or its sigil.
+Sigils for new functions or names can be added to `sigil_bank` at runtime.
+### Standard Sigils
 in order from ps ref
 
-## User Sigil Advice
+### User Sigil Advice
 
 ## Sample Algorithms
