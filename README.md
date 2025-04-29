@@ -17,6 +17,8 @@ so don't do that.
 
 examples of each
 
+Other commands like `gsave/grestore` and `begin/end` are more likely to be used in non-balanced ways so those are treated as normal sigils below.
+
 ## Sigils
 in order from ps ref
 
