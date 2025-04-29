@@ -9,6 +9,12 @@ There are three types of circles in Mystical:
 * non-executable arrays, written in [] in ps, are the same but without the star.
 * dictionaries, written in << >> in ps, are polygons with a double outer border and a circular inner border.
 
+It is theoretically possible to use [ ] and << >> in ps in ways that Mystical can't handle:
+```
+[ 1 2 3 split { ] /first exch def [ } if 4 5 6 ] /final exch def
+```
+so don't do that.
+
 examples of each
 
 ## Sigils
