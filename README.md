@@ -40,6 +40,6 @@ Sigils for user variables can be made with any sigil system.  My examples use le
 
 ## Ligature for /name { circle } def
 
-There is a sigil for `def` but a very common pattern is to push a name, push a function, and def the name to the function. To save space and to emphasize this definition, there is special syntax for this case consisting of the usual name triangle with the end of the link line directly below it, and the def sigil is omitted entirely. This is extended to the other two circle types for simplicity. 
+There is a sigil for `def` but a very common pattern is to push a name, push a function, and def the name to the function. To save space and to emphasize this definition, there is special syntax for this case consisting of the usual name triangle with the end of the link line directly below it, and the def sigil is omitted entirely. This is extended to the other two circle types for simplicity. This only applies inside of executable arrays. I considered a similar ligature for /name { circle } in dictionaries but there's too much likelyhood of getting it wrong. 
 
 ## Sample Algorithms
