@@ -33,10 +33,10 @@ Many built-in operators have been given their own sigils.  These are used in pla
 
 in order from ps ref
 
-### User Sigil Advice
+### User Sigils
 Sigils for new functions or names can be added to `sigil_bank` at runtime.
 
-Sigils for user variables can be made with any sigil system.  My examples use letter collision, inspired by Spare's Chaos Magick system, but anything that turns a word into a symbol will work - kameas, wheels, Square Word Calligraphy, illustration, puns, etc.
+Sigils for user variables can be designed with any sigil system.  My examples use letter collision, inspired by Spare's Chaos Magick system, but anything that turns a word into a symbol will work - kameas, wheels, Square Word Calligraphy, illustration, puns, etc.
 
 ## Ligature for /name { circle } def
 
