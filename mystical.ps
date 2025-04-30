@@ -21,6 +21,7 @@
 % ring_spacing needs to be at least 1
 /ring_spacing 2 def
 /ring_width 1 def
+/std_sigil_width 1.25 def
 % sibling_spacing is distance between rings with same parent
 /sibling_spacing 0.5 def
 /sibling_hs sibling_spacing half def
@@ -29,6 +30,7 @@
 /Times 0.5 selectfont
 /draw_ring [/spell] {
     spell begin
+        % borders based on rtype
         rtype /dict eq {
             components length circumference cvi maximum
             dup { radius ring_halfwidth add 0 goto } circrepeat
@@ -41,6 +43,7 @@
             0 0 radius ring_halfwidth add circle whitefill nstroke
             0 0 radius ring_halfwidth sub circle nstroke
         } ifelse
+        % draw each ring element
         components { /Token arg
             gsave
                 Token /aflag get {
@@ -50,6 +53,7 @@
                 } ifelse
             grestore
         } forall
+        % star for xarray
         rtype /xarray eq {
             /comp_n components length def
             /star_radius radius ring_halfwidth sub def
@@ -70,6 +74,7 @@
                 } for
             } ifelse
         } if
+        % debug ring positions
         ring_debug {
             gsave
                 1 0 0 setrgbcolor
@@ -105,6 +110,9 @@
         sigil_bank name known {
             gsave
                 sigil_bank name get exec
+                otype /return eq parent /root known and {
+                    0.5 0 goto 1 0 goto nstroke
+                } if
             grestore
         } {
             gsave
@@ -129,7 +137,7 @@
     gsave
         /r0 parent /radius get def
         /r4 r0 Token /offset get add def 
-        /r3 r4 ring /radius get sub def
+        /r3 r4 ring /radius get sub ring_halfwidth sub def
         /rstep r3 r0 sub 3 div def
         /r1 r0 rstep add def
         /r2 r1 rstep add def
@@ -188,8 +196,9 @@
                 /Token << >> def
                 /parent Ring def
                 /components Ring /components get def
-                components Ring /cursor get Token put
-                Ring dup /cursor get 1 add /cursor exch put
+                /cursor Ring /cursor get def
+                components cursor Token put
+                /cursor 1 adddef
                 % careful not to execute code piece before cvlit
                 code code_pos get
                 dup type cvlit /otype arg
@@ -197,60 +206,72 @@
                 cvlit /literal arg
                 /aflag otype /arraytype eq def
                 /literal_s literal buffer cvs def
-                % [ for vi
-                % don't otherwise deal with these tokens
-                literal_s (]) eq { exit } if
-                literal_s (>>) eq { exit } if
-                literal_s ([) eq literal_s (<<) eq or {
-                    % ] for vi
-                    /array_ring << /rtype literal_s (<<) eq {/dict} {/array} ifelse >> def
-                    Token /ring array_ring put
-                    Token /signal true put
-                    /code_pos 1 adddef
-                    array_ring code code_pos parsecode /code_pos arg
-                    Token array_ring find_offset
-                    Token /name array_ring /rtype get put
-                    /aflag true def
-                } {
-                    % Handle recursion for executable arrays
-                    otype /arraytype eq {
-                        /inner_ring <<
-                            /rtype xflag { /xarray } { /array } ifelse
-                        >> def
-                        Token /ring inner_ring put
-                        inner_ring literal 0 parsecode pop
-                        Token inner_ring find_offset
-                        Token /name inner_ring /rtype get put
+
+                % check for def-ligature
+                /skip false def
+                literal /def eq  {
+                    cursor 2 gt {
+
+                    } if
+                } if
+                Ring /cursor cursor put
+                skip not {
+                    % [ for vi
+                    % don't otherwise deal with these tokens
+                    literal_s (]) eq { exit } if
+                    literal_s (>>) eq { exit } if
+                    literal_s ([) eq literal_s (<<) eq or {
+                        % ] for vi
+                        /array_ring << /rtype literal_s (<<) eq {/dict} {/array} ifelse >> def
+                        Token /ring array_ring put
+                        Token /signal true put
+                        /code_pos 1 adddef
+                        array_ring code code_pos parsecode /code_pos arg
+                        Token array_ring find_offset
+                        Token /name array_ring /rtype get put
+                        /aflag true def
                     } {
-                        Token /name literal put
-                    } ifelse
-                } ifelse
-                kerning {
-                    aflag {
-                        0.75
-                    } {
-                        sigil_bank literal known {
-                            1.25
+                        % Handle recursion for executable arrays
+                        otype /arraytype eq {
+                            /inner_ring <<
+                                /rtype xflag { /xarray } { /array } ifelse
+                            >> def
+                            Token /ring inner_ring put
+                            inner_ring literal 0 parsecode pop
+                            Token inner_ring find_offset
+                            Token /name inner_ring /rtype get put
                         } {
-                            literal buffer cvs stringwidth pop ( ) stringwidth pop add
+                            Token /name literal put
                         } ifelse
                     } ifelse
-                    otype /nametype eq {
-                        1.25 max
-                    } if
-                } {
-                    1
-                } ifelse
-                /width arg
-                /position Ring /circumference get width half add def
-                Ring /circumference width addput
+                    kerning {
+                        aflag {
+                            0.75
+                        } {
+                            sigil_bank literal known {
+                                std_sigil_width
+                            } {
+                                literal buffer cvs stringwidth pop ( ) stringwidth pop add
+                            } ifelse
+                        } ifelse
+                        % even if text is short names must be sigil-width
+                        otype /nametype eq {
+                            std_sigil_width max
+                        } if
+                    } {
+                        1
+                    } ifelse
+                    /width arg
+                    /position Ring /circumference get width half add def
+                    Ring /circumference width addput
 
-                [/otype /xflag /aflag /position /width /parent] {
-                    Token exch dup cvx exec put
-                } forall
+                    [/otype /xflag /aflag /position /width /parent] {
+                        Token exch dup cvx exec put
+                    } forall
 
-                /code_pos 1 adddef
-                code_pos code length ge { exit } if
+                    /code_pos 1 adddef
+                    code_pos code length ge { exit } if
+                } if
             } loop
             % temporary shenanigans - cursor might be two off the end
             components Ring /cursor get 1 sub get length 0 eq {
@@ -455,7 +476,7 @@
         10 dict begin
             /input_code arg
             % parse into Ring object
-            /spell << /rtype /xarray >> def
+            /spell << /rtype /xarray /root true >> def
             spell input_code 0 parsecode pop
             spell /full_radius get recip dup scale
             18 recip setlinewidth

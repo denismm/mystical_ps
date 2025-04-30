@@ -11,6 +11,8 @@
 /Token: <<
     /name name
     /otype      name
+        if nametype draw triangle
+        if return and parent is /root, draw return stem
     /xflag      bool
     /aflag      bool
     /position   float
@@ -22,3 +24,5 @@
     /ring_angle float
     /ring       Ring
 >>
+
+name-ring-def ligature has type name but also aflag/xflag and ring data
