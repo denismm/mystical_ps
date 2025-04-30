@@ -36,4 +36,8 @@ Sigils for new functions or names can be added to `sigil_bank` at runtime.
 
 Sigils for user variables can be made with any sigil system.  My examples use letter collision, inspired by Spare's Chaos Magick system, but anything that turns a word into a symbol will work - kameas, wheels, Square Word Calligraphy, illustration, puns, etc.
 
+## Ligature for /name { circle } def
+
+There is a sigil for `def` but a very common pattern is to push a name, push a function, and def the name to the function. To save space and to emphasize this definition, there is special syntax for this case consisting of the usual name triangle with the end of the link line directly below it, and the def sigil is omitted entirely. This is extended to the other two circle types for simplicity. 
+
 ## Sample Algorithms
