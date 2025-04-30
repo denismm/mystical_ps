@@ -4,7 +4,7 @@ big pretty example
 I wanted to make a programming language that resembled magical circles. This is more like a way to write PostScript that looks like a magical circle. 
 
 ## Circles
-The structure of Mystical is based on circles. These are circles of text and sigils, with an inner and outer border. The main circle of a program starts at the rightmost point and flow continues widdershins (counter-clockwise) both to respect postscript's angles and to reflect the assumption that these circles should be written from the outside. 
+The structure of Mystical is based on circles. These are circles of text and sigils, with an inner and outer border. The main circle of a program starts at the rightmost point and flow continues widdershins (counter-clockwise) both to respect postscript's angles and to reflect the assumption that these circles should be written from the outside.  Subsidiary circles start from their attachment point to their caller. 
 
 There are three types of circles in Mystical:
 * executable arrays, written in {} in ps, are represented with simple circular borders on the inside and outside of the ring, with a star of some sort inside. The start/end point is marked by a symbol based on the "work complete" symbol from alchemy. 
