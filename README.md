@@ -1,7 +1,9 @@
-# Mystical mode for PostScript
+# Mystical
+(An alternate code formating mode for PostScript)
+
 big pretty example
 
-I wanted to make a programming language that resembled magical circles. This is more like a way to write PostScript that looks like a magical circle. 
+I wanted to make a programming language that resembled magical circles. This is more like a way to write PostScript that looks like a magical circle, but I will refer to it as Mystical in this document.
 
 ## Circles
 The structure of Mystical is based on circles. These are circles of text and sigils, with an inner and outer border. The main circle of a program starts at the rightmost point and flow continues widdershins (counter-clockwise) both to respect postscript's angles and to reflect the assumption that these circles should be written from the outside.  Subsidiary circles start from their attachment point to their caller. 
