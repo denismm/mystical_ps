@@ -10,7 +10,7 @@ The structure of Mystical is based on rings. These are circular bands of text an
 
 There are three types of rings in Mystical:
 * executable arrays, written in {} in ps, are represented with simple circular borders on the inside and outside of the ring, with a star of some sort inside. The start/end point is marked by a symbol based on the "work complete" symbol from alchemy. 
-* non-executable arrays, written in [] in ps, are the same but without the star. The start/end point is marked simply. 
+* non-executable arrays, written in [] in ps, are the same but without the star. The start/end point is marked with a simple triangle. 
 * dictionaries, written in << >> in ps, are polygons with a double outer border and a single inner border. The start/end point is marked the same as the array. 
 
 xarray example array example dict example
