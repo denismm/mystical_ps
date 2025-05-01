@@ -28,6 +28,20 @@
         0.125 dup goto
         0.5 0 goto nstroke
     }
+    /array {
+        0 0 0.5 spcircle nstroke
+        0 0 0.25 spcircle nstroke
+        -0.5 0 goto -0.5 -0.5 goto nstroke
+        0.5 0 goto 0.5 -0.5 goto nstroke
+    }
+    /begin {
+        -0.25 0.5 0.5 0 -90 arcn
+        -0.25 -0.5 0.5 90 0 arcn
+        nstroke
+        -0.25 0.5 0.375 0 -90 arcn
+        -0.25 -0.5 0.375 90 0 arcn
+        nstroke
+    }
     /closepath {
         0 0 0.5 60 180 sparc
         0 0 0.5 180 -60 sparc
@@ -45,6 +59,12 @@
             0 0.5 goto
         } circrepeat closepath nstroke
     }
+    /dict {
+        3 { 3 sqrt recip 0 goto
+        } circrepeat closepath nstroke
+        3 { 3 sqrt recip half 0 goto
+        } circrepeat closepath nstroke
+    }
     /dup {
         gsave
             -0.125 0 translate
@@ -53,6 +73,12 @@
             -0.25 -0.5 goto
             closepath nstroke
             0 0.5 goto 0 -0.5 goto nstroke
+        grestore
+    }
+    /end {
+        gsave
+            180 rotate
+            sigil_bank /begin get exec
         grestore
     }
     /fill {
@@ -75,6 +101,22 @@
             0 -0.5 goto
             0.75 0.5 goto
             nstroke
+        grestore
+    }
+    /gsave {
+        gsave
+            0.5 softscale
+            0.25 0.5 goto
+            0 0.5 0.5 0 180 sparc
+            0 -0.5 0.5 180 360 sparc
+            0.25 -0.5 goto
+            nstroke
+        grestore
+    }
+    /grestore {
+        gsave
+            180 rotate
+            sigil_bank /gsave get exec
         grestore
     }
     /lineto {

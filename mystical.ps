@@ -49,7 +49,7 @@
                 Token /aflag get {
                     Token draw_link
                 } if
-                Token /aflag get not Token /otype get /nametype eq or {
+                Token /aflag get not Token /defligature known or {
                     Token draw_sigil
                 } if
             grestore
@@ -94,19 +94,18 @@
     gsave
         angle rotate
         parent /radius get 0 translate
-        otype /return ne {
-            0.75 softscale
-            90 rotate
-        } if
         otype /nametype eq {
             xflag not {
                 gsave
                     3 {
-                        0 1 goto
+                        -1 0 goto
                     } circrepeat closepath nstroke
                 grestore
-                0.75 softscale
             } if
+        } if
+        otype /return ne {
+            0.75 softscale
+            90 rotate
         } if
         sigil_bank name known {
             gsave
@@ -138,7 +137,7 @@
     gsave
         /r0 parent /radius get def
         /r4 r0 Token /offset get add def 
-        Token /otype get /nametype eq {
+        Token /defligature known {
             % special sigil handling
             /r0 ring_halfwidth adddef
         } if
@@ -213,7 +212,7 @@
 
                 % check for def-ligature
                 /skip_token false def
-                literal /def eq  {
+                Ring /rtype get /xarray eq literal /def eq and {
                     cursor 2 ge {
                         % prev is true circle
                         /previous components cursor 1 sub get def
@@ -227,6 +226,7 @@
                                     put
                                 } forall
                                 Ring /circumference previous /width get neg addput
+                                prevprev /defligature true put
                                 /cursor -2 adddef
                                 /skip_token true def
                                 /code_pos 1 adddef
@@ -518,7 +518,10 @@ sigil_bank /dot {
     grestore
 } put
 /code {
+    10 dict begin
     /dot {currentlinewidth 1.5 mul 0 360 arc fill } def
+    /thicken_line {currentlinewidth 1.5 mul setlinewidth } def
+    thicken_line
     0 0 1 0 360 arc stroke
     0 0 0.5 180 360 arc
     0 0 0.375 360 180 arcn closepath
@@ -549,9 +552,8 @@ sigil_bank /dot {
        /a 123 /b 1234 /c 1234 /d 789
    >> pop
    << >> pop
+   end
 } cvlit def
-
-% /code { 3 4 5 [6] {/g /h /i} pop } cvlit def
 
 72 softscale
 4.25 5.5 translate
