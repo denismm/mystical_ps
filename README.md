@@ -6,7 +6,7 @@ big pretty example
 I wanted to make a programming language that resembled magical circles. This is more like a way to write PostScript that looks like a magical circle, but I will refer to it as Mystical in this document.
 
 ## Rings
-The structure of Mystical is based on rings. These are circular bands of text and sigils, with an inner and outer border. The main ring of a program starts at the rightmost point and flow continues widdershins (counter-clockwise) both to respect postscript's angles and to reflect the assumption that these rings should be written from the outside.  Subsidiary rings start from their attachment point to their caller. 
+The structure of Mystical is based on rings. These are circular bands of text and sigils, with an inner and outer border. The content of the main ring of a program starts at the rightmost (3:00) point and flow continues widdershins (counter-clockwise) both to respect postscript's angles and to reflect the assumption that these rings should be written from the outside.  Subsidiary rings start from their attachment point to their caller. 
 
 There are three types of rings in Mystical:
 * executable arrays, written in {} in ps, are represented with simple circular borders on the inside and outside of the ring, with a star of some sort inside. The start/end point is marked by a symbol based on the "work complete" symbol from alchemy. 
