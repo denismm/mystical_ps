@@ -5,17 +5,17 @@ big pretty example
 
 I wanted to make a programming language that resembled magical circles. This is more like a way to write PostScript that looks like a magical circle, but I will refer to it as Mystical in this document.
 
-## Circles
-The structure of Mystical is based on circles. These are circles of text and sigils, with an inner and outer border. The main circle of a program starts at the rightmost point and flow continues widdershins (counter-clockwise) both to respect postscript's angles and to reflect the assumption that these circles should be written from the outside.  Subsidiary circles start from their attachment point to their caller. 
+## Rings
+The structure of Mystical is based on rings. These are circular bands of text and sigils, with an inner and outer border. The main ring of a program starts at the rightmost point and flow continues widdershins (counter-clockwise) both to respect postscript's angles and to reflect the assumption that these rings should be written from the outside.  Subsidiary rings start from their attachment point to their caller. 
 
-There are three types of circles in Mystical:
+There are three types of rings in Mystical:
 * executable arrays, written in {} in ps, are represented with simple circular borders on the inside and outside of the ring, with a star of some sort inside. The start/end point is marked by a symbol based on the "work complete" symbol from alchemy. 
 * non-executable arrays, written in [] in ps, are the same but without the star. The start/end point is marked simply. 
-* dictionaries, written in << >> in ps, are polygons with a double outer border and a circular inner border. The start/end point is marked the same as the array. 
+* dictionaries, written in << >> in ps, are polygons with a double outer border and a single inner border. The start/end point is marked the same as the array. 
 
 xarray example array example dict example
 
-When one of these structures appear inside a different structure, a circle or dot leads from the inclusion point to the inner circle's start/end sigil.
+When one of these structures appear inside a different structure, a small circle or dot at the inclusion point is connected to a line which leads to the subsidiary ring's start/end sigil.
 
 link example
 
@@ -28,7 +28,9 @@ so don't do that.
 Other commands like `gsave/grestore` and `begin/end` are more likely to be used in non-balanced or loop-crossing ways so those are treated as normal sigils below.
 
 ## Sigils
-The circles' rims contain text or sigils.  Sigils are symbols that stand in for operators, variables, or other keywords. Any name, written in ps as `/name`, is instead written with a triangle surrounding or superimposing the text of the name or its sigil.
+The rings' rims contain text or sigils.  Sigils are symbols that stand in for operators, variables, or other keywords. Any name, written in ps as `/name`, is instead written with a triangle surrounding or superimposing the text of the name or its sigil.
+
+name examples
 
 ### Standard Sigils
 Many built-in operators have been given their own sigils.  These are used in place of the text of the operator.  I have generally made these sigils based on the initial of the command and an illustration of the concept, though in some cases I have taken a more fully illustrative route or created some standard visual language.
@@ -36,7 +38,7 @@ Many built-in operators have been given their own sigils.  These are used in pla
 in order from ps ref
 
 ### User Sigils
-Sigils for new functions or names can be added to `sigil_bank` at runtime.
+Sigils for new functions or names can be added to `sigil_bank` at runtime.  They should fit into the 1-unit square centered on the origin, so no coordinate should be more than 0.5 (of course, you can transform your coordinate system for convenience).  If you use `nstroke` instead of `stroke` you will get the same calligraphic effect as the standard sigils.
 
 Sigils for user variables can be designed with any sigil system.  My examples use letter collision, inspired by Spare's Chaos Magick system, but anything that turns a word into a symbol will work - kameas, wheels, Square Word Calligraphy, illustration, puns, etc.
 
