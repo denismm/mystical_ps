@@ -48,9 +48,10 @@
             gsave
                 Token /aflag get {
                     Token draw_link
-                } {
+                } if
+                Token /aflag get not Token /otype get /nametype eq or {
                     Token draw_sigil
-                } ifelse
+                } if
             grestore
         } forall
         % star for xarray
@@ -137,20 +138,24 @@
     gsave
         /r0 parent /radius get def
         /r4 r0 Token /offset get add def 
+        Token /otype get /nametype eq {
+            % special sigil handling
+            /r0 ring_halfwidth adddef
+        } if
         /r3 r4 ring /radius get sub ring_halfwidth sub def
         /rstep r3 r0 sub 3 div def
         /r1 r0 rstep add def
         /r2 r1 rstep add def
         r0 angle polar
-        xflag {
-            0.125 spcircle whitefill nstroke
-        } {
-            dot
-        } ifelse
         r0 angle polar goto
         r1 angle polar
         r2 ring_angle polar
         r3 ring_angle polar curveto nstroke
+        ring /rtype get /xarray eq {
+            0.125 spcircle whitefill nstroke
+        } {
+            dot
+        } ifelse
         ring_angle rotate
         r4 0 translate
         180 rotate
@@ -198,7 +203,6 @@
                 /components Ring /components get def
                 /cursor Ring /cursor get def
                 components cursor Token put
-                /cursor 1 adddef
                 % careful not to execute code piece before cvlit
                 code code_pos get
                 dup type cvlit /otype arg
@@ -208,14 +212,30 @@
                 /literal_s literal buffer cvs def
 
                 % check for def-ligature
-                /skip false def
+                /skip_token false def
                 literal /def eq  {
-                    cursor 2 gt {
-
+                    cursor 2 ge {
+                        % prev is true circle
+                        /previous components cursor 1 sub get def
+                        /prevprev components cursor 2 sub get def
+                        previous /aflag get previous /otype get /nametype ne and {
+                            prevprev /aflag get not prevprev /otype get /nametype eq and {
+                                % set up ligature - add ring info to name
+                                [/offset /ring /aflag] { /field arg
+                                    prevprev field
+                                    previous field get 
+                                    put
+                                } forall
+                                /cursor -2 adddef
+                                /skip_token true def
+                                /code_pos 1 adddef
+                            } if
+                        } if
                     } if
                 } if
+                /cursor 1 adddef
                 Ring /cursor cursor put
-                skip not {
+                skip_token not {
                     % [ for vi
                     % don't otherwise deal with these tokens
                     literal_s (]) eq { exit } if
