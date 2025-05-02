@@ -49,3 +49,4 @@ There is a sigil for `def` but a very common pattern is to push a name, push a f
 ## Sample Algorithms
 
 ## Could this work for other languages?
+This approach seems applicable to other language with just operators, such as Forth. Languages with more complicated statements might be more difficult, and I don't know if a new circle for every brace or indent will be overly busy.
