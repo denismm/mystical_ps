@@ -1,0 +1,55 @@
+%!PS
+
+(mystical.ps) run
+%%EndProlog
+
+sigil_bank /dot {
+    gsave
+        2 recip softscale
+        0 0 1 -90 90 arc closepath nstroke
+        0 0 0.5 circle nstroke
+        -1 1 goto 0 1 goto nstroke
+    grestore
+} put
+
+72 softscale
+4.25 5.5 translate
+4 dup scale
+{
+    10 dict begin
+    /dot {currentlinewidth 1.5 mul 0 360 arc fill } def
+    /thicken_line {currentlinewidth 1.5 mul setlinewidth } def
+    thicken_line
+    0 0 1 0 360 arc stroke
+    0 0 0.5 180 360 arc
+    0 0 0.375 360 180 arcn closepath
+    fill
+    2 {
+        0.375 dup dot
+        gsave
+            0.375 dup translate
+            5 {
+                0 0 moveto 0.25 0 lineto stroke
+                45 rotate
+            } repeat
+        grestore
+        -1 1 scale
+    } repeat
+    [ 0 45 135 180 225 -45 ] {
+        gsave
+            rotate
+            1 0 moveto
+            2 0 lineto stroke
+        grestore
+    } forall
+   << /a 1 /b 2
+       /c 3
+   >> pop
+   <<
+       /a 123 /b 1234 /c 1234 /d 789
+       /a 123 /b 1234 /c 1234 /d 789
+   >> pop
+   << >> pop
+   end
+} mystical
+showpage
