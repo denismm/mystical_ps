@@ -523,3 +523,8 @@
         end
     grestore
 } def
+
+/mystical_evoke { /evocation arg
+    evocation where { evocation get mystical } if
+} def
+
