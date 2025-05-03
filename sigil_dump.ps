@@ -3,26 +3,32 @@
 (dmmlib/lines.ps) run
 (dmmlib/polar.ps) run
 (dmmlib/textbase.ps) run
-(sigils.ps) run
-
-/nib_angle -30 def
-
-/nstroke {
-    gsave
-        24 recip setlinewidth
-        nib_angle rotate
-        0.5 1 scale
-        0.5 callistroke
-    grestore
-    newpath
-} def
+(mystical.ps) run
 
 sigil_bank { cvlit /sigil_func arg /sigil_name arg
     /sigil_string sigil_name 20 string cvs def
     /function_name (sigil_) sigil_string concatenate cvn def
     function_name sigil_func cvx def
-    
 } forall
+
+/sigil_RETURN {
+    gsave
+        90 rotate
+        sigil_bank /RETURN get exec
+    grestore
+    0 0.5 goto 0 1 goto nstroke
+    -0.25 0.75 goto 0.25 0.75 goto nstroke
+} def
+/sigil_COMPLETE {
+    gsave
+        90 rotate
+        sigil_bank /COMPLETE get exec
+    grestore
+    0 0.5 goto 0 1 goto nstroke
+} def
+
 %%EndProlog
 
-72 softscale 4.25 5.5 translate sigil_setrgbcolor
+72 softscale 4.25 5.5 translate 
+set_nib_matrix
+sigil_moveto

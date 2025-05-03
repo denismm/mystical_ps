@@ -3,7 +3,7 @@
     % set fits between y=-0.5, -0.25
     % state components fit between -0.5, 0.25
     /current {
-        0 0.375 dot
+        0 0.375 16 recip spcircle nstroke
         -0.5 0.5 goto 0.5 0.5 goto 0 0.25 goto closepath nstroke
     }
     /set {
@@ -79,7 +79,7 @@
         0.25 0 0.25 90 -90 sparcn
         -0.5 -0.25 goto
         nstroke
-        0 0 dot
+        0 0 16 recip spcircle nstroke
     }
     /matrix {
         -0.5 -0.5 0.5 0.25 box nstroke
@@ -113,7 +113,7 @@
     /arc {
         0 0 0.5 -45 90 sparc
         0 0 0.5 90 215 sparc
-        gsave currentpoint newpath dot grestore
+        gsave currentpoint newpath 16 recip spcircle nstroke grestore
         nstroke
         -0.5 0 goto 0.5 0 goto nstroke
     }
@@ -121,7 +121,7 @@
         -1 1 scale
         0 0 0.5 -45 90 sparc
         0 0 0.5 90 215 sparc
-        gsave currentpoint newpath dot grestore
+        gsave currentpoint newpath 16 recip spcircle nstroke grestore
         nstroke
         -0.5 0 goto
         -0.125 dup goto
@@ -150,7 +150,7 @@
         % 0.5 0 0.5 240 180 sparcn
         % 0.5 0 0.5 180 120 sparcn
         closepath
-        gsave currentpoint newpath dot grestore
+        gsave currentpoint newpath 16 recip spcircle nstroke grestore
         nstroke
         % doot
     }
@@ -241,7 +241,7 @@
         -0.375 0.5 goto
         -0.375 -0.5 goto
         0.375 -0.5 goto nstroke
-        0.375 -0.5 dot
+        0.375 -0.5 16 recip spcircle nstroke
     }
     /moveto {
         -0.5 dup goto
@@ -249,7 +249,7 @@
         0 0 goto
         0.5 0.5 goto
         0.5 -0.5 goto nstroke
-        0.5 -0.5 dot
+        0.5 -0.5 16 recip spcircle nstroke
     }
     /pop {
         -0.5 -0.5 goto
@@ -299,7 +299,7 @@
         0 0.25 0.25 90 -90 arc
         0 -0.25 0.25 90 -90 arcn
         nstroke
-        0 -0.5 dot
+        0 -0.5 16 recip spcircle nstroke
     }
     /translate {
         2 recip softscale
