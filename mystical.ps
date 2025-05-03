@@ -4,10 +4,16 @@
 (dmmlib/lines.ps) run
 (dmmlib/polar.ps) run
 
-/nib_angle -30 def
+/nib_angle -60 def
 
+/nib_matrix matrix currentmatrix def
+/set_nib_matrix {
+    /nib_matrix matrix currentmatrix def
+} def
 /nstroke {
     gsave
+        nib_matrix setmatrix
+        24 recip setlinewidth
         nib_angle rotate
         0.5 1 scale
         0.5 callistroke
@@ -30,6 +36,7 @@
 /Times 0.5 selectfont
 /draw_ring [/spell] {
     spell begin
+        set_nib_matrix
         % borders based on rtype
         rtype /dict eq {
             components length circumference cvi maximum
@@ -94,6 +101,7 @@
     gsave
         angle rotate
         parent /radius get 0 translate
+        set_nib_matrix
         otype /nametype eq {
             xflag not {
                 gsave
@@ -145,17 +153,20 @@
         /rstep r3 r0 sub 3 div def
         /r1 r0 rstep add def
         /r2 r1 rstep add def
-        r0 angle polar
-        r0 angle polar goto
-        r1 angle polar
-        r2 ring_angle polar
-        r3 ring_angle polar curveto nstroke
+        angle rotate
+        /local_angle ring_angle angle sub def
+        set_nib_matrix
+        r0 0 polar goto
+        r1 0 polar
+        r2 local_angle polar
+        r3 local_angle polar curveto nstroke
+        r0 0 polar
         ring /rtype get /xarray eq {
             0.125 spcircle whitefill nstroke
         } {
             dot
         } ifelse
-        ring_angle rotate
+        local_angle rotate
         r4 0 translate
         180 rotate
         ring draw_ring
