@@ -1,7 +1,9 @@
 %!PS
 
 (mystical.ps) run
-%%EndProlog
+/xarray_example {
+    { 0 0 currentlinewidth 1.5 mul 0 360 arc fill } mystical_unscaled
+} def
 
 sigil_bank /dot {
     gsave
@@ -12,6 +14,7 @@ sigil_bank /dot {
     grestore
 } put
 
+%%EndProlog
 72 softscale
 4.25 5.5 translate
 
@@ -44,6 +47,10 @@ sigil_bank /dot {
     } forall
    end
 } def
-8 recip softscale
-/code mystical_evoke_label_unscaled
+% 8 recip softscale
+% /code mystical_evoke_label_unscaled
+
+-2 -2 2.5 2 box stroke
+xarray_example
+
 showpage
