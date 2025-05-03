@@ -526,6 +526,7 @@
         spell draw_ring
     grestore
 } def
+
 /mystical {
     10 dict begin
         mystical_get_spell /spell arg
@@ -557,3 +558,32 @@
     } if
 } def
 
+/mystical_unscaled {
+    10 dict begin
+        mystical_get_spell /spell arg
+        spell draw_ring
+    end
+} def
+
+/mystical_evoke_unscaled { /evocation arg
+    evocation where { evocation get mystical_unscaled } if
+}
+
+/mystical_evoke_label_unscaled { /evocation arg
+    evocation where {
+        evocation get mystical_get_spell /spell arg
+        gsave
+            % spell draw_ring
+            % false token for label
+            <<
+                /name evocation /otype /nametype 
+                /xflag false /aflag true
+                /position 0 /angle -90 /parent <<
+                    /radius spell /full_radius get neg
+                >>
+                /ring spell /ring_angle -90 /offset spell /full_radius get
+                /defligature true
+            >> dup draw_sigil draw_link
+        grestore
+    } if
+} def

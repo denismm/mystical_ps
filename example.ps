@@ -14,7 +14,7 @@ sigil_bank /dot {
 
 72 softscale
 4.25 5.5 translate
-4 dup scale
+
 /code {
     10 dict begin
     /dot {currentlinewidth 1.5 mul 0 360 arc fill } def
@@ -42,15 +42,8 @@ sigil_bank /dot {
             2 0 lineto stroke
         grestore
     } forall
-   << /a 1 /b 2
-       /c 3
-   >> pop
-   <<
-       /a 123 /b 1234 /c 1234 /d 789
-       /a 123 /b 1234 /c 1234 /d 789
-   >> pop
-   << >> pop
    end
 } def
-/code mystical_evoke_label
+8 recip softscale
+/code mystical_evoke_label_unscaled
 showpage
