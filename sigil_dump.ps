@@ -1,0 +1,28 @@
+%!
+(dmmlib/base.ps) run
+(dmmlib/lines.ps) run
+(dmmlib/polar.ps) run
+(dmmlib/textbase.ps) run
+(sigils.ps) run
+
+/nib_angle -30 def
+
+/nstroke {
+    gsave
+        24 recip setlinewidth
+        nib_angle rotate
+        0.5 1 scale
+        0.5 callistroke
+    grestore
+    newpath
+} def
+
+sigil_bank { cvlit /sigil_func arg /sigil_name arg
+    /sigil_string sigil_name 20 string cvs def
+    /function_name (sigil_) sigil_string concatenate cvn def
+    function_name sigil_func cvx def
+    
+} forall
+%%EndProlog
+
+72 softscale 4.25 5.5 translate sigil_setrgbcolor
