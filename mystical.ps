@@ -496,13 +496,19 @@
     gsave
         10 dict begin
             /input_code arg
+            % determine type
+            /xflag false def
+            currentdict /input_code get xcheck {
+                /xflag true def
+                currentdict /input_code get cvlit /input_code arg
+            } if
+            /rtype xflag { /xarray} {input_code type cvlit } ifelse def
             % parse into Ring object
-            /spell << /rtype /xarray /root true >> def
+            /spell << /rtype rtype /root true >> def
             spell input_code 0 parsecode pop
             spell /full_radius get recip dup scale
-            18 recip setlinewidth
+            24 recip setlinewidth
             spell draw_ring
-            code cvx exec
         end
     grestore
 } def
@@ -517,7 +523,11 @@ sigil_bank /dot {
         -1 1 goto 0 1 goto nstroke
     grestore
 } put
-/code {
+
+72 softscale
+4.25 5.5 translate
+4 dup scale
+{
     10 dict begin
     /dot {currentlinewidth 1.5 mul 0 360 arc fill } def
     /thicken_line {currentlinewidth 1.5 mul setlinewidth } def
@@ -553,10 +563,5 @@ sigil_bank /dot {
    >> pop
    << >> pop
    end
-} cvlit def
-
-72 softscale
-4.25 5.5 translate
-4 dup scale
-code mystical
+} mystical
 showpage
