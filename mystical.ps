@@ -36,6 +36,7 @@
 /Times 0.5 selectfont
 /draw_ring [/spell] {
     spell begin
+        24 recip setlinewidth
         set_nib_matrix
         % borders based on rtype
         rtype /dict eq {
@@ -503,28 +504,56 @@
     end
 } 1 false dict_safe_func
 
-/mystical {
+/mystical_get_spell {
+    10 dict begin
+        /input_code arg
+        % determine type
+        /xflag false def
+        currentdict /input_code get xcheck {
+            /xflag true def
+            currentdict /input_code get cvlit /input_code arg
+        } if
+        /rtype xflag { /xarray} {input_code type cvlit } ifelse def
+        % parse into Ring object
+        /spell << /rtype rtype /root true >> def
+        spell input_code 0 parsecode pop
+        spell
+    end
+} def
+/mystical_draw_spell { /spell arg
     gsave
-        10 dict begin
-            /input_code arg
-            % determine type
-            /xflag false def
-            currentdict /input_code get xcheck {
-                /xflag true def
-                currentdict /input_code get cvlit /input_code arg
-            } if
-            /rtype xflag { /xarray} {input_code type cvlit } ifelse def
-            % parse into Ring object
-            /spell << /rtype rtype /root true >> def
-            spell input_code 0 parsecode pop
-            spell /full_radius get recip dup scale
-            24 recip setlinewidth
-            spell draw_ring
-        end
+        spell /full_radius get recip dup scale
+        spell draw_ring
     grestore
+} def
+/mystical {
+    10 dict begin
+        mystical_get_spell /spell arg
+        spell mystical_draw_spell
+    end
 } def
 
 /mystical_evoke { /evocation arg
     evocation where { evocation get mystical } if
+} def
+
+/mystical_evoke_label { /evocation arg
+    evocation where {
+        evocation get mystical_get_spell /spell arg
+        gsave
+            spell /full_radius get recip dup scale
+            % spell draw_ring
+            % false token for label
+            <<
+                /name evocation /otype /nametype 
+                /xflag false /aflag true
+                /position 0 /angle -90 /parent <<
+                    /radius spell /full_radius get neg
+                >>
+                /ring spell /ring_angle -90 /offset spell /full_radius get
+                /defligature true
+            >> dup draw_sigil draw_link
+        grestore
+    } if
 } def
 
