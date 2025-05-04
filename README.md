@@ -13,7 +13,10 @@ There are three types of rings in Mystical:
 * non-executable arrays, written in [] in ps, are the same but without the star. The start/end point is marked with a simple triangle. 
 * dictionaries, written in << >> in ps, are polygons with a double outer border and a single inner border. The start/end point is marked the same as the array. 
 
-xarray example array example dict example
+| xarray | array | dict |
+|--|--|--|
+| ![xarray example](images/xarray_example.png) | ![array example](images/array_example.png) | ![dict example](images/dict_example.png) |
+| { 0 0 currentlinewidth 1.5 mul 0 360 arc fill } |   [ 0 1 2 1.5 40 360 (Hooray) (World) ] | << /longname (Mystical) /w 45 /h 8 /x 23 >> |
 
 When one of these structures appear inside a different structure, a small circle or dot at the inclusion point is connected to a line which leads to the subsidiary ring's start/end sigil.
 
@@ -27,8 +30,8 @@ so don't do that.
 
 Other commands like `gsave/grestore` and `begin/end` are more likely to be used in non-balanced or loop-crossing ways so those are treated as normal sigils below.
 
-## Sigils
-The rings' rims contain text or sigils.  Sigils are symbols that stand in for operators, variables, or other keywords. Any name, written in ps as `/name`, is instead written with a triangle surrounding or superimposing the text of the name or its sigil.
+## Text and Sigils
+The rings' rims contain text or sigils.  Sigils are symbols that stand in for operators, variables, or other keywords. Any name, written in ps as `/name`, is instead written with a triangle surrounding or superimposing the text of the name or its sigil.  Any strings, written in () in Postscript, are cartouche-like shapes containing the string text.
 
 name examples
 

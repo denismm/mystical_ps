@@ -7,7 +7,7 @@ examples: dict[str, list[int]] = {
     'array_example': [-2, -2, 2, 2],
     'dict_example': [-2.5, -2.5, 2.5, 2.5],
 }
-base_command = "pstopng -0.6 d d d 100 examples.ps -Pimages/".split()
+base_command = "pstopng -0.6 d d d 50 examples.ps -Pimages/".split()
 for name, dimensions in examples.items():
     command = base_command + [name]
     command[1:5] = [str(d) for d in dimensions]
