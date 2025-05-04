@@ -34,6 +34,8 @@
 /ring_halfwidth 0.5 def
 /buffer 100 string def
 /Times 0.5 selectfont
+/nonsigil_spacing 0.125 def
+/string_radius 0.25 def
 /draw_ring [/spell] {
     spell begin
         24 recip setlinewidth
@@ -112,12 +114,12 @@
                 grestore
             } if
         } if
-        otype /return ne {
-            0.75 softscale
-            90 rotate
-        } if
         sigil_bank name known {
             gsave
+                otype /return ne {
+                    90 rotate
+                    0.75 softscale
+                } if
                 sigil_bank name get exec
                 otype /return eq parent /root known and {
                     0.5 0 goto 1 0 goto nstroke
@@ -125,18 +127,38 @@
             grestore
         } {
             gsave
-                /fakerad parent /radius get 0.75 div def
-                0 fakerad translate
-                name buffer cvs fakerad neg circle_center_show
+                90 rotate
+                /textrad parent /radius get def
+                0 textrad translate
+                name buffer cvs textrad neg circle_center_show
+                otype /stringtype eq {
+                    /cartouche_width width nonsigil_spacing sub string_radius 2 mul sub def
+                    /text_angle cartouche_width PI textrad mul div 180 mul half def
+                    /left_angle -90 text_angle sub def
+                    /right_angle -90 text_angle add def
+                    0 0 textrad string_radius sub left_angle right_angle sparc
+                    right_angle rotate
+                    textrad 0 string_radius 180 0 sparcn
+                    right_angle neg rotate
+                    0 0 textrad string_radius add right_angle left_angle sparcn
+                    left_angle rotate
+                    textrad 0 string_radius 0 180 sparcn
+                    left_angle neg rotate
+                    closepath
+                    nstroke
+                } if
             grestore
         } ifelse
+        % type debugging
         false {
-            0 -0.75 translate
-            2 recip softscale
-            xflag {
-                /Times-Bold 0.5 selectfont
+            otype /return ne {
+                0 -0.75 translate
+                2 recip softscale
+                xflag {
+                    /Times-Bold 0.5 selectfont
+                } if
+                otype buffer cvs centershow
             } if
-            otype buffer cvs centershow
         } if
     grestore
     end
@@ -284,7 +306,11 @@
                             sigil_bank literal known {
                                 std_sigil_width
                             } {
-                                literal buffer cvs stringwidth pop ( ) stringwidth pop add
+                                literal buffer cvs stringwidth pop
+                                nonsigil_spacing add
+                                otype /stringtype eq {
+                                    nonsigil_spacing add
+                                } if
                             } ifelse
                         } ifelse
                         % even if text is short names must be sigil-width

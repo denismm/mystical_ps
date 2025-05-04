@@ -5,6 +5,10 @@
     { 0 0 currentlinewidth 1.5 mul 0 360 arc fill } mystical_unscaled
 } def
 
+/array_example {
+    [ 0 1 2 1.5 40 360 (Hooray) (World) ] mystical_unscaled
+} def
+
 sigil_bank /dot {
     gsave
         2 recip softscale
@@ -50,7 +54,7 @@ sigil_bank /dot {
 % 8 recip softscale
 % /code mystical_evoke_label_unscaled
 
--2 -2 2.5 2 box stroke
-xarray_example
+-2 -2 2 2 box stroke
+array_example
 
 showpage
