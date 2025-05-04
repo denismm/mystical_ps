@@ -6,11 +6,18 @@
 } def
 
 /array_example {
-    [ 0 1 2 1.5 40 360 (Hooray) (World) ] mystical_unscaled
+    [ 0 1 2 1.5 40 360 (Hooray World) ] mystical_unscaled
 } def
 
 /dict_example {
     << /longname (Mystical) /w 45 /h 8 /x 23 >> mystical_unscaled
+} def
+
+/link_example {
+    [ 0 1 2 1.5 40 360 
+        << /longname (Mystical) /w 45 /h 8 /x 23 >>
+    ]
+    mystical_unscaled
 } def
 
 sigil_bank /dot {
@@ -58,7 +65,8 @@ sigil_bank /dot {
 % 8 recip softscale
 % /code mystical_evoke_label_unscaled
 
--2.5 -2.5 2.5 2.5 box stroke
-dict_example
+2 recip softscale
+-1.5 -7 5.5 1.5 box stroke
+link_example
 
 showpage

@@ -20,7 +20,7 @@ There are three types of rings in Mystical:
 
 When one of these structures appear inside a different structure, a small circle or dot at the inclusion point is connected to a line which leads to the subsidiary ring's start/end sigil.
 
-link example
+![link example](images/link_example.png)|
 
 It is theoretically possible to use [ ] and << >> in ps in ways that Mystical can't handle:
 ```
