@@ -540,6 +540,10 @@
             currentdict /input_code get cvlit /input_code arg
         } if
         /rtype xflag { /xarray} {input_code type cvlit } ifelse def
+        rtype /dicttype eq {
+            % convert dict into array of k, v, k, v, ...
+            /input_code [ input_code {} forall ] def
+        } if
         % parse into Ring object
         /spell << /rtype rtype /root true >> def
         spell input_code 0 parsecode pop
