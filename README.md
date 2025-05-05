@@ -43,7 +43,7 @@ The rings' rims contain text or sigils.  Sigils are symbols that stand in for op
 name examples
 
 ### Standard Sigils
-Many built-in operators have been given their own sigils.  These are used in place of the text of the operator.  I have generally made these sigils based on the initial of the command and an illustration of the concept, though in some cases I have taken a more fully illustrative route or created some standard visual language.
+Many built-in operators have been given their own sigils.  These are used in place of the text of the operator if it appears as a name or operator (but not if it appears as a string).  I have generally made these sigils based on the initial of the command and an illustration of the concept, though in some cases I have taken a more fully illustrative route or created some standard visual language.
 
 in order from ps ref
 
