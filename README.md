@@ -40,7 +40,9 @@ Other commands like `gsave/grestore` and `begin/end` are more likely to be used 
 ## Text and Sigils
 The rings' rims contain text or sigils.  Sigils are symbols that stand in for operators, variables, or other keywords. Any name, written in ps as `/name`, is instead written with a triangle surrounding or superimposing the text of the name or its sigil.  Any strings, written in () in Postscript, are cartouche-like shapes containing the string text.
 
-name examples
+| array | /array | (array) | foo | /foo | /foobar |
+|--|--|--|--|--|--|
+| ![array sigil](images/sigil_array.png) | ![/array sigil](name_array) | ![array string](string_array) | ![foo string]() | ![foo name]() | ![foobar name]() |
 
 ### Standard Sigils
 Many built-in operators have been given their own sigils.  These are used in place of the text of the operator if it appears as a name or operator (but not if it appears as a string).  I have generally made these sigils based on the initial of the command and an illustration of the concept, though in some cases I have taken a more fully illustrative route or created some standard visual language.
