@@ -52,7 +52,7 @@ in order from ps ref
 ### User Sigils
 Sigils for new functions or names can be added to `sigil_bank` at runtime.  They should fit into the 1-unit square centered on the origin, so no coordinate should be more than 0.5 (of course, you can transform your coordinate system for convenience).  If you use `nstroke` instead of `stroke` you will get the same calligraphic effect as the standard sigils.
 
-Sigils for user variables can be designed with any sigil system.  My examples use letter collision, inspired by Spare's Chaos Magick system, but anything that turns a word into a symbol will work - kameas, wheels, Square Word Calligraphy, illustration, puns, etc.
+Sigils for user variables can be designed with any sigil system.  My examples use letter collision, inspired by Spare's Chaos Magick system, but anything that turns a word into a symbol will work - kameas, wheels, Square Word Calligraphy, Circular Gallifreyan, sitelen sitelen, illustration, puns, etc.
 
 ## Ligature for /name { circle } def
 
