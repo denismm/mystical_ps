@@ -4,10 +4,16 @@
 (dmmlib/lines.ps) run
 (dmmlib/polar.ps) run
 
-/nib_angle -30 def
+/nib_angle -60 def
 
+/nib_matrix matrix currentmatrix def
+/set_nib_matrix {
+    /nib_matrix matrix currentmatrix def
+} def
 /nstroke {
     gsave
+        nib_matrix setmatrix
+        24 recip setlinewidth
         nib_angle rotate
         0.5 1 scale
         0.5 callistroke
@@ -17,14 +23,25 @@
 % /nstroke {stroke} def
 
 /ring_debug false def
-/ring_spacing 2 def     % this needs to be at least 1
+% ring_spacing is distance from parent ring radius to child ring full_radius
+% ring_spacing needs to be at least 1
+/ring_spacing 2 def
 /ring_width 1 def
+/std_sigil_width 1.25 def
+% sibling_spacing is distance between rings with same parent
+/sibling_spacing 0.5 def
+/sibling_hs sibling_spacing half def
 /ring_halfwidth 0.5 def
 /buffer 100 string def
 /Times 0.5 selectfont
+/nonsigil_spacing 0.125 def
+/string_radius 0.25 def
 /draw_ring [/spell] {
     spell begin
-        rtype /dict eq {
+        24 recip setlinewidth
+        set_nib_matrix
+        % borders based on rtype
+        rtype /dicttype eq {
             components length circumference cvi maximum
             dup { radius ring_halfwidth add 0 goto } circrepeat
             closepath whitefill nstroke
@@ -36,15 +53,18 @@
             0 0 radius ring_halfwidth add circle whitefill nstroke
             0 0 radius ring_halfwidth sub circle nstroke
         } ifelse
+        % draw each ring element
         components { /Token arg
             gsave
                 Token /aflag get {
                     Token draw_link
-                } {
+                } if
+                Token /aflag get not Token /defligature known or {
                     Token draw_sigil
-                } ifelse
+                } if
             grestore
         } forall
+        % star for xarray
         rtype /xarray eq {
             /comp_n components length def
             /star_radius radius ring_halfwidth sub def
@@ -65,6 +85,7 @@
                 } for
             } ifelse
         } if
+        % debug ring positions
         ring_debug {
             gsave
                 1 0 0 setrgbcolor
@@ -83,38 +104,61 @@
     gsave
         angle rotate
         parent /radius get 0 translate
-        otype /return ne {
-            0.75 softscale
-            90 rotate
-        } if
+        set_nib_matrix
         otype /nametype eq {
             xflag not {
                 gsave
                     3 {
-                        0 1 goto
+                        -1 0 goto
                     } circrepeat closepath nstroke
                 grestore
-                0.75 softscale
             } if
         } if
         sigil_bank name known {
             gsave
+                otype /return ne {
+                    90 rotate
+                    0.75 softscale
+                } if
                 sigil_bank name get exec
+                otype /return eq parent /root known and {
+                    0.5 0 goto 1 0 goto nstroke
+                } if
             grestore
         } {
+            90 rotate
             gsave
-                /fakerad parent /radius get 0.75 div def
-                0 fakerad translate
-                name buffer cvs fakerad neg circle_center_show
+                /textrad parent /radius get def
+                0 textrad translate
+                name buffer cvs textrad neg circle_center_show
+                otype /stringtype eq {
+                    /cartouche_width width nonsigil_spacing sub string_radius 2 mul sub def
+                    /text_angle cartouche_width PI textrad mul div 180 mul half def
+                    /left_angle -90 text_angle sub def
+                    /right_angle -90 text_angle add def
+                    0 0 textrad string_radius sub left_angle right_angle sparc
+                    right_angle rotate
+                    textrad 0 string_radius 180 0 sparcn
+                    right_angle neg rotate
+                    0 0 textrad string_radius add right_angle left_angle sparcn
+                    left_angle rotate
+                    textrad 0 string_radius 0 180 sparcn
+                    left_angle neg rotate
+                    closepath
+                    nstroke
+                } if
             grestore
         } ifelse
+        % type debugging
         false {
-            0 -0.75 translate
-            2 recip softscale
-            xflag {
-                /Times-Bold 0.5 selectfont
+            otype /return ne {
+                0 -0.75 translate
+                2 recip softscale
+                xflag {
+                    /Times-Bold 0.5 selectfont
+                } if
+                otype buffer cvs centershow
             } if
-            otype buffer cvs centershow
         } if
     grestore
     end
@@ -124,21 +168,28 @@
     gsave
         /r0 parent /radius get def
         /r4 r0 Token /offset get add def 
-        /r3 r4 ring /radius get sub def
+        Token /defligature known {
+            % special sigil handling
+            /r0 ring_halfwidth adddef
+        } if
+        /r3 r4 ring /radius get sub ring_halfwidth sub def
         /rstep r3 r0 sub 3 div def
         /r1 r0 rstep add def
         /r2 r1 rstep add def
-        r0 angle polar
-        xflag {
+        angle rotate
+        /local_angle ring_angle angle sub def
+        set_nib_matrix
+        r0 0 polar goto
+        r1 0 polar
+        r2 local_angle polar
+        r3 local_angle polar curveto nstroke
+        r0 0 polar
+        ring /rtype get /xarray eq {
             0.125 spcircle whitefill nstroke
         } {
             dot
         } ifelse
-        r0 angle polar goto
-        r1 angle polar
-        r2 ring_angle polar
-        r3 ring_angle polar curveto nstroke
-        ring_angle rotate
+        local_angle rotate
         r4 0 translate
         180 rotate
         ring draw_ring
@@ -183,8 +234,8 @@
                 /Token << >> def
                 /parent Ring def
                 /components Ring /components get def
-                components Ring /cursor get Token put
-                Ring dup /cursor get 1 add /cursor exch put
+                /cursor Ring /cursor get def
+                components cursor Token put
                 % careful not to execute code piece before cvlit
                 code code_pos get
                 dup type cvlit /otype arg
@@ -192,60 +243,106 @@
                 cvlit /literal arg
                 /aflag otype /arraytype eq def
                 /literal_s literal buffer cvs def
-                % [ for vi
-                % don't otherwise deal with these tokens
-                literal_s (]) eq { exit } if
-                literal_s (>>) eq { exit } if
-                literal_s ([) eq literal_s (<<) eq or {
-                    % ] for vi
-                    /array_ring << /rtype literal_s (<<) eq {/dict} {/array} ifelse >> def
-                    Token /ring array_ring put
-                    Token /signal true put
-                    /code_pos 1 adddef
-                    array_ring code code_pos parsecode /code_pos arg
-                    Token array_ring find_offset
-                    Token /name array_ring /rtype get put
-                    /aflag true def
-                } {
-                    % Handle recursion for executable arrays
-                    otype /arraytype eq {
-                        /inner_ring <<
-                            /rtype xflag { /xarray } { /array } ifelse
-                        >> def
-                        Token /ring inner_ring put
-                        inner_ring literal 0 parsecode pop
-                        Token inner_ring find_offset
-                        Token /name inner_ring /rtype get put
+
+                % check for def-ligature
+                /skip_token false def
+                Ring /rtype get /xarray eq literal /def eq and {
+                    cursor 2 ge {
+                        % prev is true circle
+                        /previous components cursor 1 sub get def
+                        /prevprev components cursor 2 sub get def
+                        previous /aflag get previous /otype get /nametype ne and {
+                            prevprev /aflag get not prevprev /otype get /nametype eq and {
+                                % set up ligature - add ring info to name
+                                [/offset /ring /aflag] { /field arg
+                                    prevprev field
+                                    previous field get 
+                                    put
+                                } forall
+                                Ring /circumference previous /width get neg addput
+                                prevprev /defligature true put
+                                /cursor -2 adddef
+                                /skip_token true def
+                                /code_pos 1 adddef
+                            } if
+                        } if
+                    } if
+                } if
+                /cursor 1 adddef
+                Ring /cursor cursor put
+                skip_token not {
+                    % [ for vi
+                    % don't otherwise deal with these tokens
+                    literal_s (]) eq { exit } if
+                    literal_s (>>) eq { exit } if
+                    literal_s ([) eq literal_s (<<) eq or {
+                        % ] for vi
+                        /array_ring << /rtype literal_s (<<) eq {/dicttype} {/array} ifelse >> def
+                        Token /ring array_ring put
+                        Token /signal true put
+                        /code_pos 1 adddef
+                        array_ring code code_pos parsecode /code_pos arg
+                        Token array_ring find_offset
+                        Token /name array_ring /rtype get put
+                        /aflag true def
                     } {
-                        Token /name literal put
-                    } ifelse
-                } ifelse
-                kerning {
-                    aflag {
-                        0.75
-                    } {
-                        sigil_bank literal known {
-                            1.25
+                        % Handle recursion for arrays
+                        otype /arraytype eq otype /dicttype eq or {
+                            /inner_ring <<
+                                /rtype xflag { 
+                                    /xarray 
+                                } { 
+                                    otype /arraytype eq {
+                                        /array 
+                                    } {
+                                        /dict
+                                    } ifelse
+                                } ifelse
+                            >> def
+                            otype /dicttype eq {
+                                /literal [literal {} forall] def
+                            } if
+                            Token /ring inner_ring put
+                            inner_ring literal 0 parsecode pop
+                            Token inner_ring find_offset
+                            Token /name inner_ring /rtype get put
+                            /aflag true def
                         } {
-                            literal buffer cvs stringwidth pop ( ) stringwidth pop add
+                            Token /name literal put
                         } ifelse
                     } ifelse
-                    otype /nametype eq {
-                        1.25 max
-                    } if
-                } {
-                    1
-                } ifelse
-                /width arg
-                /position Ring /circumference get width half add def
-                Ring /circumference width addput
+                    kerning {
+                        aflag {
+                            0.5
+                        } {
+                            sigil_bank literal known {
+                                std_sigil_width
+                            } {
+                                literal buffer cvs stringwidth pop
+                                nonsigil_spacing add
+                                otype /stringtype eq {
+                                    nonsigil_spacing add
+                                } if
+                            } ifelse
+                        } ifelse
+                        % even if text is short names must be sigil-width
+                        otype /nametype eq {
+                            std_sigil_width max
+                        } if
+                    } {
+                        1
+                    } ifelse
+                    /width arg
+                    /position Ring /circumference get width half add def
+                    Ring /circumference width addput
 
-                [/otype /xflag /aflag /position /width /parent] {
-                    Token exch dup cvx exec put
-                } forall
+                    [/otype /xflag /aflag /position /width /parent] {
+                        Token exch dup cvx exec put
+                    } forall
 
-                /code_pos 1 adddef
-                code_pos code length ge { exit } if
+                    /code_pos 1 adddef
+                    code_pos code length ge { exit } if
+                } if
             } loop
             % temporary shenanigans - cursor might be two off the end
             components Ring /cursor get 1 sub get length 0 eq {
@@ -261,7 +358,7 @@
             /xflag false
             /aflag false
             /position circumference 0.5 add
-            /name /RETURN
+            /name Ring /rtype get /xarray eq { /RETURN } { /COMPLETE } ifelse
             /parent Ring
         >> def
         components cursor end_token put
@@ -303,7 +400,7 @@
                 % center_offset (ring radius plus offset)
                 % angle span (radius in either direction)
                 /center_offset radius component /offset get add def
-                /angle_span c_ring /full_radius get center_offset div asin def
+                /angle_span c_ring /full_radius get sibling_hs add center_offset div asin def
                 /ring_span <<
                     /ring c_ring
                     /full_radius c_ring /full_radius get
@@ -333,14 +430,14 @@
                     /full_radius ring_span /full_radius get def
                     /new_span ring_span /angle_span get adjustment mul def
                     /increase
-                        full_radius
+                        full_radius sibling_hs add
                         new_span sin div
                         ring_span /center_offset get sub
                     def
                     /c_ring component /ring get def
                     /new_offset component /offset get increase add def
                     component /offset new_offset put
-                    /angle_span full_radius new_offset radius add div asin def
+                    /angle_span full_radius sibling_hs add new_offset radius add div asin def
                     component /ring_angle angle_tracker angle_span add put
                     /angle_tracker angle_span 2 mul adddef
 
@@ -445,69 +542,90 @@
     end
 } 1 false dict_safe_func
 
-/mystical {
+/mystical_get_spell {
+    10 dict begin
+        /input_code arg
+        % determine type
+        /xflag false def
+        currentdict /input_code get xcheck {
+            /xflag true def
+            currentdict /input_code get cvlit /input_code arg
+        } if
+        /rtype xflag { /xarray} {input_code type cvlit } ifelse def
+        rtype /dicttype eq {
+            % convert dict into array of k, v, k, v, ...
+            /input_code [ input_code {} forall ] def
+        } if
+        % parse into Ring object
+        /spell << /rtype rtype /root true >> def
+        spell input_code 0 parsecode pop
+        spell
+    end
+} def
+/mystical_draw_spell { /spell arg
     gsave
-        10 dict begin
-            /input_code arg
-            % parse into Ring object
-            /spell << /rtype /xarray >> def
-            spell input_code 0 parsecode pop
-            spell /full_radius get recip dup scale
-            18 recip setlinewidth
-            spell draw_ring
-            code cvx exec
-        end
+        spell /full_radius get recip dup scale
+        spell draw_ring
     grestore
 } def
 
-%%EndProlog
+/mystical {
+    10 dict begin
+        mystical_get_spell /spell arg
+        spell mystical_draw_spell
+    end
+} def
 
-sigil_bank /dot {
-    gsave
-        2 recip softscale
-        0 0 1 -90 90 arc closepath nstroke
-        0 0 0.5 circle nstroke
-        -1 1 goto 0 1 goto nstroke
-    grestore
-} put
-/code {
-    /dot {currentlinewidth 1.5 mul 0 360 arc fill } def
-    0 0 1 0 360 arc stroke
-    0 0 0.5 180 360 arc
-    0 0 0.375 360 180 arcn closepath
-    fill
-    2 {
-        0.375 dup dot
+/mystical_evoke { /evocation arg
+    evocation where { evocation get mystical } if
+} def
+
+/mystical_evoke_label { /evocation arg
+    evocation where {
+        evocation get mystical_get_spell /spell arg
         gsave
-            0.375 dup translate
-            5 {
-                0 0 moveto 0.25 0 lineto stroke
-                45 rotate
-            } repeat
+            spell /full_radius get recip dup scale
+            % spell draw_ring
+            % false token for label
+            <<
+                /name evocation /otype /nametype 
+                /xflag false /aflag true
+                /position 0 /angle -90 /parent <<
+                    /radius spell /full_radius get neg
+                >>
+                /ring spell /ring_angle -90 /offset spell /full_radius get
+                /defligature true
+            >> dup draw_sigil draw_link
         grestore
-        -1 1 scale
-    } repeat
-    [ 0 45 135 180 225 -45 ] {
+    } if
+} def
+
+/mystical_unscaled {
+    10 dict begin
+        mystical_get_spell /spell arg
+        spell draw_ring
+    end
+} def
+
+/mystical_evoke_unscaled { /evocation arg
+    evocation where { evocation get mystical_unscaled } if
+}
+
+/mystical_evoke_label_unscaled { /evocation arg
+    evocation where {
+        evocation get mystical_get_spell /spell arg
         gsave
-            rotate
-            1 0 moveto
-            2 0 lineto stroke
+            % spell draw_ring
+            % false token for label
+            <<
+                /name evocation /otype /nametype 
+                /xflag false /aflag true
+                /position 0 /angle -90 /parent <<
+                    /radius spell /full_radius get neg
+                >>
+                /ring spell /ring_angle -90 /offset spell /full_radius get
+                /defligature true
+            >> dup draw_sigil draw_link
         grestore
-    } forall
-   << /a 1 /b 2
-       /c 3
-   >> pop
-   << 
-       /a 123 /b 1234 /c 1234 /d 789
-       /a 123 /b 1234 /c 1234 /d 789
-   >> pop
-   << >> pop
-} cvlit def
-
-% /code { 3 4 5 [6] {/g /h /i} pop } cvlit def
-
-72 softscale
-4.25 5.5 translate
-4 dup scale
-code mystical
-showpage
+    } if
+} def

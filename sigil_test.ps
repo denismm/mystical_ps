@@ -1,33 +1,44 @@
 %!
 (dmmlib/base.ps) run
 (dmmlib/lines.ps) run
+(dmmlib/polar.ps) run
+(sigils.ps) run
+
+/nib_angle -30 def
+
+/nstroke {
+    gsave
+        nib_angle rotate
+        0.5 1 scale
+        0.5 callistroke
+    grestore
+    newpath
+} def
 
 72 softscale
 4.25 5.5 translate
 3 thicken
+/Times 0.25 selectfont
 
-0 1.25 translate
-
-2 {
+-2 3.5 translate
+/i 0 def
+[
+    /currentlinejoin /setlinejoin /currentlinewidth /setlinewidth
+    /currentpoint /currentlinecap /setlinecap
+    /setrgbcolor /currentrgbcolor
+    /sethsbcolor /currenthsbcolor
+    /setgraycolor /currentgraycolor
+    /setcmykcolor /currentcmykcolor
+    /currentmatrix /setmatrix
+] { /target arg
     gsave
-        -1.25 0 translate
-        0 1 1 0 -90 arcn
-        0 -1 1 90 0 arcn
-        cstroke
-        0 1 0.75 0 -90 arcn
-        0 -1 0.75 90 0 arcn
-        cstroke
+        i 7 idiv 1.25 mul  i 7 mod -1.25 mul translate
+        % gsave 0 setsinebowcolor -0.5 -0.5 0.5 0.5 box stroke grestore
+        sigil_bank target known {
+            sigil_bank target get exec
+        } {
+            target 25 string cvs centershow
+        } ifelse
     grestore
-} circrepeat
-
-0 -2.5 translate
-2 {
-    gsave
-        -1.25 0 translate
-        0.75 0.5 goto
-        0.5 0.5 0.5 0 180 sparc
-        0.5 -0.5 0.5 180 0 sparc
-        0.75 -0.5 goto
-        cstroke
-    grestore
-} circrepeat
+    /i 1 adddef
+} forall
