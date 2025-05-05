@@ -52,13 +52,24 @@ in order from ps ref
 ### User Sigils
 Sigils for new functions or names can be added to `sigil_bank` at runtime.  They should fit into the 1-unit square centered on the origin, so no coordinate should be more than 0.5 (of course, you can transform your coordinate system for convenience).  If you use `nstroke` instead of `stroke` you will get the same calligraphic effect as the standard sigils.
 
-Sigils for user variables can be designed with any sigil system.  My examples use letter collision, inspired by Spare's Chaos Magick system, but anything that turns a word into a symbol will work - kameas, wheels, Square Word Calligraphy, Circular Gallifreyan, sitelen sitelen, illustration, puns, etc.
+Sigils for user variables can be designed with any sigil system.  My examples mostly use letter collision, inspired by Spare's Chaos Magick system, but anything that turns a word into a symbol will work - kameas, wheels, Square Word Calligraphy, Circular Gallifreyan, sitelen sitelen, illustration, puns, etc.  New names based on official operators can incorporate the standard sigils for those operators.
+
+| arg | dot | softscale | nstroke |
+|--|--|--|--|
 
 ## Ligature for /name { circle } def
 
-There is a sigil for `def` but a very common pattern is to push a name, push a function, and def the name to the function. To save space and to emphasize this definition, there is special syntax for this case consisting of the usual name triangle with the end of the link line directly below it, and the def sigil is omitted entirely. This is extended to the other two circle types for simplicity. This only applies inside of executable arrays. I considered a similar ligature for /name { circle } in dictionaries but there's too much likelyhood of getting it wrong. 
+There is a sigil for `def` but a very common pattern is to push a name, push a function, and def the name to the function. To save space and to emphasize this definition, there is special syntax for this case consisting of the usual name triangle with the end of the link line directly below it, and the def sigil is omitted entirely. This is extended to the other two circle types for simplicity. Any other use of `def` will just use the def sigil as normal.
+
+def-ligature example
+
+This only applies inside of executable arrays. I considered a similar ligature for /name { circle } in dictionaries but there's too much chance of getting it wrong.
 
 ## Sample Algorithms
+
+Euclid's gcd
+dot
+quicksort
 
 ## Could this work for other languages?
 This approach seems applicable to other language with just operators, such as Forth. Languages with more complicated statements might be more difficult, and I don't know if a new circle for every brace or indent will be overly busy.
