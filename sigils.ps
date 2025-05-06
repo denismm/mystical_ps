@@ -110,6 +110,15 @@
     /COMPLETE {
         0 -0.25 goto 0 0.25 goto 0.5 0 goto closepath nstroke
     }
+    /and {
+        -0.25 -0.5 goto
+        0 0.25 0.125 -30 90 sparc
+        0 0.25 0.125 90 210 sparc
+        0.25 -0.5 goto
+        nstroke
+        0 0 0.375 -120 -45 sparc
+        nstroke
+    }
     /arc {
         0 0 0.5 -45 90 sparc
         0 0 0.5 90 215 sparc
@@ -256,6 +265,12 @@
             0.5 -0.5 goto 0.5 0.5 goto -0.25 -0.25 goto nstroke
         } hmirror
     }
+    /or {
+        0 0 0.375 spcircle nstroke
+        2 {
+            0 0.5 goto 0 0.125 goto nstroke
+        } circrepeat
+    }
     /pop {
         -0.5 -0.5 goto
         -0.5 0.5 goto
@@ -313,6 +328,13 @@
         nstroke
         0 0.75 goto 0 -1 goto nstroke
         0.5 0.5 goto 0.75 0.75 goto 0.5 1 goto nstroke
+    }
+    /xor {
+        -0.5 0.5 goto
+        0 0 0.5 -45 90 sparc
+        0 0 0.5 90 225 sparc
+        0.5 0.5 goto
+        nstroke
     }
 >> def
 

@@ -82,6 +82,7 @@ sigil_bank /dot {
 /operator_foo { /foo /nametype true draw_token } def
 /name_foo { /foo /nametype false draw_token } def
 /name_foobar { /foobar /nametype false draw_token } def
+/operator_xor { /xor /nametype true draw_token } def
 %%EndProlog
 72 softscale
 4.25 5.5 translate
@@ -90,8 +91,8 @@ sigil_bank /dot {
 % /code mystical_evoke_label_unscaled
 % showpage
 
-2 recip softscale
-name_foobar
+2 softscale
+operator_xor
 -1.1 -1.1 1.1 1.1 box stroke
 
 showpage
