@@ -568,9 +568,14 @@
         spell
     end
 } def
+
+/mystical_scale_spell { /spell arg
+    spell /full_radius get recip dup scale
+} def
+
 /mystical_draw_spell { /spell arg
     gsave
-        spell /full_radius get recip dup scale
+        spell mystical_scale_spell
         spell draw_ring
     grestore
 } def
@@ -582,30 +587,6 @@
     end
 } def
 
-/mystical_evoke { /evocation arg
-    evocation where { evocation get mystical } if
-} def
-
-/mystical_evoke_label { /evocation arg
-    evocation where {
-        evocation get mystical_get_spell /spell arg
-        gsave
-            spell /full_radius get recip dup scale
-            % spell draw_ring
-            % false token for label
-            <<
-                /name evocation /otype /nametype 
-                /xflag false /aflag true
-                /position 0 /angle -90 /parent <<
-                    /radius spell /full_radius get neg
-                >>
-                /ring spell /ring_angle -90 /offset spell /full_radius get
-                /defligature true
-            >> dup draw_sigil draw_link
-        grestore
-    } if
-} def
-
 /mystical_unscaled {
     10 dict begin
         mystical_get_spell /spell arg
@@ -613,25 +594,42 @@
     end
 } def
 
+/mystical_evoke { /evocation arg
+    evocation where { evocation get mystical } if
+} def
+
 /mystical_evoke_unscaled { /evocation arg
     evocation where { evocation get mystical_unscaled } if
-}
+} def
+
+% this assumes evocation and spell are defined locally
+/mystical_draw_evocation_label {
+    % false token for label
+    <<
+        /name evocation /otype /nametype 
+        /xflag false /aflag true
+        /position 0 /angle -90 /parent <<
+            /radius spell /full_radius get neg
+        >>
+        /ring spell /ring_angle -90 /offset spell /full_radius get
+        /defligature true
+    >> dup draw_sigil draw_link
+} def
+/mystical_evoke_label { /evocation arg
+    evocation where {
+        evocation get mystical_get_spell /spell arg
+        gsave
+            spell mystical_scale_spell
+            mystical_draw_evocation_label
+        grestore
+    } if
+} def
 
 /mystical_evoke_label_unscaled { /evocation arg
     evocation where {
         evocation get mystical_get_spell /spell arg
         gsave
-            % spell draw_ring
-            % false token for label
-            <<
-                /name evocation /otype /nametype 
-                /xflag false /aflag true
-                /position 0 /angle -90 /parent <<
-                    /radius spell /full_radius get neg
-                >>
-                /ring spell /ring_angle -90 /offset spell /full_radius get
-                /defligature true
-            >> dup draw_sigil draw_link
+            mystical_draw_evocation_label
         grestore
     } if
 } def

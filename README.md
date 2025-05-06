@@ -42,7 +42,7 @@ The rings' rims contain text or sigils.  Sigils are symbols that stand in for op
 
 | array | /array | (array) | foo | /foo | /foobar |
 |--|--|--|--|--|--|
-| ![array sigil](images/sigil_array.png) | ![/array sigil](name_array) | ![array string](string_array) | ![foo string]() | ![foo name]() | ![foobar name]() |
+| ![array sigil](images/sigil_array.png) | ![/array sigil](images/name_array.png) | ![array string](images/string_array.png) | ![foo](images/bare_foo.png) | ![foo name](images/name_foo.png) | ![foobar name](images/name_foobar.png) |
 
 ### Standard Sigils
 Many built-in operators have been given their own sigils.  These are used in place of the text of the operator if it appears as a name or operator (but not if it appears as a string).  I have generally made these sigils based on the initial of the command and an illustration of the concept, though in some cases I have taken a more fully illustrative route or created some standard visual language.

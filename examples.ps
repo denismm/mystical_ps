@@ -29,10 +29,6 @@ sigil_bank /dot {
     grestore
 } put
 
-%%EndProlog
-72 softscale
-4.25 5.5 translate
-
 /code {
     10 dict begin
     /dot {currentlinewidth 1.5 mul 0 360 arc fill } def
@@ -62,11 +58,22 @@ sigil_bank /dot {
     } forall
    end
 } def
+
+/name_array {} def
+/string_array {} def
+/bare_foo {} def
+/name_foo {} def
+/name_foobar {} def
+%%EndProlog
+72 softscale
+4.25 5.5 translate
+
 % 8 recip softscale
 % /code mystical_evoke_label_unscaled
+% showpage
 
 2 recip softscale
--1.5 -7 5.5 1.5 box stroke
-link_example
+% -1.5 -7 5.5 1.5 box stroke
+name_array
 
 showpage
