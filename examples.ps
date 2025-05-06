@@ -59,10 +59,10 @@ sigil_bank /dot {
    end
 } def
 /fake_token_radius 5 def
-/make_fake_token { /otype arg /literal arg
+/make_fake_token { /xflag arg /otype arg /literal arg
     <<
         /name literal /otype otype
-        /xflag false /aflag false
+        /xflag xflag /aflag false
         /position 0 /angle -90
         /parent << /radius fake_token_radius >>
         /width literal 20 string cvs stringwidth pop nonsigil_spacing 2 mul add
@@ -76,11 +76,12 @@ sigil_bank /dot {
         fake_token draw_sigil
     grestore
 } def
-/name_array { /array /nametype draw_token } def
-/string_array { /array /stringtype draw_token } def
-/bare_foo {} def
-/name_foo {} def
-/name_foobar {} def
+/operator_array { /array /nametype true draw_token } def
+/name_array { /array /nametype false draw_token } def
+/string_array { /array /stringtype false draw_token } def
+/operator_foo { /foo /nametype true draw_token } def
+/name_foo { /foo /nametype false draw_token } def
+/name_foobar { /foobar /nametype false draw_token } def
 %%EndProlog
 72 softscale
 4.25 5.5 translate
@@ -90,7 +91,7 @@ sigil_bank /dot {
 % showpage
 
 2 recip softscale
-string_array
+name_foobar
 -1.1 -1.1 1.1 1.1 box stroke
 
 showpage
