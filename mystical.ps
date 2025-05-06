@@ -114,10 +114,16 @@
                 grestore
             } if
         } if
-        sigil_bank name known {
+        sigil_bank name known otype /stringtype ne and{
             gsave
                 otype /return ne {
                     90 rotate
+                } if
+                otype /stringtype eq {
+                    % sigil cartouche
+                    0 0 ring_halfwidth spcircle nstroke
+                } if
+                otype /return ne {
                     0.75 softscale
                 } if
                 sigil_bank name get exec
@@ -315,7 +321,7 @@
                         aflag {
                             0.5
                         } {
-                            sigil_bank literal known {
+                            sigil_bank literal known otype /stringtype ne and {
                                 std_sigil_width
                             } {
                                 literal buffer cvs stringwidth pop
