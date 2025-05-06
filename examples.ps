@@ -58,9 +58,26 @@ sigil_bank /dot {
     } forall
    end
 } def
+/fake_token_radius 5 def
+/make_fake_token { /otype arg /literal arg
+    <<
+        /name literal /otype otype
+        /xflag false /aflag false
+        /position 0 /angle -90
+        /parent << /radius fake_token_radius >>
+        /width literal 20 string cvs stringwidth pop nonsigil_spacing 2 mul add
+    >>
+} def
 
-/name_array {} def
-/string_array {} def
+/draw_token {
+    make_fake_token /fake_token arg
+    gsave
+        0 fake_token_radius translate
+        fake_token draw_sigil
+    grestore
+} def
+/name_array { /array /nametype draw_token } def
+/string_array { /array /stringtype draw_token } def
 /bare_foo {} def
 /name_foo {} def
 /name_foobar {} def
@@ -73,7 +90,7 @@ sigil_bank /dot {
 % showpage
 
 2 recip softscale
-% -1.5 -7 5.5 1.5 box stroke
-name_array
+string_array
+-1.1 -1.1 1.1 1.1 box stroke
 
 showpage
