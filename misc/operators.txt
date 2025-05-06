@@ -1,4 +1,390 @@
-# Miscellaneous Operators
+## Operand Stack Manipulation Operators
+any pop –
+Discard top element
+any1 any2 exch any2 any1
+Exchange top two elements
+any dup any any
+Duplicate top element
+any1 … anyn n copy any1 … anyn any1 … anyn
+Duplicate top n elements
+any n … any0 n index any n … any0 anyn
+Duplicate arbitrary element
+any n−1 … any0 n j roll any(j−1) mod n … any0 anyn−1 … anyj mod n
+Roll n elements up j times
+any1 … anyn clear
+Discard all elements
+any1 … anyn count any1 … anyn n
+Count elements on stack
+– mark mark
+Push mark on stack
+mark obj1 … objn cleartomark –
+Discard elements down through mark
+mark obj1 … objn counttomark mark obj1 … objn n
+Count elements down to mark
+
+## Arithmetic and Math Operators
+num1 num2 add sum
+Return num1 plus num2
+num1 num2 div quotient
+Return num1 divided by num2
+int1 int2 idiv quotient
+Return int1 divided by int2
+int1 int2 mod remainder
+Return remainder after dividing int1 by int2
+num1 num2 mul product
+Return num1 times num2
+num1 num2 sub difference
+Return num1 minus num2
+num1 abs num2
+Return absolute value of num1
+num1 neg num2
+Return negative of num1
+num1 ceiling num2
+Return ceiling of num1
+num1 floor num2
+Return floor of num1
+num1 round num2
+Round num1 to nearest integer
+num1 truncate num2
+Remove fractional part of num1
+num sqrt real
+Return square root of num
+num den atan angle
+Return arctangent of num/den in degrees
+angle cos real
+Return cosine of angle degrees
+angle sin real
+Return sine of angle degrees
+base exponent exp real
+Raise base to exponent power
+num ln real
+Return natural logarithm (base e)
+num log real
+Return common logarithm (base 10)
+– rand int
+Generate pseudo-random integer
+int srand –
+Set random number seed
+– rrand int
+Return random number seed
+
+## Array Operators
+int array array
+Create array of length int
+– [ mark
+Start array construction
+mark obj0 … obj n−1 ] array
+End array construction
+array length int
+Return number of elements in array
+array index get any
+Return array element indexed by index
+array index any put –
+Put any into array at index
+array index count getinterval subarray
+Return subarray of array starting at index for count elements
+array1 index array2 |packedarray2 putinterval –
+Replace subarray of array1 starting at index by array2 |packedarray2
+any0 … anyn−1 array astore array
+Pop elements from stack into array
+array aload any0 … anyn−1 array
+Push all elements of array on stack
+array1 array2 copy subarray2
+Copy elements of array1 to initial subarray of array2
+array proc forall –
+Execute proc for each element of array
+
+## Packed Array Operators
+any0 … anyn−1 n packedarray packedarray
+Create packed array consisting of n elements from stack
+bool setpacking –
+Set array packing mode for { … } syntax (true = packed array)
+– currentpacking bool
+Return array packing mode
+packedarray length int
+Return number of elements in packedarray
+packedarray index get any
+Return packedarray element indexed by index
+packedarray index count getinterval subarray
+Return subarray of packedarray starting at index for count elements
+packedarray aload any0 … anyn−1 packedarray
+Push all elements of packedarray on stack
+packedarray1 array2 copy subarray2
+Copy elements of packedarray1 to initial subarray of array2
+packedarray proc forall –
+Execute proc for each element of packedarray
+
+## Dictionary Operators
+int dict dict
+Create dictionary with capacity for int elements
+– << mark
+Start dictionary construction
+mark key1 value1 … keyn valuen >> dict
+End dictionary construction
+dict length int
+Return number of entries in dict
+dict maxlength int
+Return current capacity of dict
+dict begin –
+Push dict on dictionary stack
+– end –
+Pop current dictionary off dictionary stack
+key value def –
+Associate key and value in current dictionary
+key load value
+Search dictionary stack for key and return associated value
+key value store –
+Replace topmost definition of key
+dict key get any
+Return value associated with key in dict
+dict key value put –
+Associate key with value in dict
+dict key undef –
+Remove key and its value from dict
+dict key known bool
+Test whether key is in dict
+key where dict true or false
+Find dictionary in which key is defined
+dict1 dict2 copy dict2
+Copy contents of dict1 to dict2
+dict proc forall –
+Execute proc for each entry in dict
+– currentdict dict
+Return current dictionary
+– errordict dict
+Return error handler dictionary
+– $error dict
+Return error control and status dictionary
+– systemdict dict
+Return system dictionary
+– userdict dict
+Return writeable dictionary in local VM
+– globaldict dict
+Return writeable dictionary in global VM
+– statusdict dict
+Return product-dependent dictionary
+– countdictstack int
+Count elements on dictionary stack
+array dictstack subarray
+Copy dictionary stack into array
+– cleardictstack –
+Pop all nonpermanent dictionaries off dictionary stack
+
+## String Operators
+int string string
+Create string of length int
+string length int
+Return number of elements in string
+string index get int
+Return string element indexed by index
+string index int put –
+Put int into string at index
+string index count getinterval substring
+Return substring of string starting at index for count elements
+string1 index string2 putinterval –
+Replace substring of string1 starting at index by string2
+string1 string2 copy substring2
+Copy elements of string1 to initial substring of string2
+string proc forall –
+Execute proc for each element of string
+string seek anchorsearch post match true or string false
+Search for seek at start of string
+string seek search post match pre true or string false
+Search for seek in string
+string token post any true or false
+Read token from start of string
+
+## Relational, Boolean, and Bitwise Operators
+any1 any2 eq bool
+Test equal
+any1 any2 ne bool
+Test not equal
+num1 |str1 num2 |str2 ge bool
+Test greater than or equal
+num1 |str1 num2 |str2 gt bool
+Test greater than
+num1 |str1 num2 |str2 le bool
+Test less than or equal
+num1 |str1 num2 |str2 lt bool
+Test less than
+bool1 |int1 bool2 |int2 and bool3 |int3
+Perform logical|bitwise and
+bool1 |int1 not bool2 |int2
+Perform logical|bitwise not
+bool1 |int1 bool2 |int2 or bool3 |int3
+Perform logical|bitwise inclusive or
+bool1 |int1 bool2 |int2 xor bool3 |int3
+Perform logical|bitwise exclusive or
+– true true
+Return boolean value true
+– false false
+Return boolean value false
+int1 shift bitshift int2
+Perform bitwise shift of int1 (positive is left)
+
+## Control Operators
+any exec –
+Execute arbitrary object
+bool proc if –
+Execute proc if bool is true
+bool proc1 proc2 ifelse –
+Execute proc1 if bool is true, proc2 if false
+initial increment limit proc for –
+Execute proc with values from initial by steps of increment to limit
+int proc repeat –
+Execute proc int times
+proc loop –
+Execute proc an indefinite number of times
+– exit –
+Exit innermost active loop
+– stop –
+Terminate stopped context
+any stopped bool
+Establish context for catching stop
+– countexecstack int
+Count elements on execution stack
+array execstack subarray
+Copy execution stack into array
+– quit –
+Terminate interpreter
+– start –
+Executed at interpreter startup
+
+## Type, Attribute, and Conversion Operators
+any type name
+Return type of any
+any cvlit any
+Make object literal
+any cvx any
+Make object executable
+any xcheck bool
+Test executable attribute
+array|packedarray|file|string executeonly array|packedarray|file|string
+Reduce access to execute-only
+array|packedarray|dict|file|string noaccess array|packedarray|dict|file|string
+Disallow any access
+array|packedarray|dict|file|string readonly array|packedarray|dict|file|string
+Reduce access to read-only
+array|packedarray|dict|file|string rcheck bool
+Test read access
+array|packedarray|dict|file|string wcheck bool
+Test write access
+num|string cvi int
+Convert to integer
+string cvn name
+Convert to name
+num|string cvr real
+Convert to real
+num radix string cvrs substring
+Convert with radix to string
+any string cvs substring
+Convert to string
+
+## File Operators
+filename access file file
+Open named file with specified access
+datasrc|datatgt dict param1 … param n filtername filter file
+Establish filtered file
+file closefile –
+Close file
+file read int true or false
+Read one character from file
+file int write –
+Write one character to file
+file string readhexstring substring bool
+Read hexadecimal numbers from file into string
+file string writehexstring –
+Write string to file as hexadecimal
+file string readstring substring bool
+Read string from file
+file string writestring –
+Write string to file
+file string readline substring bool
+Read line from file into string
+file token any true or false
+Read token from file
+file bytesavailable int
+Return number of bytes available to read
+– flush –
+Send buffered data to standard output file
+file flushfile –
+Send buffered data or read to EOF
+file resetfile –
+Discard buffered characters
+file status bool
+Return status of file (true = valid)
+filename status pages bytes referenced created true or false
+Return information about named file
+filename run –
+Execute contents of named file
+– currentfile file
+Return file currently being executed
+filename deletefile –
+Delete named file
+filename1 filename2 renamefile –
+Rename file filename1 to filename2
+template proc scratch filenameforall –
+Execute proc for each file name matching template
+file position setfileposition –
+Set file to specified position
+file fileposition position
+Return current position in file
+string print –
+Write string to standard output file
+any = –
+Write text representation of any to standard output file
+any == –
+Write syntactic representation of any to standard output file
+any1 … anyn stack any1 … anyn
+Print stack nondestructively using =
+any1 … anyn pstack any1 … anyn
+Print stack nondestructively using ==
+obj tag printobject –
+Write binary object to standard output file, using tag
+file obj tag writeobject –
+Write binary object to file, using tag
+int setobjectformat –
+Set binary object format (0 = disable, 1 = IEEE high, 2 = IEEE low, 3 = native high, 4 = native low)
+– currentobjectformat int
+Return binary object format
+
+## Resource Operators
+key instance category defineresource instance
+Register named resource instance in category
+key category undefineresource –
+Remove resource registration
+key category findresource instance
+Return resource instance identified by key in category
+renderingintent findcolorrendering name bool
+Select CIE-based color rendering dictionary by rendering intent
+key category resourcestatus status size true or false
+Return status of resource instance
+template proc scratch category resourceforall –
+Enumerate resource instances in category
+
+## Virtual Memory Operators
+– save save
+Create VM snapshot
+save restore –
+Restore VM snapshot
+bool setglobal –
+Set VM allocation mode (false = local, true = global)
+– currentglobal bool
+Return current VM allocation mode
+any gcheck bool
+Return true if any is simple or in global VM, false if in local VM
+bool1 password startjob bool2
+Start new job that will alter initial VM if bool1 is true
+index any defineuserobject –
+Define user object associated with index
+index execuserobject –
+Execute user object associated with index
+index undefineuserobject –
+Remove user object associated with index
+– UserObjects array
+Return current UserObjects array defined in userdict
+
+## Miscellaneous Operators
 proc bind proc
 Replace operator names in proc with operators; perform idiom recognition
 – null null
@@ -102,11 +488,9 @@ Set halftone dictionary
 – currenthalftone halftone
 Return current halftone dictionary
 frequency angle proc setscreen –
-Set gray halftone screen by frequency, angle,
-and spot function
+Set gray halftone screen by frequency, angle, and spot function
 frequency angle halftone setscreen –
-Set gray halftone screen from halftone
-dictionary
+Set gray halftone screen from halftone dictionary
 – currentscreen frequency angle proc|halftone
 Return current gray halftone screen
 redfreq redang redproc|redhalftone
@@ -402,13 +786,11 @@ Return width of glyphs for string in current font
 proc string cshow –
 Invoke character mapping algorithm and call proc
 proc string kshow –
-Execute proc between characters shown from
-string
+Execute proc between characters shown from string
 – FontDirectory dict
 Return dictionary of Font resource instances
 – GlobalFontDirectory dict
-Return dictionary of Font resource instances
-in global VM
+Return dictionary of Font resource instances in global VM
 – StandardEncoding array
 Return Adobe standard font encoding vector
 – ISOLatin1Encoding array
