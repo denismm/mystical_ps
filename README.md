@@ -47,7 +47,13 @@ The rings' rims contain text or sigils.  Sigils are symbols that stand in for op
 ### Standard Sigils
 Many built-in operators have been given their own sigils.  These are used in place of the text of the operator if it appears as a name or operator (but not if it appears as a string).  I have generally made these sigils based on the initial of the command and an illustration of the concept, though in some cases I have taken a more fully illustrative route or created some standard visual language.
 
-in order from ps ref
+#### Operand Stack Manipulation Operators
+
+| ![pop sigil](images/sigil_pop.png) | ![exch sigil](images/sigil_exch.png) | ![dup sigil](images/sigil_dup.png) | ![copy sigil](images/sigil_copy.png) |
+|--|--|--|--|
+|`pop`|`exch`|`dup`|`copy`|
+
+
 
 ### User Sigils
 Sigils for new functions or names can be added to `sigil_bank` at runtime.  They should fit into the 1-unit square centered on the origin, so no coordinate should be more than 0.5 (of course, you can transform your coordinate system for convenience).  If you use `nstroke` instead of `stroke` you will get the same calligraphic effect as the standard sigils.

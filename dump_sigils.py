@@ -18,7 +18,7 @@ else:
                 sigil_name = line.split()[0][1:]
                 sigils.append(sigil_name)
 
-base_command = "pstopng -0.6 d d d 100 sigil_dump.ps -Lset_nib_matrix -Pimages/".split()
+base_command = "pstopng -0.6 d d d 50 sigil_dump.ps -Lset_nib_matrix -Pimages/".split()
 for sigil_name in sigils:
     command = base_command + [f"sigil_{sigil_name}"]
     if sigil_name in ["COMPLETE", "RETURN"]:
