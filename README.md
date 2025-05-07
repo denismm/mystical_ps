@@ -50,9 +50,10 @@ Many built-in operators have been given their own sigils.  These are used in pla
 #### Operand Stack Manipulation Operators
 
 | ![pop sigil](images/sigil_pop.png) | ![exch sigil](images/sigil_exch.png) | ![dup sigil](images/sigil_dup.png) | ![copy sigil](images/sigil_copy.png) |
-|--|--|--|--|
+|:--:|:--:|:--:|:--:|
 |`pop`|`exch`|`dup`|`copy`|
-
+| ![pop sigil](images/sigil_pop.png) | ![exch sigil](images/sigil_exch.png) | ![dup sigil](images/sigil_dup.png) | ![copy sigil](images/sigil_copy.png) |
+|`pop`|`exch`|`dup`|`copy`|
 
 
 ### User Sigils
