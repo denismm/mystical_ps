@@ -49,11 +49,9 @@ Many built-in operators have been given their own sigils.  These are used in pla
 
 #### Operand Stack Manipulation Operators
 
-| ![pop sigil](images/sigil_pop.png) | ![exch sigil](images/sigil_exch.png) | ![dup sigil](images/sigil_dup.png) | ![copy sigil](images/sigil_copy.png) |
+|`pop`|`exch`|`dup`|`copy`|
 |:--:|:--:|:--:|:--:|
-|`pop`|`exch`|`dup`|`copy`|
 | ![pop sigil](images/sigil_pop.png) | ![exch sigil](images/sigil_exch.png) | ![dup sigil](images/sigil_dup.png) | ![copy sigil](images/sigil_copy.png) |
-|`pop`|`exch`|`dup`|`copy`|
 
 
 ### User Sigils
@@ -64,13 +62,21 @@ Sigils for user variables can be designed with any sigil system.  My examples mo
 | arg | dot | softscale | nstroke |
 |--|--|--|--|
 
-## Ligature for /name { circle } def
+## Ligature for /name { ring } def
 
-There is a sigil for `def` but a very common pattern is to push a name, push a function, and def the name to the function. To save space and to emphasize this definition, there is special syntax for this case consisting of the usual name triangle with the end of the link line directly below it, and the def sigil is omitted entirely. This is extended to the other two circle types for simplicity. Any other use of `def` will just use the def sigil as normal.
+There is a sigil for `def` but a very common pattern is to push a name, push a function, and def the name to the function. To save space and to emphasize this definition, there is special syntax for this case consisting of the usual name triangle with the end of the link line directly below it, and the def sigil is omitted entirely. This is extended to the other two ring types for simplicity. Any other use of `def` will just use the def sigil as normal.
 
 def-ligature example
 
-This only applies inside of executable arrays. I considered a similar ligature for /name { circle } in dictionaries but there's too much chance of getting it wrong.
+This only applies inside of executable arrays. I considered a similar ligature for /name { ring } in dictionaries but there's too much chance of getting it wrong.
+
+## Functions to generate Mystical
+
+mystical:
+
+mystical_evoke:
+
+mystical_evoke_label:
 
 ## Sample Algorithms
 
@@ -79,4 +85,4 @@ dot
 quicksort
 
 ## Could this work for other languages?
-This approach seems applicable to other language with just operators, such as Forth. Languages with more complicated statements might be more difficult, and I don't know if a new circle for every brace or indent will be overly busy.
+This approach seems applicable to other language with just operators, such as Forth. Languages with more complicated statements might be more difficult, and I don't know if a new ring for every brace or indent will be overly busy.
