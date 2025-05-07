@@ -62,6 +62,8 @@ None: Miscellaneous Operators
 |![gsave sigil](../images/sigil_gsave.png)|![grestore sigil](../images/sigil_grestore.png)|![setlinewidth sigil](../images/sigil_setlinewidth.png)|![currentlinewidth sigil](../images/sigil_currentlinewidth.png)|![setlinecap sigil](../images/sigil_setlinecap.png)|![currentlinecap sigil](../images/sigil_currentlinecap.png)|![setlinejoin sigil](../images/sigil_setlinejoin.png)|![currentlinejoin sigil](../images/sigil_currentlinejoin.png)|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |gsave|grestore|setlinewidth|currentlinewidth|setlinecap|currentlinecap|setlinejoin|currentlinejoin|
+|![sethsbcolor sigil](../images/sigil_sethsbcolor.png)|![currenthsbcolor sigil](../images/sigil_currenthsbcolor.png)|![setrgbcolor sigil](../images/sigil_setrgbcolor.png)|![currentrgbcolor sigil](../images/sigil_currentrgbcolor.png)|![setcmykcolor sigil](../images/sigil_setcmykcolor.png)|![currentcmykcolor sigil](../images/sigil_currentcmykcolor.png)|
+|sethsbcolor|currenthsbcolor|setrgbcolor|currentrgbcolor|setcmykcolor|currentcmykcolor|
 
 Unknown: ['clipsave', 'cliprestore', 'grestoreall', 'initgraphics', 'gstate', 'setgstate', 'currentgstate', 'setmiterlimit', 'currentmiterlimit', 'setstrokeadjust', 'currentstrokeadjust', 'setdash', 'currentdash', 'setcolorspace', 'currentcolorspace', 'setcolor', 'currentcolor', 'setgray', 'currentgray']
 

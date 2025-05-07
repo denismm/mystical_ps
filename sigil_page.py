@@ -38,16 +38,21 @@ with open(output_file, 'w') as of:
                 unknown_list.append(operator)
         if sigil_list:
             of.write(f"## {category}\n")
-            table_width = min(max_table_width, len(sigil_list))
-            sigil_line: str = "|"
-            caption_line: str = "|"
-            for operator in sigil_list[:table_width]:
-                caption_line += operator + "|"
-                sigil_file = f"../images/sigil_{operator}.png"
-                sigil_line += f"![{operator} sigil]({sigil_file})|"
-            of.write(sigil_line + "\n")
-            of.write("|:--:" * table_width + "|\n")
-            of.write(caption_line + "\n")
+            need_header = True
+            while(sigil_list):
+                table_width = min(max_table_width, len(sigil_list))
+                sigil_line: str = "|"
+                caption_line: str = "|"
+                for operator in sigil_list[:table_width]:
+                    caption_line += operator + "|"
+                    sigil_file = f"../images/sigil_{operator}.png"
+                    sigil_line += f"![{operator} sigil]({sigil_file})|"
+                of.write(sigil_line + "\n")
+                if need_header:
+                    of.write("|:--:" * table_width + "|\n")
+                    need_header = False
+                of.write(caption_line + "\n")
+                sigil_list = sigil_list[table_width:]
             of.write("\n")
 
             if unknown_list:
