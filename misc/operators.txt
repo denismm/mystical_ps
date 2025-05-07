@@ -518,13 +518,11 @@ Return current black-generation function
 proc setundercolorremoval –
 Set undercolor-removal function
 – currentundercolorremoval proc
-Return current undercolor-removal
-function
+Return current undercolor-removal function
 dict setcolorrendering –
 Set CIE-based color rendering dictionary
 – currentcolorrendering dict
-Return current CIE-based color rendering
-dictionary
+Return current CIE-based color rendering dictionary
 num setﬂat –
 Set ﬂatness tolerance
 – currentﬂat num
@@ -745,8 +743,7 @@ Install no-output device
 
 ## Glyph and Font Operators
 key font|cidfont deﬁnefont font|cidfont
-Register font|cidfont in Font resource
-category
+Register font|cidfont in Font resource category
 key name|string|dict array composefont font
 Register composite font dictionary created from CMap and array of CIDFonts or fonts
 key undeﬁnefont –

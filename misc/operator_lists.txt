@@ -1,447 +1,409 @@
 ## Operand Stack Manipulation Operators
-any pop –
-any1 any2 exch any2 any1
-any dup any any
-any1 … anyn n copy any1 … anyn any1 … anyn
-any n … any0 n index any n … any0 anyn
-any n−1 … any0 n j roll any(j−1) mod n … any0 anyn−1 … anyj mod n
-any1 … anyn clear
-any1 … anyn count any1 … anyn n
-– mark mark
-mark obj1 … objn cleartomark –
-mark obj1 … objn counttomark mark obj1 … objn n
+pop
+exch
+dup
+copy
+index
+roll
+clear
+count
+mark
+cleartomark
+counttomark
 
 ## Arithmetic and Math Operators
-num1 num2 add sum
-num1 num2 div quotient
-int1 int2 idiv quotient
-int1 int2 mod remainder
-num1 num2 mul product
-num1 num2 sub difference
-num1 abs num2
-num1 neg num2
-num1 ceiling num2
-num1 floor num2
-num1 round num2
-num1 truncate num2
-num sqrt real
-num den atan angle
-angle cos real
-angle sin real
-base exponent exp real
-num ln real
-num log real
-– rand int
-int srand –
-– rrand int
+add
+div
+idiv
+mod
+mul
+sub
+abs
+neg
+ceiling
+floor
+round
+truncate
+sqrt
+atan
+cos
+sin
+exp
+ln
+log
+rand
+srand
+rrand
 
 ## Array Operators
-int array array
-– [ mark
-mark obj0 … obj n−1 ] array
-array length int
-array index get any
-array index any put –
-array index count getinterval subarray
-array1 index array2 |packedarray2 putinterval –
-any0 … anyn−1 array astore array
-array aload any0 … anyn−1 array
-array1 array2 copy subarray2
-array proc forall –
+array
+[
+]
+length
+get
+put
+getinterval
+putinterval
+astore
+aload
+copy
+forall
 
 ## Packed Array Operators
-any0 … anyn−1 n packedarray packedarray
-bool setpacking –
-– currentpacking bool
-packedarray length int
-packedarray index get any
-packedarray index count getinterval subarray
-packedarray aload any0 … anyn−1 packedarray
-packedarray1 array2 copy subarray2
-packedarray proc forall –
+packedarray
+setpacking
+currentpacking
+length
+get
+getinterval
+packedarray
+copy
+forall
 
 ## Dictionary Operators
-int dict dict
-– << mark
-mark key1 value1 … keyn valuen >> dict
-dict length int
-dict maxlength int
-dict begin –
-– end –
-key value def –
-key load value
-key value store –
-dict key get any
-dict key value put –
-dict key undef –
-dict key known bool
-key where dict true or false
-dict1 dict2 copy dict2
-dict proc forall –
-– currentdict dict
-– errordict dict
-– $error dict
-– systemdict dict
-– userdict dict
-– globaldict dict
-– statusdict dict
-– countdictstack int
-array dictstack subarray
-– cleardictstack –
+dict
+<<
+>>
+length
+maxlength
+begin
+end
+def
+load
+store
+get
+put
+undef
+known
+where
+copy
+forall
+currentdict
+errordict
+$error
+systemdict
+userdict
+globaldict
+statusdict
+countdictstack
+dictstack
+cleardictstack
 
 ## String Operators
-int string string
-string length int
-string index get int
-string index int put –
-string index count getinterval substring
-string1 index string2 putinterval –
-string1 string2 copy substring2
-string proc forall –
-string seek anchorsearch post match true or string false
-string seek search post match pre true or string false
-string token post any true or false
+string
+length
+get
+put
+getinterval
+putinterval
+copy
+forall
+anchorsearch
+search
+token
 
 ## Relational, Boolean, and Bitwise Operators
-any1 any2 eq bool
-any1 any2 ne bool
-num1 |str1 num2 |str2 ge bool
-num1 |str1 num2 |str2 gt bool
-num1 |str1 num2 |str2 le bool
-num1 |str1 num2 |str2 lt bool
-bool1 |int1 bool2 |int2 and bool3 |int3
-bool1 |int1 not bool2 |int2
-bool1 |int1 bool2 |int2 or bool3 |int3
-bool1 |int1 bool2 |int2 xor bool3 |int3
-– true true
-– false false
-int1 shift bitshift int2
+eq
+ne
+ge
+gt
+le
+lt
+and
+not
+or
+xor
+true
+false
+bitshift
 
 ## Control Operators
-any exec –
-bool proc if –
-bool proc1 proc2 ifelse –
-initial increment limit proc for –
-int proc repeat –
-proc loop –
-– exit –
-– stop –
-any stopped bool
-– countexecstack int
-array execstack subarray
-– quit –
-– start –
+exec
+if
+ifelse
+for
+repeat
+loop
+exit
+stop
+stopped
+countexecstack
+execstack
+quit
+start
 
 ## Type, Attribute, and Conversion Operators
-any type name
-any cvlit any
-any cvx any
-any xcheck bool
-array|packedarray|file|string executeonly array|packedarray|file|string
-array|packedarray|dict|file|string noaccess array|packedarray|dict|file|string
-array|packedarray|dict|file|string readonly array|packedarray|dict|file|string
-array|packedarray|dict|file|string rcheck bool
-array|packedarray|dict|file|string wcheck bool
-num|string cvi int
-string cvn name
-num|string cvr real
-num radix string cvrs substring
-any string cvs substring
+type
+cvlit
+cvx
+xcheck
+executeonly
+noaccess
+readonly
+rcheck
+wcheck
+cvi
+cvn
+cvr
+cvrs
+cvs
 
 ## File Operators
-filename access file file
-datasrc|datatgt dict param1 … param n filtername filter file
-file closefile –
-file read int true or false
-file int write –
-file string readhexstring substring bool
-file string writehexstring –
-file string readstring substring bool
-file string writestring –
-file string readline substring bool
-file token any true or false
-file bytesavailable int
-– flush –
-file flushfile –
-file resetfile –
-file status bool
-filename status pages bytes referenced created true or false
-filename run –
-– currentfile file
-filename deletefile –
-filename1 filename2 renamefile –
-template proc scratch filenameforall –
-file position setfileposition –
-file fileposition position
-string print –
-any = –
-any == –
-any1 … anyn stack any1 … anyn
-any1 … anyn pstack any1 … anyn
-obj tag printobject –
-file obj tag writeobject –
-int setobjectformat –
-– currentobjectformat int
+file
+filter
+closefile
+read
+write
+readhexstring
+writehexstring
+readstring
+writestring
+readline
+token
+bytesavailable
+flush
+flushfile
+resetfile
+status
+run
+currentfile
+deletefile
+renamefile
+filenameforall
+setfileposition
+fileposition
+print
+=
+==
+stack
+pstack
+printobject
+writeobject
+setobjectformat
+currentobjectformat
 
 ## Resource Operators
-key instance category defineresource instance
-key category undefineresource –
-key category findresource instance
-renderingintent findcolorrendering name bool
-key category resourcestatus status size true or false
-template proc scratch category resourceforall –
+defineresource
+undefineresource
+findresource
+findcolorrendering
+resourcestatus
+resourceforall
 
 ## Virtual Memory Operators
-– save save
-save restore –
-bool setglobal –
-– currentglobal bool
-any gcheck bool
-bool1 password startjob bool2
-index any defineuserobject –
-index execuserobject –
-index undefineuserobject –
-– UserObjects array
+save
+restore
+setglobal
+currentglobal
+gcheck
+startjob
+defineuserobject
+execuserobject
+undefineuserobject
+UserObjects
 
 ## Miscellaneous Operators
-proc bind proc
-– null null
-– version string
-– realtime int
-– usertime int
-– languagelevel int
-– product string
-– revision int
-– serialnumber int
-– executive –
-bool echo –
-– prompt –
+bind
+null
+version
+realtime
+usertime
+languagelevel
+product
+revision
+serialnumber
+executive
+echo
+prompt
 
 ## Graphics State Operators (Device-Independent)
-– gsave –
-– grestore –
-– clipsave –
-– cliprestore –
-– grestoreall –
-– initgraphics –
-– gstate gstate
-gstate setgstate –
-gstate currentgstate gstate
-num setlinewidth –
-– currentlinewidth num
-int setlinecap –
-– currentlinecap int
-int setlinejoin –
-– currentlinejoin int
-num setmiterlimit –
-– currentmiterlimit num
-bool setstrokeadjust –
-– currentstrokeadjust bool
-array offset setdash –
-– currentdash array offset
-array|name setcolorspace –
-– currentcolorspace array
-comp1 … compn setcolor –
-pattern setcolor –
-comp1 … compn pattern setcolor –
-– currentcolor comp1 … compn
-num setgray –
-– currentgray num
-hue saturation brightness sethsbcolor –
-– currenthsbcolor hue saturation brightness
-red green blue setrgbcolor –
-– currentrgbcolor red green blue
-cyan magenta yellow black setcmykcolor –
-– currentcmykcolor cyan magenta yellow black
+gsave
+grestore
+clipsave
+cliprestore
+grestoreall
+initgraphics
+gstate
+setgstate
+currentgstate
+setlinewidth
+currentlinewidth
+setlinecap
+currentlinecap
+setlinejoin
+currentlinejoin
+setmiterlimit
+currentmiterlimit
+setstrokeadjust
+currentstrokeadjust
+setdash
+currentdash
+setcolorspace
+currentcolorspace
+setcolor
+currentcolor
+setgray
+currentgray
+sethsbcolor
+currenthsbcolor
+setrgbcolor
+currentrgbcolor
+setcmykcolor
+currentcmykcolor
 
 ## Graphics State Operators (Device-Dependent)
-halftone sethalftone –
-– currenthalftone halftone
-frequency angle proc setscreen –
-frequency angle halftone setscreen –
-– currentscreen frequency angle proc|halftone
-redfreq redang redproc|redhalftone
-greenfreq greenang greenproc|greenhalftone
-bluefreq blueang blueproc|bluehalftone
-grayfreq grayang grayproc|grayhalftone setcolorscreen –
-– currentcolorscreen redfreq redang redproc|redhalftone
-greenfreq greenang greenproc|greenhalftone
-bluefreq blueang blueproc|bluehalftone
-grayfreq grayang grayproc|grayhalftone
-proc settransfer –
-– currenttransfer proc
-redproc greenproc blueproc grayproc setcolortransfer –
-– currentcolortransfer redproc greenproc blueproc grayproc
-proc setblackgeneration –
-– currentblackgeneration proc
-proc setundercolorremoval –
-– currentundercolorremoval proc
-function
-dict setcolorrendering –
-– currentcolorrendering dict
-dictionary
-num setﬂat –
-– currentﬂat num
-bool setoverprint –
-– currentoverprint bool
-num setsmoothness –
-– currentsmoothness num
+sethalftone
+currenthalftone
+setscreen
+currentscreen
+setcolorscreen
+currentcolorscreen
+settransfer
+currenttransfer
+setcolortransfer
+currentcolortransfer
+setblackgeneration
+currentblackgeneration
+setundercolorremoval
+currentundercolorremoval
+setcolorrendering
+currentcolorrendering
+setflat
+currentflat
+setoverprint
+currentoverprint
+setsmoothness
+currentsmoothness
 
 ## Coordinate System and Matrix Operators
-– matrix matrix
-– initmatrix –
-matrix identmatrix matrix
-matrix defaultmatrix matrix
-matrix currentmatrix matrix
-matrix setmatrix –
-t x t y translate –
-t x t y matrix translate matrix
-sx sy scale –
-sx sy matrix scale matrix
-angle rotate –
-angle matrix rotate matrix
-matrix concat –
-matrix1 matrix2 matrix3 concatmatrix matrix3
-x y transform x′ y′
-x y matrix transform x′ y′
-dx dy dtransform dx′ dy′
-dx dy matrix dtransform dx′ dy′
-x′ y′ itransform x y
-x′ y′ matrix itransform x y
-dx′ dy′ idtransform dx dy
-dx′ dy′ matrix idtransform dx dy
-matrix1 matrix2 invertmatrix matrix2
+matrix
+initmatrix
+identmatrix
+defaultmatrix
+currentmatrix
+setmatrix
+translate
+scale
+rotate
+concat
+concatmatrix
+transform
+dtransform
+itransform
+idtransform
+invertmatrix
 
 ## Path Construction Operators
-– newpath –
-– currentpoint x y
-x y moveto –
-dx dy rmoveto –
-x y lineto –
-dx dy rlineto –
-x y r angle1 angle2 arc –
-x y r angle1 angle2 arcn –
-x1 y1 x2 y2 r arct –
-x1 y1 x2 y2 r arcto xt1 yt1 xt2 yt2
-x1 y1 x2 y2 x3 y3 curveto –
-dx1 dy1 dx2 dy2 dx3 dy3 rcurveto –
-– closepath –
-– ﬂattenpath –
-– reversepath –
-– strokepath –
-userpath ustrokepath –
-userpath matrix ustrokepath –
-string bool charpath –
-userpath uappend –
-– clippath –
-llx lly ur x ur y setbbox –
-– pathbbox llx lly ur x ur y
-move line curve close pathforall –
-bool upath userpath
-– initclip –
-– clip –
-– eoclip –
-x y width height rectclip –
-numarray|numstring rectclip –
-– ucache –
+newpath
+currentpoint
+moveto
+rmoveto
+lineto
+rlineto
+arc
+arcn
+arct
+arcto
+curveto
+rcurveto
+closepath
+flattenpath
+reversepath
+strokepath
+ustrokepath
+ustrokepath
+charpath
+uappend
+clippath
+setbbox
+pathbbox
+pathforall
+upath
+initclip
+clip
+eoclip
+rectclip
+ucache
 
 ## Painting Operators
-– erasepage –
-– stroke –
-– ﬁll –
-– eoﬁll –
-x y width height rectstroke –
-x y width height matrix rectstroke –
-numarray|numstring rectstroke –
-numarray|numstring matrix rectstroke –
-x y width height rectﬁll –
-numarray|numstring rectﬁll –
-userpath ustroke –
-userpath matrix ustroke –
-userpath uﬁll –
-userpath ueoﬁll –
-dict shﬁll –
-dict image –
-width height bits/sample matrix datasrc image –
-width height bits/comp matrix
-datasrc0 … datasrcncomp−1 multi ncomp colorimage –
-dict imagemask –
-width height polarity matrix datasrc imagemask –
+erasepage
+stroke
+fill
+eofill
+rectstroke
+rectfill
+ustroke
+ufill
+ueofill
+shfill
+image
+colorimage
+imagemask
 
 ## Insideness-Testing Operators
-x y inﬁll bool
-userpath inﬁll bool
-x y ineoﬁll bool
-userpath ineoﬁll bool
-x y userpath inuﬁll bool
-userpath1 userpath2 inuﬁll bool
-x y userpath inueoﬁll bool
-userpath1 userpath2 inueoﬁll bool
-x y instroke bool
-x y userpath inustroke bool
-x y userpath matrix inustroke bool
-userpath1 userpath2 inustroke bool
-userpath1 userpath2 matrix inustroke bool
+infill
+ineofill
+inufill
+inueofill
+instroke
+inustroke
 
 ## Form and Pattern Operators
-pattern matrix makepattern pattern’
-pattern setpattern –
-comp1 … compn pattern setpattern –
-form execform –
+makepattern
+setpattern
+execform
 
 ## Device Setup and Output Operators
-– showpage –
-– copypage –
-dict setpagedevice –
-– currentpagedevice dict
-– nulldevice –
+showpage
+copypage
+setpagedevice
+currentpagedevice
+nulldevice
 
 ## Glyph and Font Operators
-key font|cidfont deﬁnefont font|cidfont
-category
-key name|string|dict array composefont font
-key undeﬁnefont –
-key ﬁndfont font|cidfont
-font|cidfont scale scalefont font′|cidfont′
-font|cidfont matrix makefont font′|cidfont′
-font|cidfont setfont –
-– rootfont font|cidfont
-– currentfont font|cidfont
-key scale|matrix selectfont –
-string show –
-a x ay string ashow –
-cx c y char string widthshow –
-cx c y char ax ay string awidthshow –
-string numarray|numstring xshow –
-string numarray|numstring xyshow –
-string numarray|numstring yshow –
-name|cid glyphshow –
-string stringwidth wx w y
-proc string cshow –
-proc string kshow –
-– FontDirectory dict
-– GlobalFontDirectory dict
-– StandardEncoding array
-– ISOLatin1Encoding array
-key ﬁndencoding array
-w x w y llx lly ur x ur y setcachedevice –
-w0 x w0y llx lly ur x ur y
-w1x w1y vx v y setcachedevice2 –
-wx w y setcharwidth –
+definefont
+composefont
+undefinefont
+findfont
+scalefont
+makefont
+setfont
+rootfont
+currentfont
+selectfont
+show
+ashow
+widthshow
+awidthshow
+xshow
+xyshow
+yshow
+glyphshow
+stringwidth
+cshow
+kshow
+FontDirectory
+GlobalFontDirectory
+StandardEncoding
+ISOLatin1Encoding
+findencoding
+setcachedevice
+setcachedevice2
+setcharwidth
 
 ## Interpreter Parameter Operators
-dict setsystemparams –
-– currentsystemparams dict
-dict setuserparams –
-– currentuserparams dict
-string dict setdevparams –
-string currentdevparams dict
-int vmreclaim –
-int setvmthreshold –
-– vmstatus level used maximum
-– cachestatus bsize bmax msize mmax csize cmax blimit
-int setcachelimit –
-mark size lower upper setcacheparams –
-– currentcacheparams mark size lower upper
-mark blimit setucacheparams –
-– ucachestatus mark bsize bmax rsize rmax blimit
+setsystemparams
+currentsystemparams
+setuserparams
+currentuserparams
+setdevparams
+currentdevparams
+vmreclaim
+setvmthreshold
+vmstatus
+cachestatus
+setcachelimit
+setcacheparams
+currentcacheparams
+setucacheparams
+ucachestatus
