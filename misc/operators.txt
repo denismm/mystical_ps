@@ -796,8 +796,7 @@ key ﬁndencoding array
 Find encoding vector
 w x w y llx lly ur x ur y setcachedevice –
 Declare cached glyph metrics
-w0 x w0y llx lly ur x ur y
-w1x w1y vx v y setcachedevice2 –
+w0 x w0y llx lly ur x ur y w1x w1y vx v y setcachedevice2 –
 Declare cached glyph metrics
 wx w y setcharwidth –
 Declare uncached glyph metrics
