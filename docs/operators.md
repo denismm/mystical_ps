@@ -1,53 +1,55 @@
 # Standard Sigils
 These are the sigils I came up with for built-in operators.
 ## Operand Stack Manipulation Operators
-|![pop sigil](../images/sigil_pop.png)|![dup sigil](../images/sigil_dup.png)|
-|:--:|:--:|
-|pop|dup|
+|![pop sigil](../images/sigil_pop.png)|![exch sigil](../images/sigil_exch.png)|![dup sigil](../images/sigil_dup.png)|![copy sigil](../images/sigil_copy.png)|![index sigil](../images/sigil_index.png)|![roll sigil](../images/sigil_roll.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|
+|pop|exch|dup|copy|index|roll|
 
-Unknown: ['exch', 'copy', 'index', 'roll', 'clear', 'count', 'mark', 'cleartomark', 'counttomark']
+Unknown: ['clear', 'count', 'mark', 'cleartomark', 'counttomark']
 ## Arithmetic and Math Operators
-|![mul sigil](../images/sigil_mul.png)|
-|:--:|
-|mul|
+|![add sigil](../images/sigil_add.png)|![div sigil](../images/sigil_div.png)|![idiv sigil](../images/sigil_idiv.png)|![mod sigil](../images/sigil_mod.png)|![mul sigil](../images/sigil_mul.png)|![sub sigil](../images/sigil_sub.png)|![abs sigil](../images/sigil_abs.png)|![neg sigil](../images/sigil_neg.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|add|div|idiv|mod|mul|sub|abs|neg|
+|![rand sigil](../images/sigil_rand.png)|![srand sigil](../images/sigil_srand.png)|![rrand sigil](../images/sigil_rrand.png)|
+|rand|srand|rrand|
 
-Unknown: ['add', 'div', 'idiv', 'mod', 'sub', 'abs', 'neg', 'ceiling', 'floor', 'round', 'truncate', 'sqrt', 'atan', 'cos', 'sin', 'exp', 'ln', 'log', 'rand', 'srand', 'rrand']
+Unknown: ['ceiling', 'floor', 'round', 'truncate', 'sqrt', 'atan', 'cos', 'sin', 'exp', 'ln', 'log']
 ## Array Operators
-|![array sigil](../images/sigil_array.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|
-|array|forall|
-
-Unknown: ['[', ']', 'length', 'get', 'put', 'getinterval', 'putinterval', 'astore', 'aload', 'copy']
-## Packed Array Operators
-|![forall sigil](../images/sigil_forall.png)|
-|:--:|
-|forall|
-
-Unknown: ['packedarray', 'setpacking', 'currentpacking', 'length', 'get', 'getinterval', 'packedarray', 'copy']
-## Dictionary Operators
-|![dict sigil](../images/sigil_dict.png)|![begin sigil](../images/sigil_begin.png)|![end sigil](../images/sigil_end.png)|![def sigil](../images/sigil_def.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|:--:|:--:|:--:|
-|dict|begin|end|def|forall|
-
-Unknown: ['<<', '>>', 'length', 'maxlength', 'load', 'store', 'get', 'put', 'undef', 'known', 'where', 'copy', 'currentdict', 'errordict', '$error', 'systemdict', 'userdict', 'globaldict', 'statusdict', 'countdictstack', 'dictstack', 'cleardictstack']
-## String Operators
-|![forall sigil](../images/sigil_forall.png)|
-|:--:|
-|forall|
-
-Unknown: ['string', 'length', 'get', 'put', 'getinterval', 'putinterval', 'copy', 'anchorsearch', 'search', 'token']
-## Relational, Boolean, and Bitwise Operators
-|![and sigil](../images/sigil_and.png)|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
+|![array sigil](../images/sigil_array.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
 |:--:|:--:|:--:|
-|and|or|xor|
+|array|copy|forall|
 
-Unknown: ['eq', 'ne', 'ge', 'gt', 'le', 'lt', 'not', 'true', 'false', 'bitshift']
+Unknown: ['[', ']', 'length', 'get', 'put', 'getinterval', 'putinterval', 'astore', 'aload']
+## Packed Array Operators
+|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|
+|copy|forall|
+
+Unknown: ['packedarray', 'setpacking', 'currentpacking', 'length', 'get', 'getinterval', 'packedarray']
+## Dictionary Operators
+|![dict sigil](../images/sigil_dict.png)|![begin sigil](../images/sigil_begin.png)|![end sigil](../images/sigil_end.png)|![def sigil](../images/sigil_def.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|
+|dict|begin|end|def|copy|forall|
+
+Unknown: ['<<', '>>', 'length', 'maxlength', 'load', 'store', 'get', 'put', 'undef', 'known', 'where', 'currentdict', 'errordict', '$error', 'systemdict', 'userdict', 'globaldict', 'statusdict', 'countdictstack', 'dictstack', 'cleardictstack']
+## String Operators
+|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|
+|copy|forall|
+
+Unknown: ['string', 'length', 'get', 'put', 'getinterval', 'putinterval', 'anchorsearch', 'search', 'token']
+## Relational, Boolean, and Bitwise Operators
+|![and sigil](../images/sigil_and.png)|![not sigil](../images/sigil_not.png)|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
+|:--:|:--:|:--:|:--:|
+|and|not|or|xor|
+
+Unknown: ['eq', 'ne', 'ge', 'gt', 'le', 'lt', 'true', 'false', 'bitshift']
 ## Control Operators
-|![repeat sigil](../images/sigil_repeat.png)|
-|:--:|
-|repeat|
+|![if sigil](../images/sigil_if.png)|![ifelse sigil](../images/sigil_ifelse.png)|![repeat sigil](../images/sigil_repeat.png)|
+|:--:|:--:|:--:|
+|if|ifelse|repeat|
 
-Unknown: ['exec', 'if', 'ifelse', 'for', 'loop', 'exit', 'stop', 'stopped', 'countexecstack', 'execstack', 'quit', 'start']
+Unknown: ['exec', 'for', 'loop', 'exit', 'stop', 'stopped', 'countexecstack', 'execstack', 'quit', 'start']
 
 None: Type, Attribute, and Conversion Operators
 

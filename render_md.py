@@ -5,10 +5,13 @@ import sys
 from datetime import date
 from glob import glob
 
-mdfile = sys.argv[1]
+md_file = sys.argv[1]
+html_file = md_file.replace('.md', '.html')
+if md_file == html_file:
+    raise ValueError("file collision {md_file}")
 
 # read and parse markdown
-with open(mdfile, 'r') as f:
+with open(md_file, 'r') as f:
     readme_lines = list(f)
 title = readme_lines[0]
 if not title.startswith ('# '):
@@ -39,6 +42,7 @@ footer = f"""
 </body></html>
 """
 # print html
-print(header)
-print(readme_html)
-print(footer)
+with open(html_file, 'w') as of:
+    print(header, file=of)
+    print(readme_html, file=of)
+    print(footer, file=of)

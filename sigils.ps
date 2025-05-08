@@ -44,6 +44,18 @@
             -0.375 0 goto 0 0 goto 0 0.375 goto nstroke
         grestore
     }
+    /rand {
+        gsave
+            0 -0.125 translate
+            0.375 softscale
+            6 {
+                0 1 goto
+            } circrepeat closepath nstroke
+            3 {
+                0 0 goto 0 -1 goto nstroke
+            } circrepeat
+        grestore
+    }
     /rgbcolor {
         sigil_parts /color get exec
         gsave
@@ -110,6 +122,20 @@
     /COMPLETE {
         0 -0.25 goto 0 0.25 goto 0.5 0 goto closepath nstroke
     }
+    /abs {
+        -0.5 0.5 goto
+        -0.5 -0.5 goto
+        0 0.5 goto
+        0.5 -0.5 goto
+        0.5 0.5 goto
+        nstroke
+        -0.25 0 goto 0.25 0 goto nstroke
+    }
+    /add {
+        -0.5 -0.5 goto 0 0.5 goto 0.5 -0.5 goto nstroke
+        -0.25 0 goto 0.25 0 goto nstroke
+        0 -0.25 goto 0 0.25 goto nstroke
+    }
     /and {
         -0.25 -0.5 goto
         0 0.25 0.125 -30 90 sparc
@@ -163,6 +189,14 @@
         nstroke
         % doot
     }
+    /copy {
+        0 0 0.5 60 180 sparc
+        0 0 0.5 180 -60 sparc
+        nstroke
+        0.25 0 0.5 60 180 sparc
+        0.25 0 0.5 180 -60 sparc
+        nstroke
+    }
     /currentcmykcolor { /cmykcolor sigil_current }
     /setcmykcolor { /cmykcolor sigil_set }
     /currentgraycolor { /graycolor sigil_current }
@@ -180,6 +214,8 @@
     /currentmatrix { /matrix sigil_current }
     /setmatrix { /matrix sigil_set }
     /currentpoint { /point sigil_current }
+    /rrand { /rand sigil_current }
+    /srand { /rand sigil_set }
     /def {
         0 0 0.5 spcircle nstroke
         3 {
@@ -191,6 +227,11 @@
         } circrepeat closepath nstroke
         3 { 3 sqrt recip half 0 goto
         } circrepeat closepath nstroke
+    }
+    /div {
+        -0.25 -0.5 goto -0.25 0.5 goto 0 0 0.5 90 -90 arcn closepath nstroke
+        -0.5 0 dot
+        0 0 dot
     }
     /dup {
         gsave
@@ -207,6 +248,13 @@
             180 rotate
             sigil_bank /begin get exec
         grestore
+    }
+    /exch {
+        0.5 0.5 goto -0.5 0.5 goto -0.5 -0.5 goto 0.5 -0.5 goto nstroke
+        -0.5 0 goto 0.5 0 goto nstroke
+        {
+            -0.25 -0.25 goto 0.25 0.25 goto 0 0.25 goto nstroke
+        } vmirror
     }
     /fill {
         gsave
@@ -246,11 +294,54 @@
             sigil_bank /gsave get exec
         grestore
     }
+    /idiv {
+        sigil_bank /div get exec
+        gsave
+            -0.25 0 translate
+            2 {
+                -0.25 -0.25 goto 0.25 -0.25 goto nstroke
+            } circrepeat
+        grestore
+    }
+    /if {
+        0 -0.5 goto 0 0.5 goto nstroke
+        {
+            -0.25 0.5 goto 0.25 0.5 goto nstroke
+        } vmirror
+        0 -0.5 goto 0 -0.25 0.25 -0.25 0.25 0 curveto nstroke
+    }
+    /ifelse {
+        0 -0.5 goto 0 0.5 goto nstroke
+        {
+            -0.25 0.5 goto 0.25 0.5 goto nstroke
+        } vmirror
+        {
+            0 -0.5 goto 0 -0.25 0.25 -0.25 0.25 0 curveto nstroke
+        } hmirror
+    }
+    /index {
+        0 -0.5 goto 0 0.5 goto nstroke
+        {
+            -0.25 0.5 goto 0.25 0.5 goto nstroke
+        } vmirror
+        0 0.25 goto -0.25 0.25 goto -0.25 -0.25 goto nstroke
+    }
     /lineto {
         -0.375 0.5 goto
         -0.375 -0.5 goto
         0.375 -0.5 goto nstroke
         0.375 -0.5 16 recip spcircle nstroke
+    }
+    /mod {
+        -0.5 -0.5 goto
+        -0.5 0.5 goto
+        0 0 goto
+        0.5 0.5 goto
+        0.5 -0.5 goto nstroke
+        0 0 0.25 135 180 sparc
+        0 0 0.25 180 0 sparc
+        0 0 0.25 0 45 sparc
+        nstroke
     }
     /moveto {
         -0.5 dup goto
@@ -264,6 +355,22 @@
         {
             0.5 -0.5 goto 0.5 0.5 goto -0.25 -0.25 goto nstroke
         } hmirror
+    }
+    /neg {
+        -0.5 -0.5 goto
+        -0.5 0.5 goto
+        0.5 -0.5 goto
+        0.5 0.5 goto
+        nstroke
+        -0.25 0 goto 0.25 0 goto nstroke
+    }
+    /not {
+        -0.5 -0.5 goto
+        -0.5 0.5 goto
+        0.5 -0.5 goto
+        0.5 0.5 goto
+        nstroke
+        -0.25 0 goto 0.25 0 goto 0.25 -0.125 goto nstroke
     }
     /or {
         0 0 0.375 spcircle nstroke
@@ -282,6 +389,14 @@
             45 rotate
         } repeat
     }
+    /rand {
+       gsave
+           0 0.25 translate
+           sigil_parts /rand get exec 
+       grestore
+       3 sqrt 4 div neg 0.75 mul -0.5 goto 0 0.5 rgoto nstroke
+       0.25 -0.5 goto 0 -0.25 goto nstroke
+    }
     /repeat {
         gsave
             3 {
@@ -296,6 +411,21 @@
         0.25 0.25 0.25 90 -90 sparcn
         -0.5 0 goto
         whitefill nstroke
+    }
+    /roll {
+        gsave
+            0.125 0 translate
+            -0.5 -0.5 goto -0.5 0.25 goto nstroke
+            0.25 -0.5 goto -0.25 0 goto nstroke
+            gsave
+                -0.25 0.25 translate
+                3 {
+                    0 0 0.25 -30 90 sparc
+                    0.125 0.125 goto
+                    nstroke
+                } circrepeat
+            grestore
+        grestore
     }
     /rotate {
         gsave
@@ -320,6 +450,17 @@
         0 -0.25 0.25 90 -90 arcn
         nstroke
         0 -0.5 16 recip spcircle nstroke
+    }
+    /sub {
+        gsave
+            -0.125 0 translate
+            0 0.25 0.25 0 180 sparc
+            0 0.25 0.25 180 -90 sparc
+            0 -0.25 0.25 90 0 sparcn
+            0 -0.25 0.25 0 180 sparcn
+            nstroke
+            0.5 -0.25 goto 0 -0.25 goto nstroke
+        grestore
     }
     /translate {
         2 recip softscale
