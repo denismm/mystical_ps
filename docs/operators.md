@@ -15,29 +15,29 @@ Unknown: ['clear', 'count', 'mark', 'cleartomark', 'counttomark']
 
 Unknown: ['ceiling', 'floor', 'round', 'truncate', 'sqrt', 'atan', 'cos', 'sin', 'exp', 'ln', 'log']
 ## Array Operators
-|![array sigil](../images/sigil_array.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|:--:|
-|array|copy|forall|
+|![array sigil](../images/sigil_array.png)|![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|:--:|:--:|
+|array|length|copy|forall|
 
-Unknown: ['[', ']', 'length', 'get', 'put', 'getinterval', 'putinterval', 'astore', 'aload']
+Unknown: ['[', ']', 'get', 'put', 'getinterval', 'putinterval', 'astore', 'aload']
 ## Packed Array Operators
-|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|
-|copy|forall|
+|![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|:--:|
+|length|copy|forall|
 
-Unknown: ['packedarray', 'setpacking', 'currentpacking', 'length', 'get', 'getinterval', 'packedarray']
+Unknown: ['packedarray', 'setpacking', 'currentpacking', 'get', 'getinterval', 'packedarray']
 ## Dictionary Operators
-|![dict sigil](../images/sigil_dict.png)|![begin sigil](../images/sigil_begin.png)|![end sigil](../images/sigil_end.png)|![def sigil](../images/sigil_def.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|:--:|:--:|:--:|:--:|
-|dict|begin|end|def|copy|forall|
+|![dict sigil](../images/sigil_dict.png)|![length sigil](../images/sigil_length.png)|![begin sigil](../images/sigil_begin.png)|![end sigil](../images/sigil_end.png)|![def sigil](../images/sigil_def.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|dict|length|begin|end|def|copy|forall|
 
-Unknown: ['<<', '>>', 'length', 'maxlength', 'load', 'store', 'get', 'put', 'undef', 'known', 'where', 'currentdict', 'errordict', '$error', 'systemdict', 'userdict', 'globaldict', 'statusdict', 'countdictstack', 'dictstack', 'cleardictstack']
+Unknown: ['<<', '>>', 'maxlength', 'load', 'store', 'get', 'put', 'undef', 'known', 'where', 'currentdict', 'errordict', '$error', 'systemdict', 'userdict', 'globaldict', 'statusdict', 'countdictstack', 'dictstack', 'cleardictstack']
 ## String Operators
-|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|
-|copy|forall|
+|![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|:--:|
+|length|copy|forall|
 
-Unknown: ['string', 'length', 'get', 'put', 'getinterval', 'putinterval', 'anchorsearch', 'search', 'token']
+Unknown: ['string', 'get', 'put', 'getinterval', 'putinterval', 'anchorsearch', 'search', 'token']
 ## Relational, Boolean, and Bitwise Operators
 |![and sigil](../images/sigil_and.png)|![not sigil](../images/sigil_not.png)|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
 |:--:|:--:|:--:|:--:|
@@ -64,10 +64,10 @@ None: Miscellaneous Operators
 |![gsave sigil](../images/sigil_gsave.png)|![grestore sigil](../images/sigil_grestore.png)|![setlinewidth sigil](../images/sigil_setlinewidth.png)|![currentlinewidth sigil](../images/sigil_currentlinewidth.png)|![setlinecap sigil](../images/sigil_setlinecap.png)|![currentlinecap sigil](../images/sigil_currentlinecap.png)|![setlinejoin sigil](../images/sigil_setlinejoin.png)|![currentlinejoin sigil](../images/sigil_currentlinejoin.png)|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |gsave|grestore|setlinewidth|currentlinewidth|setlinecap|currentlinecap|setlinejoin|currentlinejoin|
-|![sethsbcolor sigil](../images/sigil_sethsbcolor.png)|![currenthsbcolor sigil](../images/sigil_currenthsbcolor.png)|![setrgbcolor sigil](../images/sigil_setrgbcolor.png)|![currentrgbcolor sigil](../images/sigil_currentrgbcolor.png)|![setcmykcolor sigil](../images/sigil_setcmykcolor.png)|![currentcmykcolor sigil](../images/sigil_currentcmykcolor.png)|
-|sethsbcolor|currenthsbcolor|setrgbcolor|currentrgbcolor|setcmykcolor|currentcmykcolor|
+|![setcolor sigil](../images/sigil_setcolor.png)|![currentcolor sigil](../images/sigil_currentcolor.png)|![sethsbcolor sigil](../images/sigil_sethsbcolor.png)|![currenthsbcolor sigil](../images/sigil_currenthsbcolor.png)|![setrgbcolor sigil](../images/sigil_setrgbcolor.png)|![currentrgbcolor sigil](../images/sigil_currentrgbcolor.png)|![setcmykcolor sigil](../images/sigil_setcmykcolor.png)|![currentcmykcolor sigil](../images/sigil_currentcmykcolor.png)|
+|setcolor|currentcolor|sethsbcolor|currenthsbcolor|setrgbcolor|currentrgbcolor|setcmykcolor|currentcmykcolor|
 
-Unknown: ['clipsave', 'cliprestore', 'grestoreall', 'initgraphics', 'gstate', 'setgstate', 'currentgstate', 'setmiterlimit', 'currentmiterlimit', 'setstrokeadjust', 'currentstrokeadjust', 'setdash', 'currentdash', 'setcolorspace', 'currentcolorspace', 'setcolor', 'currentcolor', 'setgray', 'currentgray']
+Unknown: ['clipsave', 'cliprestore', 'grestoreall', 'initgraphics', 'gstate', 'setgstate', 'currentgstate', 'setmiterlimit', 'currentmiterlimit', 'setstrokeadjust', 'currentstrokeadjust', 'setdash', 'currentdash', 'setcolorspace', 'currentcolorspace', 'setgray', 'currentgray']
 
 None: Graphics State Operators (Device-Dependent)
 ## Coordinate System and Matrix Operators

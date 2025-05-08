@@ -197,6 +197,8 @@
         0.25 0 0.5 180 -60 sparc
         nstroke
     }
+    /currentcolor { /color sigil_current }
+    /setcolor { /color sigil_set }
     /currentcmykcolor { /cmykcolor sigil_current }
     /setcmykcolor { /cmykcolor sigil_set }
     /currentgraycolor { /graycolor sigil_current }
@@ -325,6 +327,16 @@
             -0.25 0.5 goto 0.25 0.5 goto nstroke
         } vmirror
         0 0.25 goto -0.25 0.25 goto -0.25 -0.25 goto nstroke
+    }
+    /length {
+        -0.5 0.5 goto
+        -0.5 -0.5 goto
+        0.5 -0.5 goto
+        0 0.25 rgoto
+        nstroke
+        -0.375 0.125 0.375 {
+            -0.5 goto 0 0.25 rgoto nstroke
+        } for
     }
     /lineto {
         -0.375 0.5 goto
