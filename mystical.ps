@@ -20,6 +20,15 @@
     grestore
     newpath
 } def
+/ndot {
+    gsave
+        translate
+        % nib_matrix setmatrix
+        nib_angle rotate
+        0.75 1 scale
+        0 0 16 recip spcircle fill
+    grestore
+} def
 % /nstroke {stroke} def
 
 /ring_debug false def
