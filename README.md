@@ -1,7 +1,7 @@
 # Mystical
 (An alternate code formatting mode for PostScript)
 
-big pretty example
+![quicksort example](images/quicksort_example.png)
 
 I wanted to make a programming language that resembled magical circles. This is more like a way to write PostScript that looks like a magical circle, but I will refer to it as Mystical in this document.
 
