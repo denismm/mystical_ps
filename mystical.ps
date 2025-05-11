@@ -562,7 +562,7 @@
         /input_code arg
         % determine type
         /xflag false def
-        currentdict /input_code get xcheck {
+        /input_code load xcheck {
             /xflag true def
             currentdict /input_code get cvlit /input_code arg
         } if
@@ -604,15 +604,15 @@
 } def
 
 /mystical_evoke { /evocation arg
-    evocation where { evocation get mystical } if
+    evocation load mystical
 } def
 
 /mystical_evoke_unscaled { /evocation arg
-    evocation where { evocation get mystical_unscaled } if
+    evocation load mystical_unscaled
 } def
 
-% this assumes evocation and spell are defined locally
-/mystical_draw_evocation_label {
+% next two assume evocation and spell are defined locally
+/mystical_make_evocation_ligature { /spell arg /evocation arg
     % false token for label
     <<
         /name evocation /otype /nametype 
@@ -622,23 +622,21 @@
         >>
         /ring spell /ring_angle -90 /offset spell /full_radius get
         /defligature true
-    >> dup draw_sigil draw_link
+    >> 
 } def
-/mystical_evoke_label { /evocation arg
-    evocation where {
-        evocation get mystical_get_spell /spell arg
-        gsave
-            spell mystical_scale_spell
-            mystical_draw_evocation_label
-        grestore
-    } if
+/mystical_draw_evocation_label { /spell arg /evocation arg
+    /ligature evocation spell mystical_make_evocation_ligature def
+    ligature draw_sigil
+    ligature draw_link
 } def
 
-/mystical_evoke_label_unscaled { /evocation arg
-    evocation where {
-        evocation get mystical_get_spell /spell arg
-        gsave
-            mystical_draw_evocation_label
-        grestore
-    } if
+/mystical_evoke_label_base { /do_scale arg /evocation arg
+    evocation load mystical_get_spell /spell arg
+    gsave
+        do_scale { spell mystical_scale_spell } if
+        evocation spell mystical_draw_evocation_label
+    grestore
 } def
+
+/mystical_evoke_label { true mystical_evoke_label_base } def
+/mystical_evoke_label_unscaled { false mystical_evoke_label_base } def

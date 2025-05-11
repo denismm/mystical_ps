@@ -5,61 +5,67 @@ These are the sigils I came up with for built-in operators.
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |pop|exch|dup|copy|index|roll|
 
-Unknown: ['clear', 'count', 'mark', 'cleartomark', 'counttomark']
+No sigils for: clear, count, mark, cleartomark, counttomark
 ## Arithmetic and Math Operators
 |![add sigil](../images/sigil_add.png)|![div sigil](../images/sigil_div.png)|![idiv sigil](../images/sigil_idiv.png)|![mod sigil](../images/sigil_mod.png)|![mul sigil](../images/sigil_mul.png)|![sub sigil](../images/sigil_sub.png)|![abs sigil](../images/sigil_abs.png)|![neg sigil](../images/sigil_neg.png)|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |add|div|idiv|mod|mul|sub|abs|neg|
-|![rand sigil](../images/sigil_rand.png)|![srand sigil](../images/sigil_srand.png)|![rrand sigil](../images/sigil_rrand.png)|
-|rand|srand|rrand|
+|![sqrt sigil](../images/sigil_sqrt.png)|![atan sigil](../images/sigil_atan.png)|![cos sigil](../images/sigil_cos.png)|![sin sigil](../images/sigil_sin.png)|![rand sigil](../images/sigil_rand.png)|![srand sigil](../images/sigil_srand.png)|![rrand sigil](../images/sigil_rrand.png)|
+|sqrt|atan|cos|sin|rand|srand|rrand|
 
-Unknown: ['ceiling', 'floor', 'round', 'truncate', 'sqrt', 'atan', 'cos', 'sin', 'exp', 'ln', 'log']
+No sigils for: ceiling, floor, round, truncate, exp, ln, log
 ## Array Operators
 |![array sigil](../images/sigil_array.png)|![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
 |:--:|:--:|:--:|:--:|
 |array|length|copy|forall|
 
-Unknown: ['[', ']', 'get', 'put', 'getinterval', 'putinterval', 'astore', 'aload']
+No sigils for: get, put, getinterval, putinterval, astore, aload
 ## Packed Array Operators
 |![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
 |:--:|:--:|:--:|
 |length|copy|forall|
 
-Unknown: ['packedarray', 'setpacking', 'currentpacking', 'get', 'getinterval', 'packedarray']
+No sigils for: packedarray, setpacking, currentpacking, get, getinterval, packedarray
 ## Dictionary Operators
 |![dict sigil](../images/sigil_dict.png)|![length sigil](../images/sigil_length.png)|![begin sigil](../images/sigil_begin.png)|![end sigil](../images/sigil_end.png)|![def sigil](../images/sigil_def.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |dict|length|begin|end|def|copy|forall|
 
-Unknown: ['<<', '>>', 'maxlength', 'load', 'store', 'get', 'put', 'undef', 'known', 'where', 'currentdict', 'errordict', '$error', 'systemdict', 'userdict', 'globaldict', 'statusdict', 'countdictstack', 'dictstack', 'cleardictstack']
+No sigils for: maxlength, load, store, get, put, undef, known, where, currentdict, errordict, $error, systemdict, userdict, globaldict, statusdict, countdictstack, dictstack, cleardictstack
 ## String Operators
 |![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
 |:--:|:--:|:--:|
 |length|copy|forall|
 
-Unknown: ['string', 'get', 'put', 'getinterval', 'putinterval', 'anchorsearch', 'search', 'token']
+No sigils for: string, get, put, getinterval, putinterval, anchorsearch, search, token
 ## Relational, Boolean, and Bitwise Operators
 |![and sigil](../images/sigil_and.png)|![not sigil](../images/sigil_not.png)|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
 |:--:|:--:|:--:|:--:|
 |and|not|or|xor|
 
-Unknown: ['eq', 'ne', 'ge', 'gt', 'le', 'lt', 'true', 'false', 'bitshift']
+No sigils for: eq, ne, ge, gt, le, lt, true, false, bitshift
 ## Control Operators
-|![if sigil](../images/sigil_if.png)|![ifelse sigil](../images/sigil_ifelse.png)|![repeat sigil](../images/sigil_repeat.png)|
-|:--:|:--:|:--:|
-|if|ifelse|repeat|
+|![if sigil](../images/sigil_if.png)|![ifelse sigil](../images/sigil_ifelse.png)|![for sigil](../images/sigil_for.png)|![repeat sigil](../images/sigil_repeat.png)|
+|:--:|:--:|:--:|:--:|
+|if|ifelse|for|repeat|
 
-Unknown: ['exec', 'for', 'loop', 'exit', 'stop', 'stopped', 'countexecstack', 'execstack', 'quit', 'start']
+No sigils for: exec, loop, exit, stop, stopped, countexecstack, execstack, quit, start
+## Type, Attribute, and Conversion Operators
+|![type sigil](../images/sigil_type.png)|![cvlit sigil](../images/sigil_cvlit.png)|![cvx sigil](../images/sigil_cvx.png)|![xcheck sigil](../images/sigil_xcheck.png)|![cvi sigil](../images/sigil_cvi.png)|![cvn sigil](../images/sigil_cvn.png)|![cvr sigil](../images/sigil_cvr.png)|![cvrs sigil](../images/sigil_cvrs.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|type|cvlit|cvx|xcheck|cvi|cvn|cvr|cvrs|
+|![cvs sigil](../images/sigil_cvs.png)|
+|cvs|
 
-None: Type, Attribute, and Conversion Operators
+No sigils for: executeonly, noaccess, readonly, rcheck, wcheck
 
-None: File Operators
+No sigils for File Operators: file, filter, closefile, read, write, readhexstring, writehexstring, readstring, writestring, readline, token, bytesavailable, flush, flushfile, resetfile, status, run, currentfile, deletefile, renamefile, filenameforall, setfileposition, fileposition, print, =, ==, stack, pstack, printobject, writeobject, setobjectformat, currentobjectformat
 
-None: Resource Operators
+No sigils for Resource Operators: defineresource, undefineresource, findresource, findcolorrendering, resourcestatus, resourceforall
 
-None: Virtual Memory Operators
+No sigils for Virtual Memory Operators: save, restore, setglobal, currentglobal, gcheck, startjob, defineuserobject, execuserobject, undefineuserobject, UserObjects
 
-None: Miscellaneous Operators
+No sigils for Miscellaneous Operators: bind, null, version, realtime, usertime, languagelevel, product, revision, serialnumber, executive, echo, prompt
 ## Graphics State Operators (Device-Independent)
 |![gsave sigil](../images/sigil_gsave.png)|![grestore sigil](../images/sigil_grestore.png)|![setlinewidth sigil](../images/sigil_setlinewidth.png)|![currentlinewidth sigil](../images/sigil_currentlinewidth.png)|![setlinecap sigil](../images/sigil_setlinecap.png)|![currentlinecap sigil](../images/sigil_currentlinecap.png)|![setlinejoin sigil](../images/sigil_setlinejoin.png)|![currentlinejoin sigil](../images/sigil_currentlinejoin.png)|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
@@ -69,34 +75,34 @@ None: Miscellaneous Operators
 |![setrgbcolor sigil](../images/sigil_setrgbcolor.png)|![currentrgbcolor sigil](../images/sigil_currentrgbcolor.png)|![setcmykcolor sigil](../images/sigil_setcmykcolor.png)|![currentcmykcolor sigil](../images/sigil_currentcmykcolor.png)|
 |setrgbcolor|currentrgbcolor|setcmykcolor|currentcmykcolor|
 
-Unknown: ['clipsave', 'cliprestore', 'grestoreall', 'initgraphics', 'gstate', 'setgstate', 'currentgstate', 'setstrokeadjust', 'currentstrokeadjust', 'setdash', 'currentdash', 'setcolorspace', 'currentcolorspace']
+No sigils for: clipsave, cliprestore, grestoreall, initgraphics, gstate, setgstate, currentgstate, setstrokeadjust, currentstrokeadjust, setdash, currentdash, setcolorspace, currentcolorspace
 
-None: Graphics State Operators (Device-Dependent)
+No sigils for Graphics State Operators (Device-Dependent): sethalftone, currenthalftone, setscreen, currentscreen, setcolorscreen, currentcolorscreen, settransfer, currenttransfer, setcolortransfer, currentcolortransfer, setblackgeneration, currentblackgeneration, setundercolorremoval, currentundercolorremoval, setcolorrendering, currentcolorrendering, setflat, currentflat, setoverprint, currentoverprint, setsmoothness, currentsmoothness
 ## Coordinate System and Matrix Operators
 |![currentmatrix sigil](../images/sigil_currentmatrix.png)|![setmatrix sigil](../images/sigil_setmatrix.png)|![translate sigil](../images/sigil_translate.png)|![scale sigil](../images/sigil_scale.png)|![rotate sigil](../images/sigil_rotate.png)|
 |:--:|:--:|:--:|:--:|:--:|
 |currentmatrix|setmatrix|translate|scale|rotate|
 
-Unknown: ['matrix', 'initmatrix', 'identmatrix', 'defaultmatrix', 'concat', 'concatmatrix', 'transform', 'dtransform', 'itransform', 'idtransform', 'invertmatrix']
+No sigils for: matrix, initmatrix, identmatrix, defaultmatrix, concat, concatmatrix, transform, dtransform, itransform, idtransform, invertmatrix
 ## Path Construction Operators
 |![currentpoint sigil](../images/sigil_currentpoint.png)|![moveto sigil](../images/sigil_moveto.png)|![lineto sigil](../images/sigil_lineto.png)|![arc sigil](../images/sigil_arc.png)|![arcn sigil](../images/sigil_arcn.png)|![closepath sigil](../images/sigil_closepath.png)|
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |currentpoint|moveto|lineto|arc|arcn|closepath|
 
-Unknown: ['newpath', 'rmoveto', 'rlineto', 'arct', 'arcto', 'curveto', 'rcurveto', 'flattenpath', 'reversepath', 'strokepath', 'ustrokepath', 'ustrokepath', 'charpath', 'uappend', 'clippath', 'setbbox', 'pathbbox', 'pathforall', 'upath', 'initclip', 'clip', 'eoclip', 'rectclip', 'ucache']
+No sigils for: newpath, rmoveto, rlineto, arct, arcto, curveto, rcurveto, flattenpath, reversepath, strokepath, ustrokepath, ustrokepath, charpath, uappend, clippath, setbbox, pathbbox, pathforall, upath, initclip, clip, eoclip, rectclip, ucache
 ## Painting Operators
 |![stroke sigil](../images/sigil_stroke.png)|![fill sigil](../images/sigil_fill.png)|
 |:--:|:--:|
 |stroke|fill|
 
-Unknown: ['erasepage', 'eofill', 'rectstroke', 'rectfill', 'ustroke', 'ufill', 'ueofill', 'shfill', 'image', 'colorimage', 'imagemask']
+No sigils for: erasepage, eofill, rectstroke, rectfill, ustroke, ufill, ueofill, shfill, image, colorimage, imagemask
 
-None: Insideness-Testing Operators
+No sigils for Insideness-Testing Operators: infill, ineofill, inufill, inueofill, instroke, inustroke
 
-None: Form and Pattern Operators
+No sigils for Form and Pattern Operators: makepattern, setpattern, execform
 
-None: Device Setup and Output Operators
+No sigils for Device Setup and Output Operators: showpage, copypage, setpagedevice, currentpagedevice, nulldevice
 
-None: Glyph and Font Operators
+No sigils for Glyph and Font Operators: definefont, composefont, undefinefont, findfont, scalefont, makefont, setfont, rootfont, currentfont, selectfont, show, ashow, widthshow, awidthshow, xshow, xyshow, yshow, glyphshow, stringwidth, cshow, kshow, FontDirectory, GlobalFontDirectory, StandardEncoding, ISOLatin1Encoding, findencoding, setcachedevice, setcachedevice2, setcharwidth
 
-None: Interpreter Parameter Operators
+No sigils for Interpreter Parameter Operators: setsystemparams, currentsystemparams, setuserparams, currentuserparams, setdevparams, currentdevparams, vmreclaim, setvmthreshold, vmstatus, cachestatus, setcachelimit, setcacheparams, currentcacheparams, setucacheparams, ucachestatus

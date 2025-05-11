@@ -10,6 +10,8 @@ header = """# Standard Sigils
 These are the sigils I came up with for built-in operators.
 """
 
+ignored_sigils = ["[", "]", "<<", ">>"]
+
 operator_categories: list[tuple[str, list[str]]] = []
 with open(filename, 'r') as f: 
     current_category: str = "--"
@@ -20,7 +22,7 @@ with open(filename, 'r') as f:
             current_category = line[3:]
             current_operators = []
             operator_categories.append((current_category, current_operators))
-        elif line:
+        elif line and line not in ignored_sigils:
             current_operators.append(line)
 
 with open(output_file, 'w') as of:
@@ -36,6 +38,7 @@ with open(output_file, 'w') as of:
                 sigil_list.append(operator)
             else:
                 unknown_list.append(operator)
+        unknown_text = ", ".join(unknown_list)
         if sigil_list:
             of.write(f"## {category}\n")
             need_header = True
@@ -56,6 +59,6 @@ with open(output_file, 'w') as of:
             of.write("\n")
 
             if unknown_list:
-                of.write(f"Unknown: {unknown_list}\n")
+                of.write(f"No sigils for: {unknown_text}\n")
         else:
-            of.write(f"\nNone: {category}\n")
+            of.write(f"\nNo sigils for {category}: {unknown_text}\n")

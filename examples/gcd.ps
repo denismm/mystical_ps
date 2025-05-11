@@ -1,0 +1,18 @@
+
+/GCD {
+    /b arg /a arg
+    {
+        b a gt {
+            /b a /a b def def
+        } {
+            /r a b mod def
+            r 0 eq {
+                exit
+            } {
+                /a b /b r def def
+            } ifelse
+        } ifelse
+    } loop
+    b
+}  def
+

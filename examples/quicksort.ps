@@ -1,0 +1,38 @@
+/quicksort {
+    2 dict begin
+        /domain exch def
+        domain length 2 ge {
+            % find pivot
+            /hi domain length 1 sub def
+            /pivot domain hi get def
+            % redistribute
+            /pivot_loc 0 def
+            0 1 hi 1 sub { /i exch def
+                domain i get pivot le {
+                    domain i get
+                    domain pivot_loc get
+                    domain i 3 -1 roll put
+                    domain pivot_loc 3 -1 roll put
+                    /pivot_loc pivot_loc 1 add def
+                } if
+            } for
+            domain pivot_loc get
+            domain hi get
+            domain pivot_loc 3 -1 roll put
+            domain hi 3 -1 roll put
+
+            pivot_loc 1 gt {
+                domain 0 pivot_loc getinterval quicksort
+            } if
+            hi pivot_loc sub 2 ge {
+                domain pivot_loc 1 add hi pivot_loc sub getinterval quicksort
+            } if
+        } if
+    end
+} def
+
+/test_quicksort {
+    /input [100 {rand 1000 mod } repeat] def
+    input quicksort
+    input ==
+} def
