@@ -80,7 +80,7 @@
             comp_n 2 le {
                 5 { star_radius half 0 goto } 2 schlafrepeat closepath nstroke
             } {
-                /full_step comp_n 3 idiv def
+                /full_step comp_n 2 mul 5 idiv def
                 /star_rings comp_n full_step gcd def
                 /star_points comp_n star_rings idiv def
                 /star_step full_step star_rings idiv def
@@ -106,6 +106,11 @@
     end
 } 0 false dict_safe_func
 
+% determine if a token should be drawn in a triangle
+/isname {
+    dup /otype get /nametype eq exch /xflag get not and
+} def
+
 % sigil_bank is in the other file
 (sigils.ps) run
 /draw_sigil [/Token] {
@@ -114,14 +119,12 @@
         angle rotate
         parent /radius get 0 translate
         set_nib_matrix
-        otype /nametype eq {
-            xflag not {
-                gsave
-                    3 {
-                        -1 0 goto
-                    } circrepeat closepath nstroke
-                grestore
-            } if
+        Token isname {
+            gsave
+                3 {
+                    -1 0 goto
+                } circrepeat closepath nstroke
+            grestore
         } if
         sigil_bank name known otype /stringtype ne and{
             gsave
@@ -266,8 +269,8 @@
                         % prev is true circle
                         /previous components cursor 1 sub get def
                         /prevprev components cursor 2 sub get def
-                        previous /aflag get previous /otype get /nametype ne and {
-                            prevprev /aflag get not prevprev /otype get /nametype eq and {
+                        previous /aflag get previous isname not and {
+                            prevprev /aflag get not prevprev isname and {
                                 % set up ligature - add ring info to name
                                 [/offset /ring /aflag] { /field arg
                                     prevprev field
@@ -341,7 +344,8 @@
                             } ifelse
                         } ifelse
                         % even if text is short names must be sigil-width
-                        otype /nametype eq {
+                        currentdict isname {
+                        % otype /nametype eq {
                             std_sigil_width max
                         } if
                     } {

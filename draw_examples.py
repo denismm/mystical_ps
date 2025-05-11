@@ -13,10 +13,13 @@ examples: dict[str, list[int]] = {
     'operator_foo': [-1.1, -1.1, 1.1, 1.1],
     'name_foo': [-1.1, -1.1, 1.1, 1.1],
     'name_foobar': [-1.1, -1.1, 1.1, 1.1],
+    'quicksort_example': [-4, -4.25, 3.5, 2.75, 2],
 }
 base_command = "pstopng -0.6 d d d 50 examples.ps -Pimages/".split()
 for name, dimensions in examples.items():
     command = base_command + [name]
-    command[1:5] = [str(d) for d in dimensions]
+    command[1:5] = [str(d) for d in dimensions[:4]]
+    if len(dimensions) >= 5:
+        command[5] = str(int(command[5]) * dimensions[4])
     print(' '.join(command))
     subprocess.run(command, check=True)

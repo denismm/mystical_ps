@@ -125,8 +125,19 @@
     % top of the stack rather than querying the current state
     /check {
         gsave
-            90 rotate
+            -90 rotate
             sigil_parts /current get exec
+        grestore
+    }
+    /string {
+        gsave
+            0.25 softscale
+            1 0 1 -90 90 sparc
+            -1 0 1 90 -90 sparc
+            closepath nstroke
+            -1 0.5 1 {
+                -0.5 goto 0 1 rgoto nstroke
+            } for
         grestore
     }
 >> def
@@ -189,8 +200,8 @@
         gsave currentpoint newpath ndot grestore
         nstroke
         -0.5 0 goto
-        0.125 dup goto
-        -0.125 dup goto
+        -0.125 dup neg goto
+        0.125 dup neg goto
         0.5 0 goto nstroke
     }
     /array {
@@ -231,7 +242,6 @@
         closepath
         gsave currentpoint newpath ndot grestore
         nstroke
-        % doot
     }
     /copy {
         0 0 0.5 60 180 sparc
@@ -467,13 +477,12 @@
     }
     /roll {
         gsave
-            0.125 0 translate
-            -0.5 -0.5 goto -0.5 0.25 goto nstroke
-            0.25 -0.5 goto -0.25 0 goto nstroke
+            -0.375 -0.5 goto -0.375 0.125 goto nstroke
+            0.25 -0.5 goto 0 -0.25 goto nstroke
             gsave
-                -0.25 0.25 translate
+                0 0.125 translate
                 3 {
-                    0 0 0.25 -30 90 sparc
+                    0 0 0.375 -30 90 sparc
                     0.125 0.125 goto
                     nstroke
                 } circrepeat
@@ -523,6 +532,9 @@
             0.3125 -0.25 goto
         } circrepeat nstroke
     }
+    /string {
+        sigil_parts /string get exec
+    }
     /stroke {
         0 0.25 goto
         0 0.25 0.25 90 -90 arc
@@ -552,7 +564,7 @@
     /type {
         sigil_parts /check get exec
         gsave
-            0.125 0 translate
+            -0.125 0 translate
             0.375 softscale
             0 0 1 spcircle nstroke
         grestore
@@ -560,7 +572,7 @@
     /xcheck {
         sigil_parts /check get exec
         gsave
-            0.125 0 translate
+            -0.125 0 translate
             0.375 softscale
             0 18 sin neg translate
             5 {
@@ -660,13 +672,7 @@
         sigil_parts /cv get exec
         gsave
             0 -0.25 translate
-            0.25 softscale
-            1 0 1 -90 90 sparc
-            -1 0 1 90 -90 sparc
-            closepath nstroke
-            -1 0.5 1 {
-                -0.5 goto 0 1 rgoto nstroke
-            } for
+            sigil_parts /string get exec
         grestore
     }
     /cvx {

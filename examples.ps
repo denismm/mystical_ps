@@ -88,11 +88,11 @@ sigil_bank /dot {
 /quicksort_example {
     /quicksort load mystical_get_spell /spell arg
     gsave
-        3 softscale
-        -1 -0.5 translate
-        /shrink 70 def
+        2.5 softscale
+        -1.125 -0.5 translate
+        /shrink 40 def
         /ligature /quicksort spell mystical_make_evocation_ligature def
-        spell /components get 10 get /offset -25 addput
+        spell /components get 11 get /offset -13 addput
         ligature /parent get /radius shrink addput
         ligature /offset shrink neg addput
         spell /full_radius shrink neg addput
@@ -106,7 +106,7 @@ sigil_bank /dot {
 %%EndProlog
 72 softscale
 4.25 5.5 translate
-
+-4 -4.25 3.5 2.75 box stroke
 quicksort_example
 showpage
 

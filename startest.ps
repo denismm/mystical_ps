@@ -8,6 +8,7 @@
     1.1 recip softscale
     size recip thicken
     0 0 1 circle stroke
+    % 0 0 0.3 circle 0.75 grayfill newpath
     size (   ) cvs centershow
     90 rotate
     size {
@@ -16,7 +17,7 @@
     size 2 le {
         5 {0.5 0 goto} 2 schlafrepeat closepath cstroke
     } {
-        /full_step size 3 idiv def
+        /full_step size 2 mul 5 idiv def
         /rings size full_step gcd def
         /points size rings idiv def
         /step full_step rings idiv def

@@ -6,8 +6,7 @@
 (mystical.ps) run
 
 sigil_bank { cvlit /sigil_func arg /sigil_name arg
-    /sigil_string sigil_name 20 string cvs def
-    /function_name (sigil_) sigil_string concatenate cvn def
+    /function_name (sigil_) sigil_name 20 string cvs concatenate cvn def
     function_name sigil_func cvx def
 } forall
 
@@ -30,12 +29,9 @@ sigil_bank { cvlit /sigil_func arg /sigil_name arg
 %%EndProlog
 
 72 softscale 4.25 9.5 translate 
-set_nib_matrix sigil_cvn
-0 -1.25 translate set_nib_matrix sigil_type
-0 -1.25 translate set_nib_matrix sigil_xcheck
-0 -1.25 translate set_nib_matrix sigil_cvlit
-0 -1.25 translate set_nib_matrix sigil_cvx
-0 -1.25 translate set_nib_matrix sigil_cvr
-0 -1.25 translate set_nib_matrix sigil_cvrs
-0 -1.25 translate set_nib_matrix sigil_cvs
-0 -1.25 translate set_nib_matrix sigil_cvi
+[/sigil_roll /sigil_rand /sigil_cvn /sigil_string]
+{
+    -0.5 -0.5 0.5 0.5 box 0.875 grayfill newpath
+    set_nib_matrix cvx exec
+    0 -1.25 translate
+} forall

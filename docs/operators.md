@@ -33,11 +33,11 @@ No sigils for: packedarray, setpacking, currentpacking, get, getinterval, packed
 
 No sigils for: maxlength, load, store, get, put, undef, known, where, currentdict, errordict, $error, systemdict, userdict, globaldict, statusdict, countdictstack, dictstack, cleardictstack
 ## String Operators
-|![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|:--:|
-|length|copy|forall|
+|![string sigil](../images/sigil_string.png)|![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|:--:|:--:|
+|string|length|copy|forall|
 
-No sigils for: string, get, put, getinterval, putinterval, anchorsearch, search, token
+No sigils for: get, put, getinterval, putinterval, anchorsearch, search, token
 ## Relational, Boolean, and Bitwise Operators
 |![and sigil](../images/sigil_and.png)|![not sigil](../images/sigil_not.png)|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
 |:--:|:--:|:--:|:--:|
