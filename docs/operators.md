@@ -15,29 +15,31 @@ No sigils for: clear, count, mark, cleartomark, counttomark
 
 No sigils for: ceiling, floor, round, truncate, exp, ln, log
 ## Array Operators
-|![array sigil](../images/sigil_array.png)|![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|:--:|:--:|
-|array|length|copy|forall|
+|![array sigil](../images/sigil_array.png)|![length sigil](../images/sigil_length.png)|![get sigil](../images/sigil_get.png)|![put sigil](../images/sigil_put.png)|![getinterval sigil](../images/sigil_getinterval.png)|![putinterval sigil](../images/sigil_putinterval.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|array|length|get|put|getinterval|putinterval|copy|forall|
 
-No sigils for: get, put, getinterval, putinterval, astore, aload
+No sigils for: astore, aload
 ## Packed Array Operators
-|![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|:--:|
-|length|copy|forall|
+|![length sigil](../images/sigil_length.png)|![get sigil](../images/sigil_get.png)|![getinterval sigil](../images/sigil_getinterval.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|:--:|:--:|:--:|
+|length|get|getinterval|copy|forall|
 
-No sigils for: packedarray, setpacking, currentpacking, get, getinterval, packedarray
+No sigils for: packedarray, setpacking, currentpacking, packedarray
 ## Dictionary Operators
-|![dict sigil](../images/sigil_dict.png)|![length sigil](../images/sigil_length.png)|![begin sigil](../images/sigil_begin.png)|![end sigil](../images/sigil_end.png)|![def sigil](../images/sigil_def.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|dict|length|begin|end|def|copy|forall|
+|![dict sigil](../images/sigil_dict.png)|![length sigil](../images/sigil_length.png)|![begin sigil](../images/sigil_begin.png)|![end sigil](../images/sigil_end.png)|![def sigil](../images/sigil_def.png)|![get sigil](../images/sigil_get.png)|![put sigil](../images/sigil_put.png)|![copy sigil](../images/sigil_copy.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|dict|length|begin|end|def|get|put|copy|
+|![forall sigil](../images/sigil_forall.png)|
+|forall|
 
-No sigils for: maxlength, load, store, get, put, undef, known, where, currentdict, errordict, $error, systemdict, userdict, globaldict, statusdict, countdictstack, dictstack, cleardictstack
+No sigils for: maxlength, load, store, undef, known, where, currentdict, errordict, $error, systemdict, userdict, globaldict, statusdict, countdictstack, dictstack, cleardictstack
 ## String Operators
-|![string sigil](../images/sigil_string.png)|![length sigil](../images/sigil_length.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
-|:--:|:--:|:--:|:--:|
-|string|length|copy|forall|
+|![string sigil](../images/sigil_string.png)|![length sigil](../images/sigil_length.png)|![get sigil](../images/sigil_get.png)|![put sigil](../images/sigil_put.png)|![getinterval sigil](../images/sigil_getinterval.png)|![putinterval sigil](../images/sigil_putinterval.png)|![copy sigil](../images/sigil_copy.png)|![forall sigil](../images/sigil_forall.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|string|length|get|put|getinterval|putinterval|copy|forall|
 
-No sigils for: get, put, getinterval, putinterval, anchorsearch, search, token
+No sigils for: anchorsearch, search, token
 ## Relational, Boolean, and Bitwise Operators
 |![and sigil](../images/sigil_and.png)|![not sigil](../images/sigil_not.png)|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
 |:--:|:--:|:--:|:--:|
