@@ -205,7 +205,7 @@
         ring /rtype get /xarray eq {
             0.125 spcircle whitefill nstroke
         } {
-            dot
+            ndot
         } ifelse
         local_angle rotate
         r4 0 translate
@@ -345,8 +345,7 @@
                         } ifelse
                         % even if text is short names must be sigil-width
                         currentdict isname {
-                        % otype /nametype eq {
-                            std_sigil_width max
+                            std_sigil_width 1.25 mul max
                         } if
                     } {
                         1

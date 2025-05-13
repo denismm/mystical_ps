@@ -19,6 +19,14 @@
     ]
     mystical_unscaled
 } def
+/ligature_example {
+    { 
+        a /a a /a  
+        a /a a /a
+        a /a a /even { 2 mod 0 eq} def
+        a /a a
+    } mystical_unscaled
+} def
 
 sigil_bank /dot {
     gsave
@@ -106,9 +114,11 @@ sigil_bank /dot {
 %%EndProlog
 72 softscale
 4.25 5.5 translate
--4 -4.25 3.5 2.75 box stroke
-quicksort_example
-showpage
+% -4 -4.25 3.5 2.75 box stroke
+% quicksort_example
+0 3 translate
+ligature_example
+-1.5 -7.5 2 -1 box stroke
 
 % 2 softscale
 % 2 recip softscale

@@ -66,7 +66,9 @@ Sigils for user variables can be designed with any sigil system.  My examples mo
 
 There is a sigil for `def` but a very common pattern is to push a name, push a function, and def the name to the function. To save space and to emphasize this definition, there is special syntax for this case consisting of the usual name triangle with the end of the link line directly below it, and the def sigil is omitted entirely. This is extended to the other two ring types for simplicity. Any other use of `def` will just use the def sigil as normal.
 
-def-ligature example
+| ![ligature example](images/ligature_example.png) |
+|:--:|
+| ` { ...  /even { 2 mod 0 eq } def ...  } ` |
 
 This only applies inside of executable arrays. I considered a similar ligature for /name { ring } in dictionaries but there's too much chance of getting it wrong.
 
