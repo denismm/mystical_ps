@@ -1,0 +1,34 @@
+%!
+(sigils.ps) run
+
+/additions <<
+    /dot {
+        gsave
+            2 recip softscale
+            0 0 1 -90 90 arc closepath nstroke
+            0 0 0.5 circle nstroke
+            -1 1 goto 0 1 goto nstroke
+        grestore
+    }
+    /arg {
+        gsave
+            0.5 softscale
+            -1 -1 goto -0.5 1 goto -0.25 0 goto -0.25 -1 goto nstroke
+            -0.5 1 goto
+            -0.25 0.5 0.5 90 -90 arcn
+            -0.75 0 goto nstroke
+            -0.25 0 goto
+            0.125 -1.25
+            1 -1.25
+            1 -0.25 curveto 
+            0.5 -0.25 goto
+            nstroke
+            -0.5 1 goto
+            0 0 1 90 0 sparcn nstroke
+        grestore
+    }
+>> def
+
+additions {
+    sigil_bank 3 1 roll put
+} forall
