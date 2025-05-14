@@ -41,11 +41,11 @@ No sigils for: maxlength, load, store, undef, known, where, currentdict, errordi
 
 No sigils for: anchorsearch, search, token
 ## Relational, Boolean, and Bitwise Operators
-|![and sigil](../images/sigil_and.png)|![not sigil](../images/sigil_not.png)|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
-|:--:|:--:|:--:|:--:|
-|and|not|or|xor|
+|![ge sigil](../images/sigil_ge.png)|![gt sigil](../images/sigil_gt.png)|![le sigil](../images/sigil_le.png)|![lt sigil](../images/sigil_lt.png)|![and sigil](../images/sigil_and.png)|![not sigil](../images/sigil_not.png)|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|ge|gt|le|lt|and|not|or|xor|
 
-No sigils for: eq, ne, ge, gt, le, lt, true, false, bitshift
+No sigils for: eq, ne, true, false, bitshift
 ## Control Operators
 |![if sigil](../images/sigil_if.png)|![ifelse sigil](../images/sigil_ifelse.png)|![for sigil](../images/sigil_for.png)|![repeat sigil](../images/sigil_repeat.png)|
 |:--:|:--:|:--:|:--:|

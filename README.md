@@ -1,5 +1,4 @@
 # Mystical
-(An alternate code formatting mode for PostScript)
 
 ![quicksort example](images/quicksort_example.png)
 
@@ -60,7 +59,8 @@ Sigils for new functions or names can be added to `sigil_bank` at runtime.  They
 Sigils for user variables can be designed with any sigil system.  My examples mostly use letter collision, inspired by Spare's Chaos Magick system, but anything that turns a word into a symbol will work - kameas, wheels, Square Word Calligraphy, Circular Gallifreyan, sitelen sitelen, illustration, puns, etc.  New names based on official operators can incorporate the standard sigils for those operators.
 
 | arg | dot | softscale | nstroke |
-|--|--|--|--|
+|:--:|:--:|:--:|:--:|
+| ![arg sigil](images/sigil_arg.png) | ![dot sigil](images/sigil_dot.png) | ![softscale sigil](images/sigil_softscale.png) | ![nstroke sigil](images/sigil_nstroke.png) |
 
 ## Ligature for /name { ring } def
 

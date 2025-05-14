@@ -427,6 +427,75 @@
         } vmirror
         0 0.25 goto -0.25 0.25 goto -0.25 -0.25 goto nstroke
     }
+    /ge {
+        gsave
+            2 recip softscale
+            -1 1 goto
+            -1 0 goto
+            1 0 goto
+            0 0.5 goto
+            -0.5 0.5 goto
+            nstroke
+            -0.5 0 goto -0.5 -1 goto nstroke
+            -1 -1 goto 1 -1 goto nstroke
+            -0.5 -0.5 goto 0.5 -0.5 goto nstroke
+        grestore
+    }
+    /gt {
+        gsave
+            2 recip softscale
+            -1 1 goto
+            -1 -0.25 goto
+            1 -0.25 goto
+            0 0.5 goto
+            -0.5 0.5 goto
+            nstroke
+            -0.75 0 goto 0.25 0 goto nstroke
+            -0.25 0 goto -0.25 -1 goto nstroke
+        grestore
+    }
+    /le {
+        gsave
+            2 recip softscale
+            0 1 goto
+            -1 0 goto
+            1 0 goto nstroke
+            -0.5 0 goto -0.5 -1 goto nstroke
+            -1 -1 goto 1 -1 goto nstroke
+            -0.5 -0.5 goto 0.5 -0.5 goto nstroke
+        grestore
+    }
+    /lt {
+        gsave
+            2 recip softscale
+            0 1 goto
+            -1 -0.5 goto
+            1 -0.5 goto nstroke
+            -0.25 0 goto 0.75 0 goto nstroke
+            0.25 0 goto 0.25 -1 goto nstroke
+        grestore
+    }
+    /le {
+        gsave
+            2 recip softscale
+            0 1 goto
+            -1 0 goto
+            1 0 goto nstroke
+            -0.5 0 goto -0.5 -1 goto nstroke
+            -1 -1 goto 1 -1 goto nstroke
+            -0.5 -0.5 goto 0.5 -0.5 goto nstroke
+        grestore
+    }
+    /lt {
+        gsave
+            2 recip softscale
+            0 1 goto
+            -1 -0.5 goto
+            1 -0.5 goto nstroke
+            -0.5 0 goto 0.5 0 goto nstroke
+            0 0 goto 0 -1 goto nstroke
+        grestore
+    }
     /length {
         -0.375 0.5 goto
         -0.375 -0.5 goto
@@ -449,9 +518,10 @@
         0 0 goto
         0.5 0.5 goto
         0.5 -0.5 goto nstroke
-        0 0 0.25 135 180 sparc
-        0 0 0.25 180 0 sparc
-        0 0 0.25 0 45 sparc
+        0 0 0.25 spcircle
+        % 0 0 0.25 135 180 sparc
+        % 0 0 0.25 180 0 sparc
+        % 0 0 0.25 0 45 sparc
         nstroke
     }
     /moveto {
@@ -549,10 +619,12 @@
         grestore
     }
     /scale {
-        6 recip softscale
-        0 1 translate
-        0 1 1 0 270 arc
-        0 -2 2 90 -180 arcn nstroke
+        gsave
+            6 recip softscale
+            0 1 translate
+            0 1 1 0 270 arc
+            0 -2 2 90 -180 arcn nstroke
+        grestore
     }
     /sin {
         gsave
