@@ -47,14 +47,15 @@ with open(output_file, 'w') as of:
                 table_width = min(max_table_width, len(sigil_list))
                 sigil_line: str = "|"
                 caption_line: str = "|"
+                if need_header:
+                    of.write("| " * table_width + "|\n")
+                    of.write("|:--:" * table_width + "|\n")
+                    need_header = False
                 for operator in sigil_list[:table_width]:
                     caption_line += operator + "|"
                     sigil_file = f"../images/sigil_{operator}.png"
                     sigil_line += f"![{operator} sigil]({sigil_file})|"
                 of.write(sigil_line + "\n")
-                if need_header:
-                    of.write("|:--:" * table_width + "|\n")
-                    need_header = False
                 of.write(caption_line + "\n")
                 sigil_list = sigil_list[table_width:]
             of.write("\n")
