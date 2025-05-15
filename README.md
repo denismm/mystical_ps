@@ -87,7 +87,7 @@ This only applies inside of executable arrays. I considered a similar ligature f
 
 Quicksort is the illustration at the top of this page. 
 
-Euclid's GCD algorithm:
+Euclid's GCD algorithm (using my `/arg {exch def} def` function from dmmlib):
 
 ![gcd example](images/gcd_example.png)
 
