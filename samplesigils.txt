@@ -1,0 +1,6 @@
+dup  copy  add  mul  neg  for  forall  repeat
+if  ifelse  eq  ne  ge  gt le lt
+moveto  lineto  arc  arcn  curveto  closepath  stroke  fill
+gsave  grestore translate  scale  rotate  setmatrix  currentmatrix    
+setrgbcolor  currentrgbcolor  setcmykcolor  currentcmykcolor sethsbcolor currenthsbcolor setgray currentgray 
+dict  begin  end  def  get  put  length  

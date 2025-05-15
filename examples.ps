@@ -1,6 +1,7 @@
 %!PS
 
 (mystical.ps) run
+(dmmsigils.ps) run
 /xarray_example {
     { 0 0 currentlinewidth 1.5 mul 0 360 arc fill } mystical_unscaled
 } def
@@ -120,7 +121,12 @@ sigil_bank /dot {
         -1.125 -0.5 translate
         /shrink 30 def
         /ligature /gcd spell mystical_make_evocation_ligature def
+        % pull in loop body
         spell /components get 6 get /offset -13 addput
+        % pull in recursion body
+        spell /components get 6 get 
+        /ring get /components get 4 get
+        /offset -5 addput
         ligature /parent get /radius shrink addput
         ligature /offset shrink neg addput
         spell /full_radius shrink neg addput
@@ -140,7 +146,7 @@ sigil_bank /dot {
 
 % 2 softscale
 gcd_example
--4 -3.5 3 3 box stroke
+-4 -2.5 2 2 box stroke
 
 % 4 dup scale
 % /code mystical_evoke

@@ -8,9 +8,9 @@ I wanted to make a programming language that resembled magical circles. This is 
 The structure of Mystical is based on rings. These are circular bands of text and sigils, with an inner and outer border. The content of the main ring of a program starts at the rightmost (3:00) point and flow continues widdershins (counter-clockwise) both to respect postscript's angles and to reflect the assumption that these rings should be written from the outside.  Subsidiary rings start from their attachment point to their caller. 
 
 There are three types of rings in Mystical:
-* executable arrays, written in {} in ps, are represented with simple circular borders on the inside and outside of the ring, with a star of some sort inside. The start/end point is marked by a symbol based on the "work complete" symbol from alchemy. 
-* non-executable arrays, written in [] in ps, are the same but without the star. The start/end point is marked with a simple triangle. 
-* dictionaries, written in << >> in ps, are polygons with a double outer border and a single inner border. The start/end point is marked the same as the array. 
+* executable arrays, written in `{` `}` in PostScript, are represented with simple circular borders on the inside and outside of the ring, with a star of some sort inside. The start/end point is marked by a symbol based on the "work complete" symbol from alchemy. 
+* non-executable arrays, written in `[` `]` in PostScript, are the same but without the star. The start/end point is marked with a simple triangle. 
+* dictionaries, written in `<<` `>>` in PostScript, are polygons with a double outer border and a single inner border. The start/end point is marked the same as the array. 
 
 | xarray | array | dict |
 |--|--|--|
@@ -28,7 +28,7 @@ When one of these structures appear inside a different structure, a small circle
 ]
 ```
 
-It is theoretically possible to use [ ] and << >> in ps in ways that Mystical can't handle:
+It is theoretically possible to use `[ ]` and `<< >>` in PostScript in ways that Mystical can't handle:
 ```
 [ 1 2 3 split { ] /first exch def [ } if 4 5 6 ] /final exch def
 ```
@@ -37,7 +37,7 @@ so don't do that.
 Other commands like `gsave/grestore` and `begin/end` are more likely to be used in non-balanced or loop-crossing ways so those are treated as normal sigils below.
 
 ## Text and Sigils
-The rings' rims contain text or sigils.  Sigils are symbols that stand in for operators, variables, or other keywords. Any name, written in ps as `/name`, is instead written with a triangle surrounding or superimposing the text of the name or its sigil.  Any strings, written in () in Postscript, are cartouche-like shapes containing the string text.
+The rings' rims contain text or sigils.  Sigils are symbols that stand in for operators, variables, or other keywords. Any name, written in PostScript as `/name`, is instead written with a triangle surrounding or superimposing the text of the name or its sigil.  Any strings, written in () in Postscript, are cartouche-like shapes containing the string text.
 
 | array | /array | (array) | foo | /foo | /foobar |
 |--|--|--|--|--|--|
@@ -52,12 +52,14 @@ Many built-in operators have been given their own sigils.  These are used in pla
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |![dup sigil](images/sigil_dup.png)|![copy sigil](images/sigil_copy.png)|![add sigil](images/sigil_add.png)|![mul sigil](images/sigil_mul.png)|![neg sigil](images/sigil_neg.png)|![for sigil](images/sigil_for.png)|![forall sigil](images/sigil_forall.png)|![repeat sigil](images/sigil_repeat.png)|
 |dup|copy|add|mul|neg|for|forall|repeat|
-|![if sigil](images/sigil_if.png)|![ifelse sigil](images/sigil_ifelse.png)|![eq sigil](images/sigil_eq.png)|![ne sigil](images/sigil_ne.png)|![ge sigil](images/sigil_ge.png)|![lt sigil](images/sigil_lt.png)|![gsave sigil](images/sigil_gsave.png)|![grestore sigil](images/sigil_grestore.png)|
-|if|ifelse|eq|ne|ge|lt|gsave|grestore|
+|![if sigil](images/sigil_if.png)|![ifelse sigil](images/sigil_ifelse.png)|![eq sigil](images/sigil_eq.png)|![ne sigil](images/sigil_ne.png)|![ge sigil](images/sigil_ge.png)|![gt sigil](images/sigil_gt.png)|![le sigil](images/sigil_le.png)|![lt sigil](images/sigil_lt.png)|
+|if|ifelse|eq|ne|ge|gt|le|lt|
 |![moveto sigil](images/sigil_moveto.png)|![lineto sigil](images/sigil_lineto.png)|![arc sigil](images/sigil_arc.png)|![arcn sigil](images/sigil_arcn.png)|![curveto sigil](images/sigil_curveto.png)|![closepath sigil](images/sigil_closepath.png)|![stroke sigil](images/sigil_stroke.png)|![fill sigil](images/sigil_fill.png)|
 |moveto|lineto|arc|arcn|curveto|closepath|stroke|fill|
-|![translate sigil](images/sigil_translate.png)|![scale sigil](images/sigil_scale.png)|![rotate sigil](images/sigil_rotate.png)|![setrgbcolor sigil](images/sigil_setrgbcolor.png)|![currentrgbcolor sigil](images/sigil_currentrgbcolor.png)|![setcmykcolor sigil](images/sigil_setcmykcolor.png)|![currentcmykcolor sigil](images/sigil_currentcmykcolor.png)|
-|translate|scale|rotate|setrgbcolor|currentrgbcolor|setcmykcolor|currentcmykcolor|
+|![gsave sigil](images/sigil_gsave.png)|![grestore sigil](images/sigil_grestore.png)|![translate sigil](images/sigil_translate.png)|![scale sigil](images/sigil_scale.png)|![rotate sigil](images/sigil_rotate.png)|![setmatrix sigil](images/sigil_setmatrix.png)|![currentmatrix sigil](images/sigil_currentmatrix.png)|
+|gsave|grestore|translate|scale|rotate|setmatrix|currentmatrix|
+|![setrgbcolor sigil](images/sigil_setrgbcolor.png)|![currentrgbcolor sigil](images/sigil_currentrgbcolor.png)|![setcmykcolor sigil](images/sigil_setcmykcolor.png)|![currentcmykcolor sigil](images/sigil_currentcmykcolor.png)|![sethsbcolor sigil](images/sigil_sethsbcolor.png)|![currenthsbcolor sigil](images/sigil_currenthsbcolor.png)|![setgray sigil](images/sigil_setgray.png)|![currentgray sigil](images/sigil_currentgray.png)|
+|setrgbcolor|currentrgbcolor|setcmykcolor|currentcmykcolor|sethsbcolor|currenthsbcolor|setgray|currentgray|
 |![dict sigil](images/sigil_dict.png)|![begin sigil](images/sigil_begin.png)|![end sigil](images/sigil_end.png)|![def sigil](images/sigil_def.png)|![get sigil](images/sigil_get.png)|![put sigil](images/sigil_put.png)|![length sigil](images/sigil_length.png)|
 |dict|begin|end|def|get|put|length|
 
@@ -66,9 +68,10 @@ Sigils for new functions or names can be added to `sigil_bank` at runtime.  They
 
 Sigils for user variables can be designed with any sigil system.  My examples mostly use letter collision, inspired by Spare's Chaos Magick system, but anything that turns a word into a symbol will work - kameas, wheels, Square Word Calligraphy, Circular Gallifreyan, sitelen sitelen, illustration, puns, etc.  New names based on official operators can incorporate the standard sigils for those operators.
 
-| arg | dot | softscale | nstroke |
+| | | | |
 |:--:|:--:|:--:|:--:|
 | ![arg sigil](images/sigil_arg.png) | ![dot sigil](images/sigil_dot.png) | ![softscale sigil](images/sigil_softscale.png) | ![nstroke sigil](images/sigil_nstroke.png) |
+| arg | dot | softscale | nstroke |
 
 ## Ligature for /name { ring } def
 
@@ -80,7 +83,15 @@ There is a sigil for `def` but a very common pattern is to push a name, push a f
 
 This only applies inside of executable arrays. I considered a similar ligature for /name { ring } in dictionaries but there's too much chance of getting it wrong.
 
-## Functions to generate Mystical
+## Sample Algorithms
+
+Quicksort is the illustration at the top of this page. 
+
+Euclid's GCD algorithm:
+
+![gcd example](images/gcd_example.png)
+
+## Functions to generate Mystical images
 
 All of these are defined in "mystical.ps".
 
@@ -95,13 +106,6 @@ All of these have versions with `_unscaled` appended to them that skip the scali
 ### layout issues
 Currently the code figures out the layout of the subcircles so that nothing collides, but it's overly safe so most programs will be very spread out.  For the examples on this page I ran the parsing/layout functions (`mystical_get_spell` and `mystical_make_evocation_ligature`) and then adjusted the results before calling the draw functions `draw_sigil` and `draw_link`.  I'm intending to improve the default layout somewhat.
 
-## Sample Algorithms
-
-Quicksort is the illustration at the top of this page. 
-
-Euclid's gcd:
-
-![gcd example](images/gcd_example.png)
 
 ## Could this work for other languages?
 This approach seems applicable to other language with just operators, such as Forth. Languages with more complicated statements might be more difficult, and I don't know if a new ring for every brace or indent will be overly busy.
