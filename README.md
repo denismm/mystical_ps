@@ -46,12 +46,20 @@ The rings' rims contain text or sigils.  Sigils are symbols that stand in for op
 ### Standard Sigils
 Many built-in operators have been given their own sigils.  These are used in place of the text of the operator if it appears as a name or operator (but not if it appears as a string).  I have generally made these sigils based on the initial of the command and an illustration of the concept, though in some cases I have taken a more fully illustrative route or created some standard visual language.  Some examples are below - see [Standard Sigils](docs/operators.md) for a full list.
 
-#### Operand Stack Manipulation Operators
+#### Sample sigils
 
-|`pop`|`exch`|`dup`|`copy`|
-|:--:|:--:|:--:|:--:|
-| ![pop sigil](images/sigil_pop.png) | ![exch sigil](images/sigil_exch.png) | ![dup sigil](images/sigil_dup.png) | ![copy sigil](images/sigil_copy.png) |
-
+| | | | | | | | |
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|![dup sigil](images/sigil_dup.png)|![copy sigil](images/sigil_copy.png)|![add sigil](images/sigil_add.png)|![mul sigil](images/sigil_mul.png)|![neg sigil](images/sigil_neg.png)|![for sigil](images/sigil_for.png)|![forall sigil](images/sigil_forall.png)|![repeat sigil](images/sigil_repeat.png)|
+|dup|copy|add|mul|neg|for|forall|repeat|
+|![if sigil](images/sigil_if.png)|![ifelse sigil](images/sigil_ifelse.png)|![eq sigil](images/sigil_eq.png)|![ne sigil](images/sigil_ne.png)|![ge sigil](images/sigil_ge.png)|![lt sigil](images/sigil_lt.png)|![gsave sigil](images/sigil_gsave.png)|![grestore sigil](images/sigil_grestore.png)|
+|if|ifelse|eq|ne|ge|lt|gsave|grestore|
+|![moveto sigil](images/sigil_moveto.png)|![lineto sigil](images/sigil_lineto.png)|![arc sigil](images/sigil_arc.png)|![arcn sigil](images/sigil_arcn.png)|![curveto sigil](images/sigil_curveto.png)|![closepath sigil](images/sigil_closepath.png)|![stroke sigil](images/sigil_stroke.png)|![fill sigil](images/sigil_fill.png)|
+|moveto|lineto|arc|arcn|curveto|closepath|stroke|fill|
+|![translate sigil](images/sigil_translate.png)|![scale sigil](images/sigil_scale.png)|![rotate sigil](images/sigil_rotate.png)|![setrgbcolor sigil](images/sigil_setrgbcolor.png)|![currentrgbcolor sigil](images/sigil_currentrgbcolor.png)|![setcmykcolor sigil](images/sigil_setcmykcolor.png)|![currentcmykcolor sigil](images/sigil_currentcmykcolor.png)|
+|translate|scale|rotate|setrgbcolor|currentrgbcolor|setcmykcolor|currentcmykcolor|
+|![dict sigil](images/sigil_dict.png)|![begin sigil](images/sigil_begin.png)|![end sigil](images/sigil_end.png)|![def sigil](images/sigil_def.png)|![get sigil](images/sigil_get.png)|![put sigil](images/sigil_put.png)|![length sigil](images/sigil_length.png)|
+|dict|begin|end|def|get|put|length|
 
 ### User Sigils
 Sigils for new functions or names can be added to `sigil_bank` at runtime.  They should fit into the 1-unit square centered on the origin, so no coordinate should be more than 0.5 (of course, you can transform your coordinate system for convenience).  If you use `nstroke` instead of `stroke` you will get the same calligraphic effect as the standard sigils.

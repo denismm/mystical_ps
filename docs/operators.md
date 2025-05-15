@@ -44,10 +44,10 @@ No sigils for: anchorsearch, search, token
 |![eq sigil](../images/sigil_eq.png)|![ne sigil](../images/sigil_ne.png)|![ge sigil](../images/sigil_ge.png)|![gt sigil](../images/sigil_gt.png)|![le sigil](../images/sigil_le.png)|![lt sigil](../images/sigil_lt.png)|![and sigil](../images/sigil_and.png)|![not sigil](../images/sigil_not.png)|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |eq|ne|ge|gt|le|lt|and|not|
-|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
-|or|xor|
+|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|![true sigil](../images/sigil_true.png)|![false sigil](../images/sigil_false.png)|
+|or|xor|true|false|
 
-No sigils for: true, false, bitshift
+No sigils for: bitshift
 ## Control Operators
 |![if sigil](../images/sigil_if.png)|![ifelse sigil](../images/sigil_ifelse.png)|![for sigil](../images/sigil_for.png)|![repeat sigil](../images/sigil_repeat.png)|
 |:--:|:--:|:--:|:--:|
@@ -106,7 +106,11 @@ No sigils for Insideness-Testing Operators: infill, ineofill, inufill, inueofill
 No sigils for Form and Pattern Operators: makepattern, setpattern, execform
 
 No sigils for Device Setup and Output Operators: showpage, copypage, setpagedevice, currentpagedevice, nulldevice
+## Glyph and Font Operators
+|![findfont sigil](../images/sigil_findfont.png)|![scalefont sigil](../images/sigil_scalefont.png)|![setfont sigil](../images/sigil_setfont.png)|![currentfont sigil](../images/sigil_currentfont.png)|![selectfont sigil](../images/sigil_selectfont.png)|![show sigil](../images/sigil_show.png)|![stringwidth sigil](../images/sigil_stringwidth.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|findfont|scalefont|setfont|currentfont|selectfont|show|stringwidth|
 
-No sigils for Glyph and Font Operators: definefont, composefont, undefinefont, findfont, scalefont, makefont, setfont, rootfont, currentfont, selectfont, show, ashow, widthshow, awidthshow, xshow, xyshow, yshow, glyphshow, stringwidth, cshow, kshow, FontDirectory, GlobalFontDirectory, StandardEncoding, ISOLatin1Encoding, findencoding, setcachedevice, setcachedevice2, setcharwidth
+No sigils for: definefont, composefont, undefinefont, makefont, rootfont, ashow, widthshow, awidthshow, xshow, xyshow, yshow, glyphshow, cshow, kshow, FontDirectory, GlobalFontDirectory, StandardEncoding, ISOLatin1Encoding, findencoding, setcachedevice, setcachedevice2, setcharwidth
 
 No sigils for Interpreter Parameter Operators: setsystemparams, currentsystemparams, setuserparams, currentuserparams, setdevparams, currentdevparams, vmreclaim, setvmthreshold, vmstatus, cachestatus, setcachelimit, setcacheparams, currentcacheparams, setucacheparams, ucachestatus

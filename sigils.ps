@@ -111,6 +111,18 @@
         -0.5 -0.125 goto 0.5 -0.125 goto nstroke
         0 -0.5 goto 0 0.25 goto nstroke
     }
+    /fontsquare {
+        -1 -1 1 1 box nstroke
+        1 0.5 goto -0.5 0.5 goto -0.5 0 goto 0.5 0 goto
+        0.5 -0.5 goto -0.5 -0.5 goto -0.5 -1 goto nstroke
+    }
+    /font {
+        gsave
+            0 -0.125 translate
+            0.375 softscale
+            sigil_parts /fontsquare get exec
+        grestore
+    }
     /cv {
         gsave
             1.5 recip softscale
@@ -356,6 +368,37 @@
             } for
         grestore
     }
+    /findfont {
+        gsave
+            sigil_parts /look get exec
+            -0.125 0 translate
+            0.375 softscale
+            45 rotate
+            2 sqrt recip softscale
+            sigil_parts /fontsquare get exec
+        grestore
+    }
+    /scalefont {
+        gsave
+            6 recip softscale
+            0 1 translate
+            gsave
+                -1 1 translate
+                sigil_parts /fontsquare get exec
+            grestore
+            0 -2 2 90 0 sparcn
+            0 -2 2 0 -180 sparcn
+            nstroke
+        grestore
+    }
+    /selectfont {
+        gsave
+            sigil_parts /set get exec
+            0 0.125 translate
+            0.75 softscale
+            sigil_bank /scalefont get exec
+        grestore
+    }
     /for {
         gsave
             2 recip softscale
@@ -580,7 +623,7 @@
         -0.5 0.5 goto
         0 0 goto
         0.5 0.5 goto
-        0.5 -0.5 goto nstroke
+        0.5 -0.25 goto nstroke
         0.5 -0.5 ndot
     }
     /mul {
@@ -673,9 +716,18 @@
         gsave
             6 recip softscale
             0 1 translate
-            0 1 1 0 270 arc
-            0 -2 2 90 -180 arcn nstroke
+            0 1 1 0 180 sparc
+            0 1 1 180 270 sparc
+            0 -2 2 90 0 sparcn
+            0 -2 2 0 -180 sparcn
+            nstroke
         grestore
+    }
+    /show {
+        sigil_parts /string get exec
+        -0.375 -0.25 0.125 180 90 arcn
+        0.375 -0.25 0.125 90 0 arcn nstroke
+        0.5 -0.25 ndot
     }
     /sin {
         gsave
@@ -710,6 +762,18 @@
             0 0 0.5 90 180 sparc nstroke
         } circrepeat
     }
+    /stringwidth {
+        gsave
+            0 0.25 translate
+            sigil_parts /string get exec
+        grestore
+        -0.5 0.25 goto
+        -0.5 -0.5 goto
+        0 -0.25 goto
+        0.5 -0.5 goto
+        0.5 0.25 goto
+        nstroke
+    }
     /stroke {
         0 0.25 goto
         0 0.25 0.25 90 -90 arc
@@ -735,6 +799,16 @@
         nstroke
         0 0.75 goto 0 -1 goto nstroke
         0.5 0.5 goto 0.75 0.75 goto 0.5 1 goto nstroke
+    }
+    /true {
+        -0.5 0.5 goto 0.5 0.5 goto nstroke
+        -0.25 0.25 goto 0.25 0.25 goto nstroke
+        0 0.5 goto 0 -0.5 goto nstroke
+    }
+    /false {
+        0 0.25 goto 0.25 0.25 goto nstroke
+        0.5 0.5 goto 0 0.5 goto 0 -0.5 goto nstroke
+        -0.5 -0.5 goto 0.5 -0.5 goto nstroke
     }
     /type {
         sigil_parts /look get exec
@@ -772,6 +846,8 @@
     /sethsbcolor { /hsbcolor sigil_set }
     /currentrgbcolor { /rgbcolor sigil_current }
     /setrgbcolor { /rgbcolor sigil_set }
+    /currentfont { /font sigil_current }
+    /setfont { /font sigil_set }
     /currentlinecap { /linecap sigil_current }
     /setlinecap { /linecap sigil_set }
     /currentlinejoin { /linejoin sigil_current }
