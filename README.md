@@ -73,7 +73,7 @@ Sigils for user variables can be designed with any sigil system.  My examples mo
 | ![arg sigil](images/sigil_arg.png) | ![dot sigil](images/sigil_dot.png) | ![softscale sigil](images/sigil_softscale.png) | ![nstroke sigil](images/sigil_nstroke.png) |
 | arg | dot | softscale | nstroke |
 
-## Ligature for /name { ring } def
+## Ligature for `/name { ring } def`
 
 There is a sigil for `def` but a very common pattern is to push a name, push a function, and def the name to the function. To save space and to emphasize this definition, there is special syntax for this case consisting of the usual name triangle with the end of the link line directly below it, and the def sigil is omitted entirely. This is extended to the other two ring types for simplicity. Any other use of `def` will just use the def sigil as normal.
 
