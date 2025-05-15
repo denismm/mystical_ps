@@ -241,6 +241,28 @@
         -0.25 -0.5 0.375 90 0 arcn
         nstroke
     }
+    /clip {
+        gsave
+            newpath
+            0 0 0.5 60 180 sparc
+            0 0 0.5 180 -60 sparc
+            0.5 0 0.5 240 180 sparcn
+            0.5 0 0.5 180 120 sparcn
+            closepath
+            gsave
+                clip
+                newpath
+                0.5 0 translate
+                120 30 240 {
+                    gsave
+                        rotate
+                        0 0 goto 1 0 goto nstroke
+                    grestore
+                } for
+            grestore
+            nstroke
+        grestore
+    }
     /closepath {
         0 0 0.5 60 180 sparc
         0 0 0.5 180 -60 sparc
@@ -268,6 +290,19 @@
             0 0 1 180 -45 sparc
             nstroke
             0 45 cos goto 45 cos dup goto nstroke
+        grestore
+    }
+    /curveto {
+        gsave
+            0.5 0.5 goto
+            0 0.5
+            -0.5 0.5
+            -0.5 0 curveto
+            -0.5 -0.5
+            0 -0.5
+            0.5 -0.5 curveto
+            nstroke
+            0.5 -0.5 ndot
         grestore
     }
     /def {
@@ -441,6 +476,23 @@
             -0.5 -0.5 goto 0.5 -0.5 goto nstroke
         grestore
     }
+    /eq {
+        gsave
+            2 recip softscale
+            -1 0.5 goto 1 0.5 goto nstroke
+            -0.5 0.5 goto -0.5 -0.5 goto nstroke
+            -1 -0.5 goto 1 -0.5 goto nstroke
+            -0.5 0 goto 0.5 0 goto nstroke
+        grestore
+    }
+    /ne {
+        gsave
+            sigil_bank /eq get exec
+            2 recip softscale
+            -1 0 goto -0 1 goto 0 -1 goto 1 0 goto
+            nstroke
+        grestore
+    }
     /gt {
         gsave
             2 recip softscale
@@ -458,8 +510,7 @@
         gsave
             2 recip softscale
             0 1 goto
-            -1 0 goto
-            1 0 goto nstroke
+            -1 0 goto 1 0 goto nstroke
             -0.5 0 goto -0.5 -1 goto nstroke
             -1 -1 goto 1 -1 goto nstroke
             -0.5 -0.5 goto 0.5 -0.5 goto nstroke

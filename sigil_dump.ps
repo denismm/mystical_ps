@@ -31,7 +31,9 @@ sigil_bank { cvlit /sigil_func arg /sigil_name arg
 
 72 softscale 4.25 9.5 translate 
 [/sigil_roll /sigil_lt /sigil_le 
-/sigil_ge /sigil_gt /sigil_dot /sigil_softscale]
+/sigil_clip
+/sigil_ge /sigil_gt /sigil_eq 
+]
 {
     -0.5 -0.5 0.5 0.5 box 0.875 grayfill newpath
     set_nib_matrix cvx exec

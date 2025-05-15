@@ -41,11 +41,13 @@ No sigils for: maxlength, load, store, undef, known, where, currentdict, errordi
 
 No sigils for: anchorsearch, search, token
 ## Relational, Boolean, and Bitwise Operators
-|![ge sigil](../images/sigil_ge.png)|![gt sigil](../images/sigil_gt.png)|![le sigil](../images/sigil_le.png)|![lt sigil](../images/sigil_lt.png)|![and sigil](../images/sigil_and.png)|![not sigil](../images/sigil_not.png)|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
+|![eq sigil](../images/sigil_eq.png)|![ne sigil](../images/sigil_ne.png)|![ge sigil](../images/sigil_ge.png)|![gt sigil](../images/sigil_gt.png)|![le sigil](../images/sigil_le.png)|![lt sigil](../images/sigil_lt.png)|![and sigil](../images/sigil_and.png)|![not sigil](../images/sigil_not.png)|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|ge|gt|le|lt|and|not|or|xor|
+|eq|ne|ge|gt|le|lt|and|not|
+|![or sigil](../images/sigil_or.png)|![xor sigil](../images/sigil_xor.png)|
+|or|xor|
 
-No sigils for: eq, ne, true, false, bitshift
+No sigils for: true, false, bitshift
 ## Control Operators
 |![if sigil](../images/sigil_if.png)|![ifelse sigil](../images/sigil_ifelse.png)|![for sigil](../images/sigil_for.png)|![repeat sigil](../images/sigil_repeat.png)|
 |:--:|:--:|:--:|:--:|
@@ -87,11 +89,11 @@ No sigils for Graphics State Operators (Device-Dependent): sethalftone, currenth
 
 No sigils for: matrix, initmatrix, identmatrix, defaultmatrix, concat, concatmatrix, transform, dtransform, itransform, idtransform, invertmatrix
 ## Path Construction Operators
-|![currentpoint sigil](../images/sigil_currentpoint.png)|![moveto sigil](../images/sigil_moveto.png)|![lineto sigil](../images/sigil_lineto.png)|![arc sigil](../images/sigil_arc.png)|![arcn sigil](../images/sigil_arcn.png)|![closepath sigil](../images/sigil_closepath.png)|
-|:--:|:--:|:--:|:--:|:--:|:--:|
-|currentpoint|moveto|lineto|arc|arcn|closepath|
+|![currentpoint sigil](../images/sigil_currentpoint.png)|![moveto sigil](../images/sigil_moveto.png)|![lineto sigil](../images/sigil_lineto.png)|![arc sigil](../images/sigil_arc.png)|![arcn sigil](../images/sigil_arcn.png)|![curveto sigil](../images/sigil_curveto.png)|![closepath sigil](../images/sigil_closepath.png)|![clip sigil](../images/sigil_clip.png)|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|currentpoint|moveto|lineto|arc|arcn|curveto|closepath|clip|
 
-No sigils for: newpath, rmoveto, rlineto, arct, arcto, curveto, rcurveto, flattenpath, reversepath, strokepath, ustrokepath, ustrokepath, charpath, uappend, clippath, setbbox, pathbbox, pathforall, upath, initclip, clip, eoclip, rectclip, ucache
+No sigils for: newpath, rmoveto, rlineto, arct, arcto, rcurveto, flattenpath, reversepath, strokepath, ustrokepath, ustrokepath, charpath, uappend, clippath, setbbox, pathbbox, pathforall, upath, initclip, eoclip, rectclip, ucache
 ## Painting Operators
 |![stroke sigil](../images/sigil_stroke.png)|![fill sigil](../images/sigil_fill.png)|
 |:--:|:--:|
