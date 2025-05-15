@@ -7,6 +7,7 @@ examples: dict[str, list[int]] = {
     'array_example': [-2, -2, 2, 2],
     'dict_example': [-2.5, -2.5, 2.5, 2.5],
     'link_example': [-1.75, -7, 5.5, 1.75],
+    'ligature_example': [-1.5, -7.5, 2, -1],
     'operator_array': [-1.1, -1.1, 1.1, 1.1],
     'name_array': [-1.1, -1.1, 1.1, 1.1],
     'string_array': [-1.1, -1.1, 1.1, 1.1],
@@ -14,7 +15,7 @@ examples: dict[str, list[int]] = {
     'name_foo': [-1.1, -1.1, 1.1, 1.1],
     'name_foobar': [-1.1, -1.1, 1.1, 1.1],
     'quicksort_example': [-4, -4.5, 4.25, 3.5, 2.5],
-    'ligature_example': [-1.5, -7.5, 2, -1],
+    'gcd_example': [-4, -3.5, 3, 3, 2.5],
 }
 base_command = "pstopng -0.6 d d d 50 examples.ps -Pimages/".split()
 for name, dimensions in examples.items():

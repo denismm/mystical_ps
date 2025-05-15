@@ -111,18 +111,40 @@ sigil_bank /dot {
     grestore
 
 } def
+
+(examples/gcd.ps) run
+/gcd_example {
+    /gcd load mystical_get_spell /spell arg
+    gsave
+        2.5 softscale
+        -1.125 -0.5 translate
+        /shrink 30 def
+        /ligature /gcd spell mystical_make_evocation_ligature def
+        spell /components get 6 get /offset -13 addput
+        ligature /parent get /radius shrink addput
+        ligature /offset shrink neg addput
+        spell /full_radius shrink neg addput
+        spell mystical_scale_spell
+        ligature draw_sigil
+        ligature draw_link
+    grestore
+} def
 %%EndProlog
 72 softscale
 4.25 5.5 translate
 % -4 -4.25 3.5 2.75 box stroke
 % quicksort_example
-0 3 translate
-ligature_example
--1.5 -7.5 2 -1 box stroke
+% 0 3 translate
+% ligature_example
+% -1.5 -7.5 2 -1 box stroke
 
 % 2 softscale
-% 2 recip softscale
-% link_example
-% -1.1 -1.1 1.1 1.1 box stroke
+gcd_example
+-4 -3.5 3 3 box stroke
+
+% 4 dup scale
+% /code mystical_evoke
+% 0 0 1 circle stroke
+
 
 showpage

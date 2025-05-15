@@ -62,14 +62,6 @@ No sigils for: exec, loop, exit, stop, stopped, countexecstack, execstack, quit,
 |cvs|
 
 No sigils for: executeonly, noaccess, readonly, rcheck, wcheck
-
-No sigils for File Operators: file, filter, closefile, read, write, readhexstring, writehexstring, readstring, writestring, readline, token, bytesavailable, flush, flushfile, resetfile, status, run, currentfile, deletefile, renamefile, filenameforall, setfileposition, fileposition, print, =, ==, stack, pstack, printobject, writeobject, setobjectformat, currentobjectformat
-
-No sigils for Resource Operators: defineresource, undefineresource, findresource, findcolorrendering, resourcestatus, resourceforall
-
-No sigils for Virtual Memory Operators: save, restore, setglobal, currentglobal, gcheck, startjob, defineuserobject, execuserobject, undefineuserobject, UserObjects
-
-No sigils for Miscellaneous Operators: bind, null, version, realtime, usertime, languagelevel, product, revision, serialnumber, executive, echo, prompt
 ## Graphics State Operators (Device-Independent)
 |![gsave sigil](../images/sigil_gsave.png)|![grestore sigil](../images/sigil_grestore.png)|![setlinewidth sigil](../images/sigil_setlinewidth.png)|![currentlinewidth sigil](../images/sigil_currentlinewidth.png)|![setlinecap sigil](../images/sigil_setlinecap.png)|![currentlinecap sigil](../images/sigil_currentlinecap.png)|![setlinejoin sigil](../images/sigil_setlinejoin.png)|![currentlinejoin sigil](../images/sigil_currentlinejoin.png)|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
@@ -80,8 +72,6 @@ No sigils for Miscellaneous Operators: bind, null, version, realtime, usertime, 
 |setrgbcolor|currentrgbcolor|setcmykcolor|currentcmykcolor|
 
 No sigils for: clipsave, cliprestore, grestoreall, initgraphics, gstate, setgstate, currentgstate, setstrokeadjust, currentstrokeadjust, setdash, currentdash, setcolorspace, currentcolorspace
-
-No sigils for Graphics State Operators (Device-Dependent): sethalftone, currenthalftone, setscreen, currentscreen, setcolorscreen, currentcolorscreen, settransfer, currenttransfer, setcolortransfer, currentcolortransfer, setblackgeneration, currentblackgeneration, setundercolorremoval, currentundercolorremoval, setcolorrendering, currentcolorrendering, setflat, currentflat, setoverprint, currentoverprint, setsmoothness, currentsmoothness
 ## Coordinate System and Matrix Operators
 |![currentmatrix sigil](../images/sigil_currentmatrix.png)|![setmatrix sigil](../images/sigil_setmatrix.png)|![translate sigil](../images/sigil_translate.png)|![scale sigil](../images/sigil_scale.png)|![rotate sigil](../images/sigil_rotate.png)|
 |:--:|:--:|:--:|:--:|:--:|
@@ -100,12 +90,6 @@ No sigils for: newpath, rmoveto, rlineto, arct, arcto, rcurveto, flattenpath, re
 |stroke|fill|
 
 No sigils for: erasepage, eofill, rectstroke, rectfill, ustroke, ufill, ueofill, shfill, image, colorimage, imagemask
-
-No sigils for Insideness-Testing Operators: infill, ineofill, inufill, inueofill, instroke, inustroke
-
-No sigils for Form and Pattern Operators: makepattern, setpattern, execform
-
-No sigils for Device Setup and Output Operators: showpage, copypage, setpagedevice, currentpagedevice, nulldevice
 ## Glyph and Font Operators
 |![findfont sigil](../images/sigil_findfont.png)|![scalefont sigil](../images/sigil_scalefont.png)|![setfont sigil](../images/sigil_setfont.png)|![currentfont sigil](../images/sigil_currentfont.png)|![selectfont sigil](../images/sigil_selectfont.png)|![show sigil](../images/sigil_show.png)|![stringwidth sigil](../images/sigil_stringwidth.png)|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
@@ -113,4 +97,14 @@ No sigils for Device Setup and Output Operators: showpage, copypage, setpagedevi
 
 No sigils for: definefont, composefont, undefinefont, makefont, rootfont, ashow, widthshow, awidthshow, xshow, xyshow, yshow, glyphshow, cshow, kshow, FontDirectory, GlobalFontDirectory, StandardEncoding, ISOLatin1Encoding, findencoding, setcachedevice, setcachedevice2, setcharwidth
 
-No sigils for Interpreter Parameter Operators: setsystemparams, currentsystemparams, setuserparams, currentuserparams, setdevparams, currentdevparams, vmreclaim, setvmthreshold, vmstatus, cachestatus, setcachelimit, setcacheparams, currentcacheparams, setucacheparams, ucachestatus
+## Skipped categories: 
+I haven't yet made sigils for any of the operators in these categories:
+* **File Operators** (file, filter, closefile, read, write, readhexstring, writehexstring, readstring, writestring, readline, token, bytesavailable, flush, flushfile, resetfile, status, run, currentfile, deletefile, renamefile, filenameforall, setfileposition, fileposition, print, =, ==, stack, pstack, printobject, writeobject, setobjectformat, currentobjectformat)
+* **Resource Operators** (defineresource, undefineresource, findresource, findcolorrendering, resourcestatus, resourceforall)
+* **Virtual Memory Operators** (save, restore, setglobal, currentglobal, gcheck, startjob, defineuserobject, execuserobject, undefineuserobject, UserObjects)
+* **Miscellaneous Operators** (bind, null, version, realtime, usertime, languagelevel, product, revision, serialnumber, executive, echo, prompt)
+* **Graphics State Operators (Device-Dependent)** (sethalftone, currenthalftone, setscreen, currentscreen, setcolorscreen, currentcolorscreen, settransfer, currenttransfer, setcolortransfer, currentcolortransfer, setblackgeneration, currentblackgeneration, setundercolorremoval, currentundercolorremoval, setcolorrendering, currentcolorrendering, setflat, currentflat, setoverprint, currentoverprint, setsmoothness, currentsmoothness)
+* **Insideness-Testing Operators** (infill, ineofill, inufill, inueofill, instroke, inustroke)
+* **Form and Pattern Operators** (makepattern, setpattern, execform)
+* **Device Setup and Output Operators** (showpage, copypage, setpagedevice, currentpagedevice, nulldevice)
+* **Interpreter Parameter Operators** (setsystemparams, currentsystemparams, setuserparams, currentuserparams, setdevparams, currentdevparams, vmreclaim, setvmthreshold, vmstatus, cachestatus, setcachelimit, setcacheparams, currentcacheparams, setucacheparams, ucachestatus)

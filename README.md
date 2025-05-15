@@ -82,17 +82,26 @@ This only applies inside of executable arrays. I considered a similar ligature f
 
 ## Functions to generate Mystical
 
-mystical:
+All of these are defined in "mystical.ps".
 
-mystical_evoke:
+`mystical`: takes an array, xarray, or dict and renders it in mystical, descending into substructures as necessary.  The entire image will be scaled to fit into a unit circle.
 
-mystical_evoke_label:
+`mystical_evoke`: The same as `mystical` but it takes a name that is looked up in the current dictionary.
+
+`mystical_evoke_label`:  Like `mystical_evoke` but adds a name-def ligature with the name at the top and orients the image so that the name sigil is right-side-up.
+
+All of these have versions with `_unscaled` appended to them that skip the scaling step.  The rings will be 1 unit thick so the image will be quite large.
+
+### layout issues
+Currently the code figures out the layout of the subcircles so that nothing collides, but it's overly safe so most programs will be very spread out.  For the examples on this page I ran the parsing/layout functions (`mystical_get_spell` and `mystical_make_evocation_ligature`) and then adjusted the results before calling the draw functions `draw_sigil` and `draw_link`.  I'm intending to improve the default layout somewhat.
 
 ## Sample Algorithms
 
-Euclid's gcd
-dot
-quicksort
+Quicksort is the illustration at the top of this page. 
+
+Euclid's gcd:
+
+![gcd example](images/gcd_example.png)
 
 ## Could this work for other languages?
 This approach seems applicable to other language with just operators, such as Forth. Languages with more complicated statements might be more difficult, and I don't know if a new ring for every brace or indent will be overly busy.

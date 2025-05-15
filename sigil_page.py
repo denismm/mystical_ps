@@ -29,6 +29,7 @@ with open(output_file, 'w') as of:
     # write header
     of.write(header)
 
+    skipped_categories: list[str] = []
     for category, operators in operator_categories:
         sigil_list: list[str] = []
         unknown_list: list[str] = []
@@ -61,4 +62,7 @@ with open(output_file, 'w') as of:
             if unknown_list:
                 of.write(f"No sigils for: {unknown_text}\n")
         else:
-            of.write(f"\nNo sigils for {category}: {unknown_text}\n")
+            skipped_categories.append(f"**{category}** ({unknown_text})")
+    of.write("\n## Skipped categories: \nI haven't yet made sigils for any of the operators in these categories:\n")
+    for info in skipped_categories:
+        of.write(f"* {info}\n")
