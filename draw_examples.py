@@ -15,7 +15,7 @@ examples: dict[str, list[int]] = {
     'name_foo': [-1.1, -1.1, 1.1, 1.1],
     'name_foobar': [-1.1, -1.1, 1.1, 1.1],
     'quicksort_example': [-4, -4.5, 4.25, 3.5, 2.5],
-    'gcd_example': [-4, -2.5, 2, 2, 2.5],
+    'gcd_example': [-4, -3, 2, 2, 2.5],
 }
 base_command = "pstopng -0.6 d d d 50 examples.ps -Pimages/".split()
 for name, dimensions in examples.items():

@@ -357,6 +357,19 @@
             -0.25 -0.25 goto 0.25 0.25 goto 0 0.25 goto nstroke
         } vmirror
     }
+    /exec {
+        5 {
+            0 0.5 goto
+        } 2 schlafrepeat closepath nstroke
+    }
+    /exit {
+        % 0 0.25 0.25 45 180 sparc 0 0.25 0.25 180 -45 sparc nstroke
+        0.125 0.375 goto 0 0.5 goto
+        -0.25 0.25 goto 0 0 goto 0.125 0.125 goto nstroke
+        -0.25 0.25 goto 0.25 0.25 goto nstroke
+        0 0 goto 0 -0.5 goto nstroke
+        -0.25 -0.25 goto 0.25 -0.25 goto nstroke
+    }
     /fill {
         gsave
             2 recip softscale
@@ -605,6 +618,19 @@
         -0.375 -0.5 goto
         0.375 -0.5 goto nstroke
         0.375 -0.5 ndot
+    }
+    /loop {
+        gsave
+            2 recip softscale
+            -0.5 1 goto
+            -0.75 -0.75 0.25 0 180 sparcn
+            -0.75 -0.75 0.25 180 90 sparcn
+            1 -0.5 goto
+            nstroke
+            0 0 0.5 -90 0 sparc
+            0 0 0.5 0 180 sparc
+            nstroke
+        grestore
     }
     /mod {
         -0.5 -0.5 goto

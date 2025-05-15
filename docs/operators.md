@@ -56,12 +56,12 @@ No sigils for: anchorsearch, search, token
 
 No sigils for: bitshift
 ## Control Operators
-| | | | |
-|:--:|:--:|:--:|:--:|
-|![if sigil](../images/sigil_if.png)|![ifelse sigil](../images/sigil_ifelse.png)|![for sigil](../images/sigil_for.png)|![repeat sigil](../images/sigil_repeat.png)|
-|if|ifelse|for|repeat|
+| | | | | | | |
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|![exec sigil](../images/sigil_exec.png)|![if sigil](../images/sigil_if.png)|![ifelse sigil](../images/sigil_ifelse.png)|![for sigil](../images/sigil_for.png)|![repeat sigil](../images/sigil_repeat.png)|![loop sigil](../images/sigil_loop.png)|![exit sigil](../images/sigil_exit.png)|
+|exec|if|ifelse|for|repeat|loop|exit|
 
-No sigils for: exec, loop, exit, stop, stopped, countexecstack, execstack, quit, start
+No sigils for: stop, stopped, countexecstack, execstack, quit, start
 ## Type, Attribute, and Conversion Operators
 | | | | | | | | |
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
