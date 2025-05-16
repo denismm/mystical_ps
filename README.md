@@ -108,7 +108,7 @@ Currently the code figures out the layout of the subcircles so that nothing coll
 
 ## Is this a programming language?
 
-At the moment it's a way to draw a PostScript program - there's no interpreter that will ingest a Mystical image and perform the appropriate computation.  It could be run and interpreted by a human, or (more likely) a human could read it and turn it into a PostScript program and run that.  I'll leave further philosophical arguments to other people.
+At the moment it's a way to draw a PostScript program - there's no interpreter that will ingest a Mystical image and perform the appropriate computation.  It could be run and interpreted by a human, or (more likely) a human could read it and turn it into a PostScript program and run that.  I'll leave further philosophical arguments to other people for now.
 
 ## Could this work for other languages?
 This approach seems applicable to other language with just operators, such as Forth. Languages with more complicated statements might be more difficult, and I don't know if a new ring for every brace or indent will be overly busy.
