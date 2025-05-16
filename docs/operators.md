@@ -1,5 +1,6 @@
-# Standard Sigils
-These are the sigils I came up with for built-in operators.
+# Standard Sigils in Mystical
+
+These are the sigils I came up with for built-in PostScript operators.  See [Mystical](../README.md) for more details about this system.
 ## Operand Stack Manipulation Operators
 | | | | | | |
 |:--:|:--:|:--:|:--:|:--:|:--:|
@@ -122,3 +123,6 @@ I haven't yet made sigils for any of the operators in these categories:
 * **Form and Pattern Operators** (makepattern, setpattern, execform)
 * **Device Setup and Output Operators** (showpage, copypage, setpagedevice, currentpagedevice, nulldevice)
 * **Interpreter Parameter Operators** (setsystemparams, currentsystemparams, setuserparams, currentuserparams, setdevparams, currentdevparams, vmreclaim, setvmthreshold, vmstatus, cachestatus, setcachelimit, setcacheparams, currentcacheparams, setucacheparams, ucachestatus)
+
+My thanks to Andrew Plotkin for inventing the basic form of the symbol I used for xor, in another context.
+    

@@ -6,8 +6,9 @@ import os.path
 filename = "misc/operator_lists.txt"
 output_file = "docs/operators.md"
 max_table_width = 8
-header = """# Standard Sigils
-These are the sigils I came up with for built-in operators.
+header = """# Standard Sigils in Mystical
+
+These are the sigils I came up with for built-in PostScript operators.  See [Mystical](../README.md) for more details about this system.
 """
 
 ignored_sigils = ["[", "]", "<<", ">>"]
@@ -67,3 +68,7 @@ with open(output_file, 'w') as of:
     of.write("\n## Skipped categories: \nI haven't yet made sigils for any of the operators in these categories:\n")
     for info in skipped_categories:
         of.write(f"* {info}\n")
+
+    of.write("""
+My thanks to Andrew Plotkin for inventing the basic form of the symbol I used for xor, in another context.
+    """)
