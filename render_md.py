@@ -2,6 +2,7 @@
 import git
 from markdown_it import MarkdownIt
 import sys
+import re
 from datetime import date
 from glob import glob
 
@@ -12,16 +13,19 @@ if md_file == html_file:
 
 # read and parse markdown
 with open(md_file, 'r') as f:
-    readme_lines = list(f)
-title = readme_lines[0]
+    page_lines = list(f)
+title = page_lines[0]
 if not title.startswith ('# '):
     raise ValueError(f"README.md in {location} should start with H1")
 title = title[2:]
 
 # render markdown
-readme_md = "".join(readme_lines)
+page_md = "".join(page_lines)
 md_parser = MarkdownIt('commonmark', {'breaks':False,'html':True}).enable('table')
-readme_html = md_parser.render(readme_md)
+page_html = md_parser.render(page_md)
+
+# correct md links
+page_html = re.sub(r'(<a href="[^\"]*)\.md(\">)', r'\1.html\2', page_html)
 
 # insert header
 header = f"""
@@ -44,5 +48,5 @@ footer = f"""
 # print html
 with open(html_file, 'w') as of:
     print(header, file=of)
-    print(readme_html, file=of)
+    print(page_html, file=of)
     print(footer, file=of)
