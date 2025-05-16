@@ -17,6 +17,8 @@ There are three types of rings in Mystical:
 | ![xarray example](images/xarray_example.png) | ![array example](images/array_example.png) | ![dict example](images/dict_example.png) |
 | `{ 0 0 currentlinewidth 1.5 mul 0 360 arc fill }` | `[ 0 1 2 1.5 40 360 (Hooray World) ]` | `<< /longname (Mystical) /w 45 /h 8 /x 23 >>` |
 
+(Note that the entries in the dict image are in a different order than the PostScript text since dict insertion order is not preserved in PostScript.)
+
 When one of these structures appear inside a different structure, a small circle or dot at the inclusion point is connected to a line which leads to the subsidiary ring's start/end sigil.
 
 ![link example](images/link_example.png)
