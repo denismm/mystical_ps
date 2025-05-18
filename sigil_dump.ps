@@ -30,8 +30,12 @@ sigil_bank { cvlit /sigil_func arg /sigil_name arg
 %%EndProlog
 
 72 softscale 4.25 9.5 translate 
-[/sigil_setfont /sigil_currentfont /sigil_findfont 
-/sigil_cvr /sigil_selectfont /sigil_show /sigil_newpath
+[/sigil_lineto /sigil_rlineto 
+/sigil_moveto /sigil_rmoveto
+/sigil_curveto /sigil_rcurveto
+/sigil_goto
+/sigil_rgoto
+/sigil_cstroke /sigil_newpath
 ]
 {
     -0.5 -0.5 0.5 0.5 box 0.875 grayfill newpath

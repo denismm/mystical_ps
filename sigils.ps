@@ -18,7 +18,6 @@
     /new {
         -0.25 -0.25 0.25 180 -90 sparc
         0.25 -0.25 0.25 -90 0 sparc
-        % 0 -0.25 0.5 0.25 180 360 ell
         closepath nstroke
     }
     /color {
@@ -179,6 +178,7 @@
         grestore
     }
 >> def
+
 /sigil_current { /subsigil arg
     sigil_parts subsigil get exec
     sigil_parts /current get exec
@@ -197,6 +197,12 @@
     grestore
     sigil_parts /new get exec
 } def
+
+/sigil_relative { /subsigil arg /rel_y arg /rel_x arg
+    sigil_bank subsigil get exec
+    rel_x rel_y 16 recip spcircle whitefill nstroke
+} def
+
 /sigil_bank <<
     /RETURN {
         2 {
@@ -342,6 +348,7 @@
             0.5 -0.5 ndot
         grestore
     }
+    /rcurveto { 0.5 0.5 /curveto sigil_relative }
     /def {
         0 0 0.5 spcircle nstroke
         3 {
@@ -645,6 +652,7 @@
         0.375 -0.5 goto nstroke
         0.375 -0.5 ndot
     }
+    /rlineto { -0.375 0.5 /lineto sigil_relative }
     /loop {
         gsave
             2 recip softscale
@@ -678,6 +686,7 @@
         0.5 -0.25 goto nstroke
         0.5 -0.5 ndot
     }
+    /rmoveto { -0.5 -0.5 /moveto sigil_relative }
     /mul {
         {
             0.5 -0.5 goto 0.5 0.5 goto -0.25 -0.25 goto nstroke

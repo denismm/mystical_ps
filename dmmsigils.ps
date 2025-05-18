@@ -2,14 +2,6 @@
 (sigils.ps) run
 
 /additions <<
-    /dot {
-        gsave
-            2 recip softscale
-            0 0 1 -90 90 arc closepath nstroke
-            0 0 0.5 circle nstroke
-            -1 1 goto 0 1 goto nstroke
-        grestore
-    }
     /arg {
         gsave
             0.5 softscale
@@ -21,6 +13,28 @@
             0.5 0 goto
             nstroke
             -0.25 0.25 1.25 0.75 90 0 elln nstroke
+        grestore
+    }
+    /cstroke {
+        sigil_bank /stroke get exec
+        0 0 0.125 60 180 sparc
+        0 0 0.125 180 -60 sparc
+        nstroke
+    }
+    /goto {
+        0 0 0.5 60 180 sparc
+        0 0 0.5 180 0 sparc
+        0 0 goto
+        nstroke
+        0 0 ndot
+    }
+    /rgoto { 0.5 60 polar /goto sigil_relative }
+    /dot {
+        gsave
+            2 recip softscale
+            0 0 1 -90 90 arc closepath nstroke
+            0 0 0.5 circle nstroke
+            -1 1 goto 0 1 goto nstroke
         grestore
     }
     /softscale {
