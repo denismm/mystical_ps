@@ -402,6 +402,20 @@
         0 0 goto 0 -0.5 goto nstroke
         -0.25 -0.25 goto 0.25 -0.25 goto nstroke
     }
+    /file {
+        gsave
+            4 recip softscale
+            -0.5 0 translate
+            0 1.5 0.5 180 0 sparcn
+            0.5 0.5
+            -0.5 -0.5
+            -0.5 -1.5 curveto
+            0 -1.5 0.5 180 0 sparc
+            nstroke
+            0.5 1.5 goto 1 0 rgoto nstroke
+            0.375 1 goto 1 0 rgoto nstroke
+        grestore
+    }
     /fill {
         gsave
             2 recip softscale
@@ -771,6 +785,19 @@
             -0.5 0 goto
             whitefill nstroke
             0 0 goto 0.5 -0.5 goto nstroke
+        grestore
+    }
+    /run {
+        gsave
+            16 recip neg 0 translate
+            sigil_bank /file get exec
+            4 recip softscale
+            0 -1.5 translate
+            54 dup cos exch sin translate
+            5 {
+                0 1 goto
+            } 2 schlafrepeat
+            closepath nstroke
         grestore
     }
     /scale {

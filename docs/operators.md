@@ -72,6 +72,13 @@ No sigils for: stop, stopped, countexecstack, execstack, quit, start
 |cvs|
 
 No sigils for: executeonly, noaccess, readonly, rcheck, wcheck
+## File Operators
+| | |
+|:--:|:--:|
+|![file sigil](../images/sigil_file.png)|![run sigil](../images/sigil_run.png)|
+|file|run|
+
+No sigils for: filter, closefile, read, write, readhexstring, writehexstring, readstring, writestring, readline, token, bytesavailable, flush, flushfile, resetfile, status, currentfile, deletefile, renamefile, filenameforall, setfileposition, fileposition, print, =, ==, stack, pstack, printobject, writeobject, setobjectformat, currentobjectformat
 ## Graphics State Operators (Device-Independent)
 | | | | | | | | |
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
@@ -116,7 +123,6 @@ No sigils for: definefont, composefont, undefinefont, makefont, rootfont, ashow,
 
 ## Skipped categories: 
 I haven't yet made sigils for any of the operators in these categories:
-* **File Operators** (file, filter, closefile, read, write, readhexstring, writehexstring, readstring, writestring, readline, token, bytesavailable, flush, flushfile, resetfile, status, run, currentfile, deletefile, renamefile, filenameforall, setfileposition, fileposition, print, =, ==, stack, pstack, printobject, writeobject, setobjectformat, currentobjectformat)
 * **Resource Operators** (defineresource, undefineresource, findresource, findcolorrendering, resourcestatus, resourceforall)
 * **Virtual Memory Operators** (save, restore, setglobal, currentglobal, gcheck, startjob, defineuserobject, execuserobject, undefineuserobject, UserObjects)
 * **Miscellaneous Operators** (bind, null, version, realtime, usertime, languagelevel, product, revision, serialnumber, executive, echo, prompt)
