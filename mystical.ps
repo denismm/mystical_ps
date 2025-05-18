@@ -45,8 +45,8 @@
 /Zapf-Chancery 0.5 selectfont
 /nonsigil_spacing 0.125 def
 /string_radius 0.25 def
-/draw_ring [/spell] {
-    spell begin
+/draw_ring [/Spell] {
+    Spell begin
         24 recip setlinewidth
         set_nib_matrix
         % borders based on rtype
@@ -575,34 +575,34 @@
             /input_code [ input_code {} forall ] def
         } if
         % parse into Ring object
-        /spell << /rtype rtype /root true >> def
-        spell input_code 0 parsecode pop
-        spell
+        /Spell << /rtype rtype /root true >> def
+        Spell input_code 0 parsecode pop
+        Spell
     end
 } def
 
-/mystical_scale_spell { /spell arg
-    spell /full_radius get recip dup scale
+/mystical_scale_spell { /Spell arg
+    Spell /full_radius get recip dup scale
 } def
 
-/mystical_draw_spell { /spell arg
+/mystical_draw_spell { /Spell arg
     gsave
-        spell mystical_scale_spell
-        spell draw_ring
+        Spell mystical_scale_spell
+        Spell draw_ring
     grestore
 } def
 
 /mystical {
     10 dict begin
-        mystical_get_spell /spell arg
-        spell mystical_draw_spell
+        mystical_get_spell /Spell arg
+        Spell mystical_draw_spell
     end
 } def
 
 /mystical_unscaled {
     10 dict begin
-        mystical_get_spell /spell arg
-        spell draw_ring
+        mystical_get_spell /Spell arg
+        Spell draw_ring
     end
 } def
 
@@ -614,30 +614,30 @@
     evocation load mystical_unscaled
 } def
 
-% next two assume evocation and spell are defined locally
-/mystical_make_evocation_ligature { /spell arg /evocation arg
+% next two assume evocation and Spell are defined locally
+/mystical_make_evocation_ligature { /Spell arg /evocation arg
     % false token for label
     <<
         /name evocation /otype /nametype 
         /xflag false /aflag true
         /position 0 /angle -90 /parent <<
-            /radius spell /full_radius get neg
+            /radius Spell /full_radius get neg
         >>
-        /ring spell /ring_angle -90 /offset spell /full_radius get
+        /ring Spell /ring_angle -90 /offset Spell /full_radius get
         /defligature true
     >> 
 } def
-/mystical_draw_evocation_label { /spell arg /evocation arg
-    /ligature evocation spell mystical_make_evocation_ligature def
+/mystical_draw_evocation_label { /Spell arg /evocation arg
+    /ligature evocation Spell mystical_make_evocation_ligature def
     ligature draw_sigil
     ligature draw_link
 } def
 
 /mystical_evoke_label_base { /do_scale arg /evocation arg
-    evocation load mystical_get_spell /spell arg
+    evocation load mystical_get_spell /Spell arg
     gsave
-        do_scale { spell mystical_scale_spell } if
-        evocation spell mystical_draw_evocation_label
+        do_scale { Spell mystical_scale_spell } if
+        evocation Spell mystical_draw_evocation_label
     grestore
 } def
 

@@ -95,17 +95,17 @@ sigil_bank /dot {
 
 (examples/quicksort.ps) run
 /quicksort_example {
-    /quicksort load mystical_get_spell /spell arg
+    /quicksort load mystical_get_spell /Spell arg
     gsave
         2.5 softscale
         -1.125 -0.5 translate
         /shrink 40 def
-        /ligature /quicksort spell mystical_make_evocation_ligature def
-        spell /components get 11 get /offset -13 addput
+        /ligature /quicksort Spell mystical_make_evocation_ligature def
+        Spell /components get 11 get /offset -13 addput
         ligature /parent get /radius shrink addput
         ligature /offset shrink neg addput
-        spell /full_radius shrink neg addput
-        spell mystical_scale_spell
+        Spell /full_radius shrink neg addput
+        Spell mystical_scale_spell
 
         ligature draw_sigil
         ligature draw_link
@@ -115,22 +115,22 @@ sigil_bank /dot {
 
 (examples/gcd.ps) run
 /gcd_example {
-    /gcd load mystical_get_spell /spell arg
+    /gcd load mystical_get_spell /Spell arg
     gsave
         2.5 softscale
         -1.125 -0.5 translate
         /shrink 30 def
-        /ligature /gcd spell mystical_make_evocation_ligature def
+        /ligature /gcd Spell mystical_make_evocation_ligature def
         % pull in loop body
-        spell /components get 6 get /offset -13 addput
+        Spell /components get 6 get /offset -13 addput
         % pull in recursion body
-        spell /components get 6 get 
+        Spell /components get 6 get 
         /ring get /components get 4 get
         /offset -5 addput
         ligature /parent get /radius shrink addput
         ligature /offset shrink neg addput
-        spell /full_radius shrink neg addput
-        spell mystical_scale_spell
+        Spell /full_radius shrink neg addput
+        Spell mystical_scale_spell
         ligature draw_sigil
         ligature draw_link
     grestore
