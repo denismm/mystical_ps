@@ -15,6 +15,12 @@
         -0.5 -0.5 goto 
         nstroke
     }
+    /new {
+        -0.25 -0.25 0.25 180 -90 sparc
+        0.25 -0.25 0.25 -90 0 sparc
+        % 0 -0.25 0.5 0.25 180 360 ell
+        closepath nstroke
+    }
     /color {
         0 -0.125 0.375 30 180 sparc nstroke
         0 -0.125 0.375 180 -30 sparc nstroke
@@ -123,6 +129,18 @@
             sigil_parts /fontsquare get exec
         grestore
     }
+    /path {
+        gsave
+            0 -0.125 translate
+            0.75 softscale
+            0 0 ndot
+            -0.5 -0.5 goto
+            -0.5 0.5 goto
+            0.25 0.25 0.25 90 -90 sparcn
+            0 0 goto
+            nstroke
+        grestore
+    }
     /cv {
         gsave
             1.5 recip softscale
@@ -171,6 +189,13 @@
         sigil_parts subsigil get exec
     grestore
     sigil_parts /set get exec
+} def
+/sigil_new { /subsigil arg
+    gsave
+        0 4 recip translate
+        sigil_parts subsigil get exec
+    grestore
+    sigil_parts /new get exec
 } def
 /sigil_bank <<
     /RETURN {
@@ -549,6 +574,7 @@
             nstroke
         grestore
     }
+    /newpath { /path sigil_new }
     /gt {
         gsave
             2 recip softscale

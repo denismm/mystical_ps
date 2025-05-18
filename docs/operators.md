@@ -93,10 +93,12 @@ No sigils for: matrix, initmatrix, identmatrix, defaultmatrix, concat, concatmat
 ## Path Construction Operators
 | | | | | | | | |
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|![currentpoint sigil](../images/sigil_currentpoint.png)|![moveto sigil](../images/sigil_moveto.png)|![lineto sigil](../images/sigil_lineto.png)|![arc sigil](../images/sigil_arc.png)|![arcn sigil](../images/sigil_arcn.png)|![curveto sigil](../images/sigil_curveto.png)|![closepath sigil](../images/sigil_closepath.png)|![clip sigil](../images/sigil_clip.png)|
-|currentpoint|moveto|lineto|arc|arcn|curveto|closepath|clip|
+|![newpath sigil](../images/sigil_newpath.png)|![currentpoint sigil](../images/sigil_currentpoint.png)|![moveto sigil](../images/sigil_moveto.png)|![lineto sigil](../images/sigil_lineto.png)|![arc sigil](../images/sigil_arc.png)|![arcn sigil](../images/sigil_arcn.png)|![curveto sigil](../images/sigil_curveto.png)|![closepath sigil](../images/sigil_closepath.png)|
+|newpath|currentpoint|moveto|lineto|arc|arcn|curveto|closepath|
+|![clip sigil](../images/sigil_clip.png)|
+|clip|
 
-No sigils for: newpath, rmoveto, rlineto, arct, arcto, rcurveto, flattenpath, reversepath, strokepath, ustrokepath, ustrokepath, charpath, uappend, clippath, setbbox, pathbbox, pathforall, upath, initclip, eoclip, rectclip, ucache
+No sigils for: rmoveto, rlineto, arct, arcto, rcurveto, flattenpath, reversepath, strokepath, ustrokepath, ustrokepath, charpath, uappend, clippath, setbbox, pathbbox, pathforall, upath, initclip, eoclip, rectclip, ucache
 ## Painting Operators
 | | |
 |:--:|:--:|
