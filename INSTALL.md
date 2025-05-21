@@ -17,6 +17,10 @@ Clone the dmmlib repo into a subdirectory of the repo, or clone it elsewhere and
 
 `git clone git@github.com:denismm/dmmlib.git`
 
+### pstopng
+
+dmmlib includes a perl script, `dmmlib/bin/pstopng`, which automates rendering PostScript code to an image.  It's very idiosyncratic as nobody else has used it but it works for my purposes.  It does require that you have not only ghostscript but also the netpbm utilities installed.
+
 ## Install ghostscript
 
 This is what I use.  It's important that you be able to specify that you want to allow running of code in other files that may be in subdirectories.  This is generally a dangerous thing to do - I'm working on making it unnecessary - but for now I'm asking you to trust me that there's no code in dmmlib that reformats your hard drive.
