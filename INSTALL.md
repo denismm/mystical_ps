@@ -48,3 +48,7 @@ foreach my $psfile (@ARGV) {
 ## Bonus: install a ps viewer
 
 I use gv, which requires X and is only available on homebrew through a nonstandard cask, because I like its functionality much more than gsview, but in any case it's useful to be able to interpret ps without generating a pdf.  You will need to add the `-dNOSAFER` option to "gs options" in whatever tool you use.
+
+## Get started
+
+See [Getting Started with Mystical](docs/intro.md).
