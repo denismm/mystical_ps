@@ -135,6 +135,19 @@ sigil_bank /dot {
         ligature draw_link
     grestore
 } def
+
+/smily {
+    0 0 1 0 360 arc stroke
+    0 -0.25 0.5 180 360 arc fill
+    -0.5 1 0.5 {
+        0.25 0.125 0 360 arc fill
+    } for
+} def
+
+/smily_example {
+    /smily mystical_evoke
+} def
+
 %%EndProlog
 72 softscale
 4.25 5.5 translate
@@ -144,13 +157,14 @@ sigil_bank /dot {
 % ligature_example
 % -1.5 -7.5 2 -1 box stroke
 
-2 softscale
-gcd_example
--4 -2.5 2 2 box stroke
+% 2 softscale
+% gcd_example
+% -4 -2.5 2 2 box stroke
 
-% 4 dup scale
+4 dup scale
 % /code mystical_evoke
 % 0 0 1 circle stroke
+smily_example
 
 % {
 %   /inch {72 mul} def
