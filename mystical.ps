@@ -264,7 +264,7 @@
 
                 % check for def-ligature
                 /skip_token false def
-                Ring /rtype get /xarray eq literal /def eq and {
+                Ring /rtype get /xarray eq literal /def eq xflag and and {
                     cursor 2 ge {
                         % prev is true circle
                         /previous components cursor 1 sub get def
@@ -359,8 +359,8 @@
                     } forall
 
                     /code_pos 1 adddef
-                    code_pos code length ge { exit } if
                 } if
+                code_pos code length ge { exit } if
             } loop
             % temporary shenanigans - cursor might be two off the end
             components Ring /cursor get 1 sub get length 0 eq {
