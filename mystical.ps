@@ -1,8 +1,14 @@
 %!
+
+% arg and dict_safe_func are more generally needed
+
+(dmmlib/base.ps) run
+
 /mystical_dict 30 dict def
 mystical_dict begin
 
-(dmmlib/base.ps) run
+% load other dmmlib functions inside mystical_dict 
+% to avoid polluting user namespace
 (dmmlib/textbase.ps) run
 (dmmlib/lines.ps) run
 (dmmlib/polar.ps) run
