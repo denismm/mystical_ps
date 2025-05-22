@@ -158,7 +158,12 @@ mystical_dict begin
             gsave
                 /textrad parent /radius get def
                 0 textrad translate
-                name buffer cvs textrad neg circle_center_show
+                otype /stringtype eq {
+                    name
+                } {
+                    name buffer cvs
+                } ifelse
+                textrad neg circle_center_show
                 otype /stringtype eq {
                     /cartouche_outer_width width nonsigil_spacing sub def
                     cartouche_outer_width cartouche_radius 2 mul ge {
@@ -288,7 +293,11 @@ mystical_dict begin
                 dup xcheck /xflag arg
                 cvlit /literal arg
                 /aflag otype /arraytype eq def
-                /literal_s literal buffer cvs def
+                otype /stringtype eq {
+                    /literal_s literal def
+                } {
+                    /literal_s literal buffer cvs def
+                } ifelse
 
                 % check for def-ligature
                 /skip_token false def
@@ -364,7 +373,7 @@ mystical_dict begin
                             sigil_bank literal known otype /stringtype ne and {
                                 std_sigil_width
                             } {
-                                literal buffer cvs stringwidth pop
+                                literal_s stringwidth pop
                                 nonsigil_spacing add
                                 otype /stringtype eq {
                                     nonsigil_spacing add
