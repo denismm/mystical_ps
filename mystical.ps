@@ -156,11 +156,21 @@
                         /text_angle cartouche_inner_width PI textrad mul div 180 mul half def
                         /left_angle -90 text_angle sub def
                         /right_angle -90 text_angle add def
-                        0 0 textrad cartouche_radius sub left_angle right_angle sparc
+                        text_angle 90 gt {
+                            0 0 textrad cartouche_radius sub left_angle -90 sparc
+                            0 0 textrad cartouche_radius sub -90 right_angle sparc
+                        } {
+                            0 0 textrad cartouche_radius sub left_angle right_angle sparc
+                        } ifelse
                         right_angle rotate
                         textrad 0 cartouche_radius 180 0 sparcn
                         right_angle neg rotate
-                        0 0 textrad cartouche_radius add right_angle left_angle sparcn
+                        text_angle 90 gt {
+                            0 0 textrad cartouche_radius add right_angle -90 sparcn
+                            0 0 textrad cartouche_radius add -90 left_angle sparcn
+                        } {
+                            0 0 textrad cartouche_radius add right_angle left_angle sparcn
+                        } ifelse
                         left_angle rotate
                         textrad 0 cartouche_radius 0 180 sparcn
                         left_angle neg rotate
