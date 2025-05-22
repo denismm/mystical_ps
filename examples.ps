@@ -1,7 +1,9 @@
 %!PS
 
+(dmmlib/base.ps) run
 (mystical.ps) run
 (dmmsigils.ps) run
+
 /xarray_example {
     { 0 0 currentlinewidth 1.5 mul 0 360 arc fill } mystical_unscaled
 } def
@@ -79,11 +81,13 @@ sigil_bank /dot {
 } def
 
 /draw_token {
-    make_fake_token /fake_token arg
-    gsave
-        0 fake_token_radius translate
-        fake_token draw_sigil
-    grestore
+    mystical_dict begin
+        make_fake_token /fake_token arg
+        gsave
+            0 fake_token_radius translate
+            fake_token draw_sigil
+        grestore
+    end
 } def
 /operator_array { /array /nametype true draw_token } def
 /name_array { /array /nametype false draw_token } def
@@ -107,8 +111,10 @@ sigil_bank /dot {
         Spell /full_radius shrink neg addput
         Spell mystical_scale_spell
 
-        ligature draw_sigil
-        ligature draw_link
+        mystical_dict begin
+            ligature draw_sigil
+            ligature draw_link
+        end
     grestore
 
 } def
@@ -131,8 +137,10 @@ sigil_bank /dot {
         ligature /offset shrink neg addput
         Spell /full_radius shrink neg addput
         Spell mystical_scale_spell
-        ligature draw_sigil
-        ligature draw_link
+        mystical_dict begin
+            ligature draw_sigil
+            ligature draw_link
+        end
     grestore
 } def
 

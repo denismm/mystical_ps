@@ -1,4 +1,7 @@
 %!
+/mystical_dict 30 dict def
+mystical_dict begin
+
 (dmmlib/base.ps) run
 (dmmlib/textbase.ps) run
 (dmmlib/lines.ps) run
@@ -45,6 +48,7 @@
 /Zapf-Chancery 0.5 selectfont
 /nonsigil_spacing 0.125 def
 /cartouche_radius 0.25 def
+
 /draw_ring [/Spell] {
     Spell begin
         24 recip setlinewidth
@@ -578,7 +582,10 @@
     end
 } 1 false dict_safe_func
 
+end     % now out of mystical_dict
+
 /mystical_get_spell {
+    mystical_dict begin
     10 dict begin
         /input_code arg
         % determine type
@@ -597,6 +604,7 @@
         Spell input_code 0 parsecode pop
         Spell
     end
+    end
 } def
 
 /mystical_scale_spell { /Spell arg
@@ -604,10 +612,12 @@
 } def
 
 /mystical_draw_spell { /Spell arg
-    gsave
-        Spell mystical_scale_spell
-        Spell draw_ring
-    grestore
+    mystical_dict begin
+        gsave
+            Spell mystical_scale_spell
+            Spell draw_ring
+        grestore
+    end
 } def
 
 /mystical {
@@ -618,9 +628,11 @@
 } def
 
 /mystical_unscaled {
+    mystical_dict begin
     10 dict begin
         mystical_get_spell /Spell arg
         Spell draw_ring
+    end
     end
 } def
 
@@ -647,8 +659,10 @@
 } def
 /mystical_draw_evocation_label { /Spell arg /evocation arg
     /ligature evocation Spell mystical_make_evocation_ligature def
-    ligature draw_sigil
-    ligature draw_link
+    mystical_dict begin
+        ligature draw_sigil
+        ligature draw_link
+    end
 } def
 
 /mystical_evoke_label_base { /do_scale arg /evocation arg
