@@ -114,3 +114,26 @@ At the moment it's a way to draw a PostScript program - there's no interpreter t
 
 ## Could this work for other languages?
 This approach seems applicable to other language with just operators, such as Forth. Languages with more complicated statements might be more difficult, and I don't know if a new ring for every brace or indent will be overly busy.
+
+
+## Tips on creating mystical images (command line)
+- Clone and create a symlink to dmmlib, it's a dependency of this repo:
+```
+https://github.com/denismm/dmmlib
+```
+- Install ghostscript, command line tool for executing postscript files
+```
+apt-get install ghostscript
+``` 
+- The liveupdate.sh bash script is a handy way to get a live-updating png file. For example, run:
+
+    ```
+    bash liveupdate.sh arithmagic.ps
+    ```
+    
+    Now there is a process watching for any changes you make to `arithmagic.ps`. Any change will trigger this script to re-run, creating a fresh version of `arithmagic.png` in `images/`
+
+    However, this script requires imagemagick, installed with
+    ```
+    apt-get install imagemagick
+    ```

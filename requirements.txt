@@ -1,0 +1,5 @@
+gitpython
+markdown-it-py
+ply
+numpy
+black
