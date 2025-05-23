@@ -817,6 +817,14 @@
         0.375 -0.25 0.125 90 0 arcn nstroke
         0.5 -0.25 ndot
     }
+    /showpage {
+        gsave
+            6 recip softscale
+            -1.5 -1 1.5 3 box nstroke
+            0 -1 goto 0 -3 goto nstroke
+            -1 -2 goto 1 -2 goto nstroke
+        grestore
+    }
     /sin {
         gsave
             2 recip softscale

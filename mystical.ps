@@ -1,5 +1,14 @@
 %!
+
+% arg and dict_safe_func are more generally needed
+
 (dmmlib/base.ps) run
+
+/mystical_dict 30 dict def
+mystical_dict begin
+
+% load other dmmlib functions inside mystical_dict 
+% to avoid polluting user namespace
 (dmmlib/textbase.ps) run
 (dmmlib/lines.ps) run
 (dmmlib/polar.ps) run
@@ -44,7 +53,8 @@
 /buffer 100 string def
 /Zapf-Chancery 0.5 selectfont
 /nonsigil_spacing 0.125 def
-/string_radius 0.25 def
+/cartouche_radius 0.25 def
+
 /draw_ring [/Spell] {
     Spell begin
         24 recip setlinewidth
@@ -148,22 +158,45 @@
             gsave
                 /textrad parent /radius get def
                 0 textrad translate
-                name buffer cvs textrad neg circle_center_show
                 otype /stringtype eq {
-                    /cartouche_width width nonsigil_spacing sub string_radius 2 mul sub def
-                    /text_angle cartouche_width PI textrad mul div 180 mul half def
-                    /left_angle -90 text_angle sub def
-                    /right_angle -90 text_angle add def
-                    0 0 textrad string_radius sub left_angle right_angle sparc
-                    right_angle rotate
-                    textrad 0 string_radius 180 0 sparcn
-                    right_angle neg rotate
-                    0 0 textrad string_radius add right_angle left_angle sparcn
-                    left_angle rotate
-                    textrad 0 string_radius 0 180 sparcn
-                    left_angle neg rotate
-                    closepath
-                    nstroke
+                    name
+                } {
+                    name buffer cvs
+                } ifelse
+                textrad neg circle_center_show
+                otype /stringtype eq {
+                    /cartouche_outer_width width nonsigil_spacing sub def
+                    cartouche_outer_width cartouche_radius 2 mul ge {
+                        /cartouche_inner_width cartouche_outer_width cartouche_radius 2 mul sub def
+                        /text_angle cartouche_inner_width PI textrad mul div 180 mul half def
+                        /left_angle -90 text_angle sub def
+                        /right_angle -90 text_angle add def
+                        text_angle 90 gt {
+                            0 0 textrad cartouche_radius sub left_angle -90 sparc
+                            0 0 textrad cartouche_radius sub -90 right_angle sparc
+                        } {
+                            0 0 textrad cartouche_radius sub left_angle right_angle sparc
+                        } ifelse
+                        right_angle rotate
+                        textrad 0 cartouche_radius 180 0 sparcn
+                        right_angle neg rotate
+                        text_angle 90 gt {
+                            0 0 textrad cartouche_radius add right_angle -90 sparcn
+                            0 0 textrad cartouche_radius add -90 left_angle sparcn
+                        } {
+                            0 0 textrad cartouche_radius add right_angle left_angle sparcn
+                        } ifelse
+                        left_angle rotate
+                        textrad 0 cartouche_radius 0 180 sparcn
+                        left_angle neg rotate
+                        closepath
+                        nstroke
+                    } {
+                        % too small for cartouche, ellipse
+                        0 textrad neg cartouche_outer_width half cartouche_radius 0 180 spell 
+                        0 textrad neg cartouche_outer_width half cartouche_radius 180 0 spell
+                        nstroke
+                    } ifelse
                 } if
             grestore
         } ifelse
@@ -260,11 +293,15 @@
                 dup xcheck /xflag arg
                 cvlit /literal arg
                 /aflag otype /arraytype eq def
-                /literal_s literal buffer cvs def
+                otype /stringtype eq {
+                    /literal_s literal def
+                } {
+                    /literal_s literal buffer cvs def
+                } ifelse
 
                 % check for def-ligature
                 /skip_token false def
-                Ring /rtype get /xarray eq literal /def eq and {
+                Ring /rtype get /xarray eq literal /def eq xflag and and {
                     cursor 2 ge {
                         % prev is true circle
                         /previous components cursor 1 sub get def
@@ -336,7 +373,7 @@
                             sigil_bank literal known otype /stringtype ne and {
                                 std_sigil_width
                             } {
-                                literal buffer cvs stringwidth pop
+                                literal_s stringwidth pop
                                 nonsigil_spacing add
                                 otype /stringtype eq {
                                     nonsigil_spacing add
@@ -359,8 +396,8 @@
                     } forall
 
                     /code_pos 1 adddef
-                    code_pos code length ge { exit } if
                 } if
+                code_pos code length ge { exit } if
             } loop
             % temporary shenanigans - cursor might be two off the end
             components Ring /cursor get 1 sub get length 0 eq {
@@ -560,7 +597,10 @@
     end
 } 1 false dict_safe_func
 
+end     % now out of mystical_dict
+
 /mystical_get_spell {
+    mystical_dict begin
     10 dict begin
         /input_code arg
         % determine type
@@ -579,6 +619,7 @@
         Spell input_code 0 parsecode pop
         Spell
     end
+    end
 } def
 
 /mystical_scale_spell { /Spell arg
@@ -586,10 +627,12 @@
 } def
 
 /mystical_draw_spell { /Spell arg
-    gsave
-        Spell mystical_scale_spell
-        Spell draw_ring
-    grestore
+    mystical_dict begin
+        gsave
+            Spell mystical_scale_spell
+            Spell draw_ring
+        grestore
+    end
 } def
 
 /mystical {
@@ -600,9 +643,11 @@
 } def
 
 /mystical_unscaled {
+    mystical_dict begin
     10 dict begin
         mystical_get_spell /Spell arg
         Spell draw_ring
+    end
     end
 } def
 
@@ -629,8 +674,10 @@
 } def
 /mystical_draw_evocation_label { /Spell arg /evocation arg
     /ligature evocation Spell mystical_make_evocation_ligature def
-    ligature draw_sigil
-    ligature draw_link
+    mystical_dict begin
+        ligature draw_sigil
+        ligature draw_link
+    end
 } def
 
 /mystical_evoke_label_base { /do_scale arg /evocation arg
