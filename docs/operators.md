@@ -1,6 +1,12 @@
 # Standard Sigils in Mystical
 
 These are the sigils I came up with for built-in PostScript operators.  See [Mystical](../README.md) for more details about this system.
+## Structural markings
+| | |
+|:--:|:--:|
+|![RETURN sigil](../images/sigil_RETURN.png)|![COMPLETE sigil](../images/sigil_COMPLETE.png)|
+|RETURN|COMPLETE|
+
 ## Operand Stack Manipulation Operators
 | | | | | | |
 |:--:|:--:|:--:|:--:|:--:|:--:|
@@ -113,6 +119,13 @@ No sigils for: arct, arcto, flattenpath, reversepath, strokepath, ustrokepath, u
 |stroke|fill|
 
 No sigils for: erasepage, eofill, rectstroke, rectfill, ustroke, ufill, ueofill, shfill, image, colorimage, imagemask
+## Device Setup and Output Operators
+| |
+|:--:|
+|![showpage sigil](../images/sigil_showpage.png)|
+|showpage|
+
+No sigils for: copypage, setpagedevice, currentpagedevice, nulldevice
 ## Glyph and Font Operators
 | | | | | | | |
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
@@ -129,7 +142,6 @@ I haven't yet made sigils for any of the operators in these categories:
 * **Graphics State Operators (Device-Dependent)** (sethalftone, currenthalftone, setscreen, currentscreen, setcolorscreen, currentcolorscreen, settransfer, currenttransfer, setcolortransfer, currentcolortransfer, setblackgeneration, currentblackgeneration, setundercolorremoval, currentundercolorremoval, setcolorrendering, currentcolorrendering, setflat, currentflat, setoverprint, currentoverprint, setsmoothness, currentsmoothness)
 * **Insideness-Testing Operators** (infill, ineofill, inufill, inueofill, instroke, inustroke)
 * **Form and Pattern Operators** (makepattern, setpattern, execform)
-* **Device Setup and Output Operators** (showpage, copypage, setpagedevice, currentpagedevice, nulldevice)
 * **Interpreter Parameter Operators** (setsystemparams, currentsystemparams, setuserparams, currentuserparams, setdevparams, currentdevparams, vmreclaim, setvmthreshold, vmstatus, cachestatus, setcachelimit, setcacheparams, currentcacheparams, setucacheparams, ucachestatus)
 
 My thanks to Andrew Plotkin for inventing the basic form of the symbol I used for xor, in another context.
