@@ -34,14 +34,20 @@ sigil_bank { cvlit /sigil_func arg /sigil_name arg
 72 softscale 1.25 10 translate 
 /i 0 def
 /j 0 def
-[/sigil_lineto /sigil_rlineto 
-/sigil_moveto /sigil_rmoveto
-/sigil_curveto /sigil_rcurveto
-/sigil_goto
-/sigil_rgoto
-/sigil_cstroke /sigil_newpath
-/sigil_file /sigil_run
-/sigil_showpage
+[/sigil_setcolor /sigil_currentcolor 
+/sigil_setgray /sigil_currentgray
+/sigil_setcmykcolor /sigil_currentcmykcolor
+/sigil_sethsbcolor /sigil_currenthsbcolor
+/sigil_setrgbcolor /sigil_currentrgbcolor
+/sigil_srand /sigil_rrand
+/sigil_setlinecap /sigil_currentlinecap
+/sigil_setlinewidth /sigil_currentlinewidth
+/sigil_setlinejoin /sigil_currentlinejoin
+/sigil_rand
+/sigil_setmiterlimit /sigil_currentmiterlimit
+/sigil_setmatrix /sigil_currentmatrix
+/sigil_setfont /sigil_currentfont
+/sigil_currentpoint /sigil_newpath
 ]
 {
     gsave
