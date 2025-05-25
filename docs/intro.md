@@ -2,7 +2,7 @@
 
 ## Installation
 
-Follow the instructions in [Installation of Mystical](../install.md).
+Follow the instructions in [Installation of Mystical](../INSTALL.md).
 
 ## First example
 
