@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'BINOP DEF IDENTIFIER INSCRIBE INVOCATION LARRAY LPAREN LXARRAY NEWLINE NULLOP NUMBER PERIOD PS RARRAY RPAREN RUN RXARRAY SHOW SLASH SOFTSCALE TRANSLATEspell : statementsstatements : statements statementstatements : statementinvoke : LXARRAY INVOCATION RXARRAYarray : LARRAY statements RARRAYnullop : NULLOPxarray : LXARRAY statements RXARRAYexpression : NUMBER\n    | xarraybinop : NUMBER NUMBER BINOP\n    | NUMBER xarray BINOP\n    | xarray NUMBER BINOP\n    | xarray xarray BINOPinscription : SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEFinscription : SLASH IDENTIFIER LXARRAY statements RXARRAY DEFcast : IDENTIFIERimport : LPAREN IDENTIFIER PERIOD PS RPAREN RUNscale : NUMBER SOFTSCALEtranslate : NUMBER NUMBER TRANSLATEshow : SHOWstatement : NEWLINE\n    | nullop\n    | binop\n    | expression\n    | cast\n    | inscription\n    | invoke\n    | show\n    | scale\n    | translate\n    | array\n    | import'
+_lr_signature = 'BINOP DEF IDENTIFIER INSCRIBE INVOCATION LARRAY LPAREN LXARRAY NEWLINE NULLOP NUMBER PERIOD PS RARRAY RPAREN RUN RXARRAY SHOW SLASH SOFTSCALE TRANSLATEspell : statementsstatements : statements statementstatements : statementinvoke : INVOCATIONarray : LARRAY statements RARRAYnullop : NULLOPxarray : LXARRAY statements RXARRAYexpression : NUMBER\n    | xarraybinop : NUMBER NUMBER BINOP\n    | NUMBER binop BINOPinscription : SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEFinscription : SLASH IDENTIFIER LXARRAY statements RXARRAY DEFcast : IDENTIFIERimport : LPAREN IDENTIFIER PERIOD PS RPAREN RUNscale : NUMBER SOFTSCALEtranslate : NUMBER NUMBER TRANSLATEshow : SHOWstatement : NEWLINE\n    | nullop\n    | binop\n    | expression\n    | cast\n    | inscription\n    | invoke\n    | show\n    | scale\n    | translate\n    | array\n    | import'
     
-_lr_action_items = {'NEWLINE':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,25,28,29,34,35,37,38,39,40,41,42,43,44,45,47,53,54,55,],[4,4,-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,4,-20,4,-2,-18,4,4,4,-10,-19,-11,-13,-12,4,-4,-7,-5,4,-15,-17,-14,]),'NULLOP':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,25,28,29,34,35,37,38,39,40,41,42,43,44,45,47,53,54,55,],[16,16,-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,16,-20,16,-2,-18,16,16,16,-10,-19,-11,-13,-12,16,-4,-7,-5,16,-15,-17,-14,]),'NUMBER':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,25,28,29,34,35,37,38,39,40,41,42,43,44,45,47,53,54,55,],[17,17,-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,26,31,-16,17,-20,17,-2,-18,17,17,17,-10,-19,-11,-13,-12,17,-4,-7,-5,17,-15,-17,-14,]),'IDENTIFIER':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,28,29,34,35,37,38,39,40,41,42,43,44,45,47,53,54,55,],[19,19,-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,32,19,-20,19,36,-2,-18,19,19,19,-10,-19,-11,-13,-12,19,-4,-7,-5,19,-15,-17,-14,]),'SLASH':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,25,28,29,34,35,37,38,39,40,41,42,43,44,45,47,53,54,55,],[20,20,-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,20,-20,20,-2,-18,20,20,20,-10,-19,-11,-13,-12,20,-4,-7,-5,20,-15,-17,-14,]),'LXARRAY':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,25,28,29,32,34,35,37,38,39,40,41,42,43,44,45,47,53,54,55,],[21,21,-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,29,29,-16,21,-20,21,-2,-18,21,42,21,21,-10,-19,-11,-13,-12,21,-4,-7,-5,21,-15,-17,-14,]),'SHOW':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,25,28,29,34,35,37,38,39,40,41,42,43,44,45,47,53,54,55,],[22,22,-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,22,-20,22,-2,-18,22,22,22,-10,-19,-11,-13,-12,22,-4,-7,-5,22,-15,-17,-14,]),'LARRAY':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,25,28,29,34,35,37,38,39,40,41,42,43,44,45,47,53,54,55,],[23,23,-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,23,-20,23,-2,-18,23,23,23,-10,-19,-11,-13,-12,23,-4,-7,-5,23,-15,-17,-14,]),'LPAREN':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,25,28,29,34,35,37,38,39,40,41,42,43,44,45,47,53,54,55,],[24,24,-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,24,-20,24,-2,-18,24,24,24,-10,-19,-11,-13,-12,24,-4,-7,-5,24,-15,-17,-14,]),'$end':([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,22,25,28,37,38,39,40,41,43,44,45,53,54,55,],[0,-1,-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,-20,-2,-18,-10,-19,-11,-13,-12,-4,-7,-5,-15,-17,-14,]),'RXARRAY':([3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,22,25,28,33,34,37,38,39,40,41,43,44,45,47,49,53,54,55,],[-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,-20,-2,-18,43,44,-10,-19,-11,-13,-12,-4,-7,-5,50,52,-15,-17,-14,]),'RARRAY':([3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,22,25,28,35,37,38,39,40,41,43,44,45,53,54,55,],[-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,-20,-2,-18,45,-10,-19,-11,-13,-12,-4,-7,-5,-15,-17,-14,]),'INSCRIBE':([3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,22,25,28,37,38,39,40,41,43,44,45,47,53,54,55,],[-3,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-6,-8,-9,-16,-20,-2,-18,-10,-19,-11,-13,-12,-4,-7,-5,49,-15,-17,-14,]),'SOFTSCALE':([17,],[28,]),'INVOCATION':([21,],[33,]),'BINOP':([26,27,30,31,44,],[37,39,40,41,-7,]),'TRANSLATE':([26,],[38,]),'PERIOD':([36,],[46,]),'PS':([46,],[48,]),'RPAREN':([48,],[51,]),'DEF':([50,52,],[53,55,]),'RUN':([51,],[54,]),}
+_lr_action_items = {'NEWLINE':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,26,29,31,32,35,36,37,38,39,40,42,48,49,50,],[4,4,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,4,-4,-18,4,-2,-16,4,4,-10,-17,-11,4,-7,-5,4,-13,-15,-12,]),'NULLOP':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,26,29,31,32,35,36,37,38,39,40,42,48,49,50,],[16,16,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,16,-4,-18,16,-2,-16,16,16,-10,-17,-11,16,-7,-5,16,-13,-15,-12,]),'NUMBER':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,26,27,29,31,32,34,35,36,37,38,39,40,42,48,49,50,],[17,17,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,27,-9,-14,17,-4,-18,17,-2,34,-16,17,17,34,-10,-17,-11,17,-7,-5,17,-13,-15,-12,]),'IDENTIFIER':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,29,31,32,35,36,37,38,39,40,42,48,49,50,],[19,19,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,30,19,-4,-18,19,33,-2,-16,19,19,-10,-17,-11,19,-7,-5,19,-13,-15,-12,]),'SLASH':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,26,29,31,32,35,36,37,38,39,40,42,48,49,50,],[20,20,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,20,-4,-18,20,-2,-16,20,20,-10,-17,-11,20,-7,-5,20,-13,-15,-12,]),'INVOCATION':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,26,29,31,32,35,36,37,38,39,40,42,48,49,50,],[22,22,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,22,-4,-18,22,-2,-16,22,22,-10,-17,-11,22,-7,-5,22,-13,-15,-12,]),'SHOW':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,26,29,31,32,35,36,37,38,39,40,42,48,49,50,],[23,23,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,23,-4,-18,23,-2,-16,23,23,-10,-17,-11,23,-7,-5,23,-13,-15,-12,]),'LARRAY':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,26,29,31,32,35,36,37,38,39,40,42,48,49,50,],[24,24,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,24,-4,-18,24,-2,-16,24,24,-10,-17,-11,24,-7,-5,24,-13,-15,-12,]),'LPAREN':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,26,29,31,32,35,36,37,38,39,40,42,48,49,50,],[25,25,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,25,-4,-18,25,-2,-16,25,25,-10,-17,-11,25,-7,-5,25,-13,-15,-12,]),'LXARRAY':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,26,29,30,31,32,35,36,37,38,39,40,42,48,49,50,],[21,21,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,21,-4,-18,21,-2,-16,38,21,21,-10,-17,-11,21,-7,-5,21,-13,-15,-12,]),'$end':([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,22,23,26,29,35,36,37,39,40,48,49,50,],[0,-1,-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,-4,-18,-2,-16,-10,-17,-11,-7,-5,-13,-15,-12,]),'RXARRAY':([3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,22,23,26,29,31,35,36,37,39,40,42,44,48,49,50,],[-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,-4,-18,-2,-16,39,-10,-17,-11,-7,-5,45,47,-13,-15,-12,]),'RARRAY':([3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,22,23,26,29,32,35,36,37,39,40,48,49,50,],[-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,-4,-18,-2,-16,40,-10,-17,-11,-7,-5,-13,-15,-12,]),'INSCRIBE':([3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,22,23,26,29,35,36,37,39,40,42,48,49,50,],[-3,-19,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,-6,-8,-9,-14,-4,-18,-2,-16,-10,-17,-11,-7,-5,44,-13,-15,-12,]),'SOFTSCALE':([17,],[29,]),'BINOP':([27,28,34,35,37,],[35,37,35,-10,-11,]),'TRANSLATE':([27,],[36,]),'PERIOD':([33,],[41,]),'PS':([41,],[43,]),'RPAREN':([43,],[46,]),'DEF':([45,47,],[48,50,]),'RUN':([46,],[49,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'spell':([0,],[1,]),'statements':([0,21,23,29,42,],[2,34,35,34,47,]),'statement':([0,2,21,23,29,34,35,42,47,],[3,25,3,3,3,25,25,3,25,]),'nullop':([0,2,21,23,29,34,35,42,47,],[5,5,5,5,5,5,5,5,5,]),'binop':([0,2,21,23,29,34,35,42,47,],[6,6,6,6,6,6,6,6,6,]),'expression':([0,2,21,23,29,34,35,42,47,],[7,7,7,7,7,7,7,7,7,]),'cast':([0,2,21,23,29,34,35,42,47,],[8,8,8,8,8,8,8,8,8,]),'inscription':([0,2,21,23,29,34,35,42,47,],[9,9,9,9,9,9,9,9,9,]),'invoke':([0,2,21,23,29,34,35,42,47,],[10,10,10,10,10,10,10,10,10,]),'show':([0,2,21,23,29,34,35,42,47,],[11,11,11,11,11,11,11,11,11,]),'scale':([0,2,21,23,29,34,35,42,47,],[12,12,12,12,12,12,12,12,12,]),'translate':([0,2,21,23,29,34,35,42,47,],[13,13,13,13,13,13,13,13,13,]),'array':([0,2,21,23,29,34,35,42,47,],[14,14,14,14,14,14,14,14,14,]),'import':([0,2,21,23,29,34,35,42,47,],[15,15,15,15,15,15,15,15,15,]),'xarray':([0,2,17,18,21,23,29,34,35,42,47,],[18,18,27,30,18,18,18,18,18,18,18,]),}
+_lr_goto_items = {'spell':([0,],[1,]),'statements':([0,21,24,38,],[2,31,32,42,]),'statement':([0,2,21,24,31,32,38,42,],[3,26,3,3,26,26,3,26,]),'nullop':([0,2,21,24,31,32,38,42,],[5,5,5,5,5,5,5,5,]),'binop':([0,2,17,21,24,27,31,32,34,38,42,],[6,6,28,6,6,28,6,6,28,6,6,]),'expression':([0,2,21,24,31,32,38,42,],[7,7,7,7,7,7,7,7,]),'cast':([0,2,21,24,31,32,38,42,],[8,8,8,8,8,8,8,8,]),'inscription':([0,2,21,24,31,32,38,42,],[9,9,9,9,9,9,9,9,]),'invoke':([0,2,21,24,31,32,38,42,],[10,10,10,10,10,10,10,10,]),'show':([0,2,21,24,31,32,38,42,],[11,11,11,11,11,11,11,11,]),'scale':([0,2,21,24,31,32,38,42,],[12,12,12,12,12,12,12,12,]),'translate':([0,2,21,24,31,32,38,42,],[13,13,13,13,13,13,13,13,]),'array':([0,2,21,24,31,32,38,42,],[14,14,14,14,14,14,14,14,]),'import':([0,2,21,24,31,32,38,42,],[15,15,15,15,15,15,15,15,]),'xarray':([0,2,21,24,31,32,38,42,],[18,18,18,18,18,18,18,18,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -30,33 +30,31 @@ _lr_productions = [
   ('spell -> statements','spell',1,'p_spell','mystical_parser.py',19),
   ('statements -> statements statement','statements',2,'p_statements_multiple','mystical_parser.py',30),
   ('statements -> statement','statements',1,'p_statements_single','mystical_parser.py',39),
-  ('invoke -> LXARRAY INVOCATION RXARRAY','invoke',3,'p_invoke','mystical_parser.py',50),
-  ('array -> LARRAY statements RARRAY','array',3,'p_array','mystical_parser.py',61),
-  ('nullop -> NULLOP','nullop',1,'p_nullop','mystical_parser.py',72),
-  ('xarray -> LXARRAY statements RXARRAY','xarray',3,'p_xarray','mystical_parser.py',83),
-  ('expression -> NUMBER','expression',1,'p_expression','mystical_parser.py',95),
-  ('expression -> xarray','expression',1,'p_expression','mystical_parser.py',96),
-  ('binop -> NUMBER NUMBER BINOP','binop',3,'p_binop','mystical_parser.py',105),
-  ('binop -> NUMBER xarray BINOP','binop',3,'p_binop','mystical_parser.py',106),
-  ('binop -> xarray NUMBER BINOP','binop',3,'p_binop','mystical_parser.py',107),
-  ('binop -> xarray xarray BINOP','binop',3,'p_binop','mystical_parser.py',108),
-  ('inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF','inscription',7,'p_magic_inscription','mystical_parser.py',122),
-  ('inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF','inscription',6,'p_inscription','mystical_parser.py',136),
-  ('cast -> IDENTIFIER','cast',1,'p_cast','mystical_parser.py',152),
-  ('import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN','import',6,'p_import','mystical_parser.py',164),
-  ('scale -> NUMBER SOFTSCALE','scale',2,'p_scale','mystical_parser.py',170),
-  ('translate -> NUMBER NUMBER TRANSLATE','translate',3,'p_translate','mystical_parser.py',174),
-  ('show -> SHOW','show',1,'p_show','mystical_parser.py',178),
-  ('statement -> NEWLINE','statement',1,'p_statement','mystical_parser.py',185),
-  ('statement -> nullop','statement',1,'p_statement','mystical_parser.py',186),
-  ('statement -> binop','statement',1,'p_statement','mystical_parser.py',187),
-  ('statement -> expression','statement',1,'p_statement','mystical_parser.py',188),
-  ('statement -> cast','statement',1,'p_statement','mystical_parser.py',189),
-  ('statement -> inscription','statement',1,'p_statement','mystical_parser.py',190),
-  ('statement -> invoke','statement',1,'p_statement','mystical_parser.py',191),
-  ('statement -> show','statement',1,'p_statement','mystical_parser.py',192),
-  ('statement -> scale','statement',1,'p_statement','mystical_parser.py',193),
-  ('statement -> translate','statement',1,'p_statement','mystical_parser.py',194),
-  ('statement -> array','statement',1,'p_statement','mystical_parser.py',195),
-  ('statement -> import','statement',1,'p_statement','mystical_parser.py',196),
+  ('invoke -> INVOCATION','invoke',1,'p_invoke','mystical_parser.py',51),
+  ('array -> LARRAY statements RARRAY','array',3,'p_array','mystical_parser.py',62),
+  ('nullop -> NULLOP','nullop',1,'p_nullop','mystical_parser.py',73),
+  ('xarray -> LXARRAY statements RXARRAY','xarray',3,'p_xarray','mystical_parser.py',84),
+  ('expression -> NUMBER','expression',1,'p_expression','mystical_parser.py',96),
+  ('expression -> xarray','expression',1,'p_expression','mystical_parser.py',97),
+  ('binop -> NUMBER NUMBER BINOP','binop',3,'p_binop','mystical_parser.py',106),
+  ('binop -> NUMBER binop BINOP','binop',3,'p_binop','mystical_parser.py',107),
+  ('inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF','inscription',7,'p_magic_inscription','mystical_parser.py',121),
+  ('inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF','inscription',6,'p_inscription','mystical_parser.py',135),
+  ('cast -> IDENTIFIER','cast',1,'p_cast','mystical_parser.py',150),
+  ('import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN','import',6,'p_import','mystical_parser.py',162),
+  ('scale -> NUMBER SOFTSCALE','scale',2,'p_scale','mystical_parser.py',169),
+  ('translate -> NUMBER NUMBER TRANSLATE','translate',3,'p_translate','mystical_parser.py',173),
+  ('show -> SHOW','show',1,'p_show','mystical_parser.py',177),
+  ('statement -> NEWLINE','statement',1,'p_statement','mystical_parser.py',184),
+  ('statement -> nullop','statement',1,'p_statement','mystical_parser.py',185),
+  ('statement -> binop','statement',1,'p_statement','mystical_parser.py',186),
+  ('statement -> expression','statement',1,'p_statement','mystical_parser.py',187),
+  ('statement -> cast','statement',1,'p_statement','mystical_parser.py',188),
+  ('statement -> inscription','statement',1,'p_statement','mystical_parser.py',189),
+  ('statement -> invoke','statement',1,'p_statement','mystical_parser.py',190),
+  ('statement -> show','statement',1,'p_statement','mystical_parser.py',191),
+  ('statement -> scale','statement',1,'p_statement','mystical_parser.py',192),
+  ('statement -> translate','statement',1,'p_statement','mystical_parser.py',193),
+  ('statement -> array','statement',1,'p_statement','mystical_parser.py',194),
+  ('statement -> import','statement',1,'p_statement','mystical_parser.py',195),
 ]

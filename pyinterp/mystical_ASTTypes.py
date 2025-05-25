@@ -427,7 +427,7 @@ class BinOp(ASTNode):
         else:
             rightstr = str(self.right)
 
-        return leftstr + self.op + rightstr
+        return "(" + leftstr + self.op + rightstr + ")"
 
     # TODO: These op nodes could be children of a parent op class to save on the execute() method, maybe overkill tho
 

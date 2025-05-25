@@ -2,17 +2,11 @@
 (dmmsigils.ps) run
 
 /add_two_numbers_and_run {
-    { 
-        5
-        {3 8 add} 
-        mul
-     {exec}
-     } mystical_unscaled 
-    } def
-
+    {{5 3 8 add mul} exec} mystical_unscaled
+} def
 
 
 50 softscale
 7 9 translate
-add_two_numbers_and_run
+add_two_numbers_and_run % prints 55 to the terminal
 showpage

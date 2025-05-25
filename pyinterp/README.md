@@ -43,18 +43,13 @@ This grammar is just what made sense to me as I started to draw my own mystical 
 (dmmsigils.ps) run
 
 /add_two_numbers_and_run {
-    { 
-        5
-        {3 8 add} 
-        mul
-     {exec}
-     } mystical_unscaled 
-    } def
+    {{5 3 8 add mul} exec} mystical_unscaled
+} def
 
 
 50 softscale
 7 9 translate
-add_two_numbers_and_run
+add_two_numbers_and_run % prints 55 to the terminal
 showpage
 ```
 
@@ -67,15 +62,13 @@ showpage
 - the softscale and translate and showpage commands are also ignored as they are also just used to draw the file
 - the `add_two_numbers_and_run` inscription is cast when the function is called at the end of the page
 
-### How I am reading the Mystical Image
-- Begin at unassigned "start" sigil (not called out as a "start" sigil in [sigils documentation](docs/sigils.md), but I think it's fair to call it that?).
-- Move widdershins to add 5 to the stack, continue in that direction
-- Next is a ligature that takes us to another executable array, go to that ring.
-    - Add 3 and 8 to the stack
-    - Hit the add operator to get 11
-- Return back down the ligature to the original ring, to replace that position with "11"
-- Hit the multiply operator to multiply 5*11 to get 55
-- Send that 55 down the "invocation" ligature to the top ring
+### Reading a Mystical Image for a Python Interpreter
+- Begin to the right of the unassigned return sigil on the left circle
+- That's a ligature that sends us to the other ring, which is 
+- Move widdershins to add 5, 3 and 8 to the stack
+- Hit the add sigil, to add 3+8
+- Hit the multiply sigil, to multiply 5* (3+8)
+- Hit the return sigil on the right hand circle, which sends us back down the ligature to the original circle
 - Hit the exec sigil to return 55.
 
 

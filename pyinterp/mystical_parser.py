@@ -37,7 +37,6 @@ def p_statements_multiple(p):
 # allows you to have a single statement in the list of statements
 def p_statements_single(p):
     """statements : statement"""
-    print(f"p_statements_single: {p[1]}")
     if p[1] is not None:
         p[0] = [p[1]]
     else:
@@ -48,9 +47,9 @@ def p_statements_single(p):
 # It goes in an executable array, I'm thinking at the end of an inscription? Though that's not enforced right now
 # So the last sigil in an inscription would be {exec} to print the result.
 def p_invoke(p):
-    """invoke : LXARRAY INVOCATION RXARRAY"""
+    """invoke : INVOCATION"""
     p[0] = ASTTypes.Invocation(
-        invokeType=p[2],
+        invokeType=p[1],
         lineno=p.lineno(1),
         colno=find_column(p.lexer.lexdata, p.lexpos(1)),
         lexpos=p.lexpos(1),
@@ -104,9 +103,8 @@ def p_expression(p):
 # so you could do 1 {1 2 *} + =  3
 def p_binop(p):
     """binop : NUMBER NUMBER BINOP
-    | NUMBER xarray BINOP
-    | xarray NUMBER BINOP
-    | xarray xarray BINOP"""
+    | NUMBER binop BINOP"""
+    print(f"p_binop: {p[1]} {p[2]} {p[3]}")
     p[0] = ASTTypes.BinOp(
         left=p[1],
         right=p[2],
