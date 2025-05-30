@@ -90,12 +90,12 @@ No sigils for: filter, closefile, read, write, readhexstring, writehexstring, re
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |![gsave sigil](../images/sigil_gsave.png)|![grestore sigil](../images/sigil_grestore.png)|![setlinewidth sigil](../images/sigil_setlinewidth.png)|![currentlinewidth sigil](../images/sigil_currentlinewidth.png)|![setlinecap sigil](../images/sigil_setlinecap.png)|![currentlinecap sigil](../images/sigil_currentlinecap.png)|![setlinejoin sigil](../images/sigil_setlinejoin.png)|![currentlinejoin sigil](../images/sigil_currentlinejoin.png)|
 |gsave|grestore|setlinewidth|currentlinewidth|setlinecap|currentlinecap|setlinejoin|currentlinejoin|
-|![setmiterlimit sigil](../images/sigil_setmiterlimit.png)|![currentmiterlimit sigil](../images/sigil_currentmiterlimit.png)|![setcolor sigil](../images/sigil_setcolor.png)|![currentcolor sigil](../images/sigil_currentcolor.png)|![setgray sigil](../images/sigil_setgray.png)|![currentgray sigil](../images/sigil_currentgray.png)|![sethsbcolor sigil](../images/sigil_sethsbcolor.png)|![currenthsbcolor sigil](../images/sigil_currenthsbcolor.png)|
-|setmiterlimit|currentmiterlimit|setcolor|currentcolor|setgray|currentgray|sethsbcolor|currenthsbcolor|
-|![setrgbcolor sigil](../images/sigil_setrgbcolor.png)|![currentrgbcolor sigil](../images/sigil_currentrgbcolor.png)|![setcmykcolor sigil](../images/sigil_setcmykcolor.png)|![currentcmykcolor sigil](../images/sigil_currentcmykcolor.png)|
-|setrgbcolor|currentrgbcolor|setcmykcolor|currentcmykcolor|
+|![setmiterlimit sigil](../images/sigil_setmiterlimit.png)|![currentmiterlimit sigil](../images/sigil_currentmiterlimit.png)|![setdash sigil](../images/sigil_setdash.png)|![currentdash sigil](../images/sigil_currentdash.png)|![setcolor sigil](../images/sigil_setcolor.png)|![currentcolor sigil](../images/sigil_currentcolor.png)|![setgray sigil](../images/sigil_setgray.png)|![currentgray sigil](../images/sigil_currentgray.png)|
+|setmiterlimit|currentmiterlimit|setdash|currentdash|setcolor|currentcolor|setgray|currentgray|
+|![sethsbcolor sigil](../images/sigil_sethsbcolor.png)|![currenthsbcolor sigil](../images/sigil_currenthsbcolor.png)|![setrgbcolor sigil](../images/sigil_setrgbcolor.png)|![currentrgbcolor sigil](../images/sigil_currentrgbcolor.png)|![setcmykcolor sigil](../images/sigil_setcmykcolor.png)|![currentcmykcolor sigil](../images/sigil_currentcmykcolor.png)|
+|sethsbcolor|currenthsbcolor|setrgbcolor|currentrgbcolor|setcmykcolor|currentcmykcolor|
 
-No sigils for: clipsave, cliprestore, grestoreall, initgraphics, gstate, setgstate, currentgstate, setstrokeadjust, currentstrokeadjust, setdash, currentdash, setcolorspace, currentcolorspace
+No sigils for: clipsave, cliprestore, grestoreall, initgraphics, gstate, setgstate, currentgstate, setstrokeadjust, currentstrokeadjust, setcolorspace, currentcolorspace
 ## Coordinate System and Matrix Operators
 | | | | | |
 |:--:|:--:|:--:|:--:|:--:|

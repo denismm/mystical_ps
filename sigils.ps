@@ -33,6 +33,24 @@
             } circrepeat closepath nstroke
         grestore
     }
+    /dash {
+        gsave
+            8 recip softscale
+            -3 -4 goto
+            -4 -4 goto
+            -4 -3 goto nstroke
+            -4 -1 goto -4 1 goto nstroke
+            -4 3 goto 
+            -4 4 goto
+            -3 4 goto nstroke
+            -1 4 goto
+            0 0 4 90 75 sparcn nstroke
+            0 0 4 45 15 sparcn nstroke
+            0 0 4 -15 -45 sparcn nstroke
+            0 0 4 -75 -90 sparcn
+            -1 -4 goto nstroke
+        grestore
+    }
     /gray {
         sigil_parts /color get exec
         gsave
@@ -942,14 +960,16 @@
     /setcolor { /color sigil_set }
     /currentcmykcolor { /cmykcolor sigil_current }
     /setcmykcolor { /cmykcolor sigil_set }
+    /currentdash { /dash sigil_current }
+    /setdash { /dash sigil_set }
+    /currentfont { /font sigil_current }
+    /setfont { /font sigil_set }
     /currentgray { /gray sigil_current }
     /setgray { /gray sigil_set }
     /currenthsbcolor { /hsbcolor sigil_current }
     /sethsbcolor { /hsbcolor sigil_set }
     /currentrgbcolor { /rgbcolor sigil_current }
     /setrgbcolor { /rgbcolor sigil_set }
-    /currentfont { /font sigil_current }
-    /setfont { /font sigil_set }
     /currentlinecap { /linecap sigil_current }
     /setlinecap { /linecap sigil_set }
     /currentlinejoin { /linejoin sigil_current }
