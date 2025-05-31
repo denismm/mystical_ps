@@ -13,6 +13,22 @@ mystical_dict begin
 (dmmlib/lines.ps) run
 (dmmlib/polar.ps) run
 
+
+/ring_debug false def
+% ring_spacing is distance from parent ring radius to child ring full_radius
+% ring_spacing needs to be at least 1
+/ring_spacing 2 def
+/ring_width 1 def
+/std_sigil_width 1.25 def
+% sibling_spacing is distance between rings with same parent
+/sibling_spacing 0.5 def
+/sibling_hs sibling_spacing half def
+/ring_halfwidth ring_width half def
+/buffer 100 string def
+/Zapf-Chancery 0.5 selectfont
+/nonsigil_spacing 0.125 def
+/cartouche_radius 0.25 def
+/kerning true def
 /nib_angle -60 def
 
 /nib_matrix matrix currentmatrix def
@@ -39,21 +55,6 @@ mystical_dict begin
     grestore
 } def
 % /nstroke {stroke} def
-
-/ring_debug false def
-% ring_spacing is distance from parent ring radius to child ring full_radius
-% ring_spacing needs to be at least 1
-/ring_spacing 2 def
-/ring_width 1 def
-/std_sigil_width 1.25 def
-% sibling_spacing is distance between rings with same parent
-/sibling_spacing 0.5 def
-/sibling_hs sibling_spacing half def
-/ring_halfwidth 0.5 def
-/buffer 100 string def
-/Zapf-Chancery 0.5 selectfont
-/nonsigil_spacing 0.125 def
-/cartouche_radius 0.25 def
 
 /draw_ring [/Spell] {
     Spell begin
@@ -136,7 +137,7 @@ mystical_dict begin
                 } circrepeat closepath nstroke
             grestore
         } if
-        sigil_bank name known otype /stringtype ne and{
+        sigil_bank name known otype /stringtype ne and {
             gsave
                 otype /return ne {
                     90 rotate
@@ -261,7 +262,6 @@ mystical_dict begin
     end
 } 0 false dict_safe_func
 
-/kerning true def
 /parsecode [/Ring /code /code_pos] {
     10 dict begin
         % Ring: Ring object to write into, type is set
@@ -385,7 +385,7 @@ mystical_dict begin
                             std_sigil_width 1.25 mul max
                         } if
                     } {
-                        1
+                        std_sigil_width
                     } ifelse
                     /width arg
                     /position Ring /circumference get width half add def
@@ -659,7 +659,6 @@ end     % now out of mystical_dict
     evocation load mystical_unscaled
 } def
 
-% next two assume evocation and Spell are defined locally
 /mystical_make_evocation_ligature { /Spell arg /evocation arg
     % false token for label
     <<

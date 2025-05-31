@@ -109,6 +109,8 @@ All of these are defined in "mystical.ps".
 
 All of these have versions with `_unscaled` appended to them that skip the scaling step.  The rings will be 1 unit thick so the image will be quite large.
 
+For more information on how to use mystical.ps, see [Mystical usage notes](docs/usage.md).
+
 ### layout issues
 Currently the code figures out the layout of the subcircles so that nothing collides, but it's overly safe so most programs will be very spread out.  For the examples on this page I ran the parsing/layout functions (`mystical_get_spell` and `mystical_make_evocation_ligature`) and then adjusted the results before calling the draw functions `draw_sigil` and `draw_link`.  I'm intending to improve the default layout somewhat.
 
