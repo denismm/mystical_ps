@@ -15,6 +15,7 @@ mystical_dict begin
 
 
 /ring_debug false def
+/type_debug false def
 % ring_spacing is distance from parent ring radius to child ring full_radius
 % ring_spacing needs to be at least 1
 /ring_spacing 2 def
@@ -201,8 +202,7 @@ mystical_dict begin
                 } if
             grestore
         } ifelse
-        % type debugging
-        false {
+        type_debug {
             otype /return ne {
                 0 -0.75 translate
                 2 recip softscale
@@ -262,6 +262,17 @@ mystical_dict begin
     end
 } 0 false dict_safe_func
 
+% end of drawing functions
+
+/handlecode { /code arg /Ring arg
+    Ring code 0 parsecode pop
+    Ring layoutring
+} def
+
+/layoutring [/Ring] {
+} 0 false dict_safe_func
+
+% modifies Ring in place to reflect the instructions starting at code[code_pos]
 /parsecode [/Ring /code /code_pos] {
     10 dict begin
         % Ring: Ring object to write into, type is set
@@ -597,6 +608,7 @@ mystical_dict begin
     end
 } 1 false dict_safe_func
 
+
 end     % now out of mystical_dict
 
 /mystical_get_spell {
@@ -616,7 +628,7 @@ end     % now out of mystical_dict
         } if
         % parse into Ring object
         /Spell << /rtype rtype /root true >> def
-        Spell input_code 0 parsecode pop
+        Spell input_code handlecode
         Spell
     end
     end
