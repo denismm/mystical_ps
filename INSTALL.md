@@ -49,6 +49,21 @@ foreach my $psfile (@ARGV) {
 
 I use gv, which requires X and is only available on homebrew through a nonstandard cask, because I like its functionality much more than gsview, but in any case it's useful to be able to interpret ps without generating a pdf.  You will need to add the `-dNOSAFER` option to "gs options" in whatever tool you use.
 
+### Another Viewing Option
+The liveupdate.sh bash script is a handy way to get a live-updating png file. For example, run:
+
+    ```
+    bash liveupdate.sh arithmagic.ps
+    ```
+    
+    Now there is a process watching for any changes you make to `arithmagic.ps`. Any change will trigger this script to re-run, creating a fresh version of `arithmagic.png` in `images/`
+
+    However, this script requires imagemagick, installed with
+    ```
+    apt-get install imagemagick
+    ```
+
+
 ## Get started
 
 See [Getting Started with Mystical](docs/intro.md).
