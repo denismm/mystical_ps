@@ -269,9 +269,6 @@ mystical_dict begin
     Ring layoutring
 } def
 
-/layoutring [/Ring] {
-} 0 false dict_safe_func
-
 % modifies Ring in place to reflect the instructions starting at code[code_pos]
 /parsecode [/Ring /code /code_pos] {
     10 dict begin
@@ -281,11 +278,6 @@ mystical_dict begin
 
         /i 0 def
         /code_len code length def
-
-        /find_offset { /inner_ring arg /source arg
-            source /offset
-            inner_ring /full_radius get ring_spacing add put
-        } def
 
         Ring /cursor 0 put
         Ring /components code_len 1 add code_pos sub array put
@@ -320,7 +312,7 @@ mystical_dict begin
                         previous /aflag get previous isname not and {
                             prevprev /aflag get not prevprev isname and {
                                 % set up ligature - add ring info to name
-                                [/offset /ring /aflag] { /field arg
+                                [/ring /aflag] { /field arg
                                     prevprev field
                                     previous field get 
                                     put
@@ -348,7 +340,6 @@ mystical_dict begin
                         Token /signal true put
                         /code_pos 1 adddef
                         array_ring code code_pos parsecode /code_pos arg
-                        Token array_ring find_offset
                         Token /name array_ring /rtype get put
                         /aflag true def
                     } {
@@ -370,7 +361,6 @@ mystical_dict begin
                             } if
                             Token /ring inner_ring put
                             inner_ring literal 0 parsecode pop
-                            Token inner_ring find_offset
                             Token /name inner_ring /rtype get put
                             /aflag true def
                         } {
@@ -443,6 +433,32 @@ mystical_dict begin
 
         /circumference circumference 2 PI mul maximum def
         /radius circumference PI div half def
+
+        Ring /circumference circumference put
+        Ring /radius radius put
+        Ring /components components put
+        code_pos
+    end
+} 1 false dict_safe_func
+
+/find_offset { /inner_ring arg /source arg
+    source /offset
+    inner_ring /full_radius get ring_spacing add put
+} def
+
+/layoutring [/Ring] {
+    10 dict begin
+        /components Ring /components get def
+        /radius Ring /radius get def
+        /circumference Ring /circumference get def
+        components {
+            /Token arg
+            Token /ring known {
+                /inner_ring Token /ring get def
+                inner_ring layoutring
+                Token inner_ring find_offset
+            } if
+        } forall
 
         % layout
         % find largest dependent ring
@@ -604,10 +620,8 @@ mystical_dict begin
         Ring /circumference circumference put
         Ring /radius radius put
         Ring /full_radius full_radius put
-        code_pos
     end
-} 1 false dict_safe_func
-
+} 0 false dict_safe_func
 
 end     % now out of mystical_dict
 
