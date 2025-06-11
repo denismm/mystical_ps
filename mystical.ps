@@ -266,7 +266,7 @@ mystical_dict begin
 
 /handlecode { /code arg /Ring arg
     Ring code 0 parsecode pop
-    Ring layoutring
+    Ring 0 layoutring
 } def
 
 % modifies Ring in place to reflect the instructions starting at code[code_pos]
@@ -446,16 +446,25 @@ mystical_dict begin
     inner_ring /full_radius get ring_spacing add put
 } def
 
-/layoutring [/Ring] {
-    10 dict begin
+/layoutring [/Ring /depth] {
         /components Ring /components get def
         /radius Ring /radius get def
         /circumference Ring /circumference get def
+        % detect wrapper
+        depth 0 eq {
+            /children 0 def
+            components {
+                /ring known { /children 1 adddef } if
+            } forall
+            children 1 eq {
+                Ring /wrapper true put
+            } if
+        } if
         components {
             /Token arg
             Token /ring known {
                 /inner_ring Token /ring get def
-                inner_ring layoutring
+                inner_ring depth 1 add layoutring
                 Token inner_ring find_offset
             } if
         } forall
@@ -620,8 +629,7 @@ mystical_dict begin
         Ring /circumference circumference put
         Ring /radius radius put
         Ring /full_radius full_radius put
-    end
-} 0 false dict_safe_func
+} 0 /new dict_safe_func
 
 end     % now out of mystical_dict
 
