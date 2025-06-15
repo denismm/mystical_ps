@@ -138,8 +138,10 @@ sigil_bank /dot {
     gsave
         2.5 softscale
         -1.125 -0.5 translate
-        /shrink 15 def
+        /shrink 30 def
         /ligature /gcd Spell mystical_make_evocation_ligature def
+        % pull in loop body
+        Spell /components get 6 get /offset -13 addput
         % pull in recursion body
         Spell /components get 6 get 
         /ring get /components get 4 get

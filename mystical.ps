@@ -444,13 +444,11 @@ mystical_dict begin
     end
 } 1 false dict_safe_func
 
-/find_offset { /inner_ring arg /source arg
-    inner_ring /wrapped known {
-        source /offset inner_ring /radius get ring_halfwidth sub ring_spacing add put
-    } {
+/set_offset { /inner_ring arg /source arg
+    inner_ring /wrapped known not {
         source /offset
         inner_ring /full_radius get ring_spacing add put
-    } ifelse
+    } if
 } def
 
 /layoutring [/Ring /depth] {
@@ -477,20 +475,22 @@ mystical_dict begin
                     inner_ring /wrapped true put
                 } if
                 inner_ring depth 1 add layoutring
-                Token inner_ring find_offset
+                Token inner_ring set_offset
             } if
         } forall
 
         % layout
         % find largest dependent ring
-        /max_sub 0.5 def
+        /max_sub ring_halfwidth def
         % ordered list of components and their span info
         /ring_components components length array def
         /rci 0 def
         components { /component arg
             component /ring known {
                 /angle component /angle get def
-                component /ring_angle angle put
+                component /ring_angle known not {
+                    component /ring_angle angle put
+                } if
                 /c_ring component /ring get def
                 /sub_offset
                     c_ring /full_radius get component /offset get add 
@@ -527,10 +527,15 @@ mystical_dict begin
             Ring /wrapped known {
                 /container Ring /container get def
                 /parent_ring container /parent get def
-                /parent_offset radius ring_spacing add parent_ring /radius get add def
+                % center offset for wrapped-to-wrapper
+                /parent_center_offset radius
+                    ring_halfwidth add
+                    ring_spacing add 
+                    parent_ring /radius get add 
+                    def
                 /parent_span parent_ring /radius get
                     ring_halfwidth add sibling_hs add
-                    parent_offset div asin def
+                    parent_center_offset div asin def
             } if
 
             /ring_components ring_components 0 rci getinterval def
@@ -670,6 +675,23 @@ mystical_dict begin
         } if
 
         /full_radius radius max_sub add def
+        Ring /wrapped known {
+            % pass parent_center_offset out
+            container /offset 
+                parent_center_offset parent_ring /radius get sub
+            put
+            % also set this ring's ring_angle
+            /local_span 
+                full_radius half 
+                parent_center_offset div 
+                asin 2 mul def
+            container /angle get local_span sub 0 lt {
+                container /ring_angle local_span put
+            } if
+            container /angle get local_span add 360 gt {
+                container /ring_angle 360 local_span sub put
+            } if
+        } if
 
         Ring /components components put
         Ring /circumference circumference put
