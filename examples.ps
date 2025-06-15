@@ -116,19 +116,30 @@ sigil_bank /dot {
             ligature draw_link
         end
     grestore
-
 } def
 
+
 (examples/gcd.ps) run
+/gcd_example_raw {
+    /gcd load mystical_get_spell /Spell arg
+    gsave
+        2.5 softscale
+        /ligature /quicksort Spell mystical_make_evocation_ligature def
+        Spell mystical_scale_spell
+
+        mystical_dict begin
+            ligature draw_sigil
+            ligature draw_link
+        end
+    grestore
+} def
 /gcd_example {
     /gcd load mystical_get_spell /Spell arg
     gsave
         2.5 softscale
         -1.125 -0.5 translate
-        /shrink 30 def
+        /shrink 15 def
         /ligature /gcd Spell mystical_make_evocation_ligature def
-        % pull in loop body
-        Spell /components get 6 get /offset -13 addput
         % pull in recursion body
         Spell /components get 6 get 
         /ring get /components get 4 get
@@ -166,11 +177,9 @@ sigil_bank /dot {
 % -1.5 -7.5 2 -1 box stroke
 
 1 softscale
--1 1 translate
-90 rotate
-quicksort_example
-% gcd_example
-% -4 -2.5 2 2 box stroke
+% gcd_example_raw
+gcd_example
+-4 -3 2 2 box stroke
 
 % 4 dup scale
 % /code mystical_evoke

@@ -6,6 +6,7 @@
     /radius             float
     /full_radius        float
     /rtype              name         % options: array dict xarray
+    /container          Token or undefined
 >>
 
 /Token: <<
