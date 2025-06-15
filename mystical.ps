@@ -528,7 +528,9 @@ mystical_dict begin
                 /container Ring /container get def
                 /parent_ring container /parent get def
                 /parent_offset radius ring_spacing add parent_ring /radius get add def
-                /parent_span parent_ring /radius get ring_halfwidth add parent_offset div asin def
+                /parent_span parent_ring /radius get
+                    ring_halfwidth add sibling_hs add
+                    parent_offset div asin def
             } if
 
             /ring_components ring_components 0 rci getinterval def
@@ -574,6 +576,10 @@ mystical_dict begin
                     % create endpoints
                     /start_angle 0 def
                     /end_angle 360 def
+                    Ring /wrapped known {
+                        /start_angle parent_span def
+                        /end_angle 360 parent_span sub def
+                    } if
                     % create differential list
                     /diff_list ring_components length 1 add array def
                     /last_component ring_components length 1 sub def
@@ -582,7 +588,7 @@ mystical_dict begin
                     diff_list 0 
                         ring_components 0 get 1 get
                         dup /ring_angle get exch /angle_span get sub
-                        start_angle add
+                        start_angle sub
                     put
                     % middle entries diff from previous neighbor
                     1 1 last_component { /i arg
@@ -647,6 +653,7 @@ mystical_dict begin
                             exit
                         } loop
                     } for
+
                     % spread negative centers to positive neighbors
                     % update ring_angles to match diff_list
                     /ring_cursor start_angle def
