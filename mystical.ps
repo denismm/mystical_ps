@@ -475,6 +475,7 @@ mystical_dict begin
 
 /layoutring [/Ring /depth] {
         /components Ring /components get def
+        /ring_components Ring /ring_components get def
         /radius Ring /radius get def
         /circumference Ring /circumference get def
         % detect wrapper if enabled
@@ -505,39 +506,37 @@ mystical_dict begin
         % find largest dependent ring
         /max_sub ring_halfwidth def
         % ordered list of components and their span info
-        /ring_components components length array def
+        /ring_spans ring_components length array def
         /rci 0 def
-        components { /component arg
-            component /ring known {
-                /angle component /angle get def
-                component /ring_angle known not {
-                    component /ring_angle angle put
-                } if
-                /c_ring component /ring get def
-                /sub_offset
-                    c_ring /full_radius get component /offset get add 
-                    def
-                sub_offset max_sub gt {
-                    /max_sub sub_offset def
-                } if
-                % for figuring out angle positions we need:
-                % angle
-                % center_offset (ring radius plus offset)
-                % angle span (radius in either direction)
-                % none of this is needed if wrapper
-                Ring /wrapper known not {
-                    /center_offset radius component /offset get add def
-                    /angle_span c_ring /full_radius get sibling_hs add center_offset div asin def
-                    /ring_span <<
-                        /ring c_ring
-                        /full_radius c_ring /full_radius get
-                        /ring_angle angle
-                        /center_offset center_offset
-                        /angle_span angle_span
-                    >> def
-                    ring_components rci [component ring_span] put
-                    /rci 1 adddef
-                } if
+        ring_components { /component arg
+            /angle component /angle get def
+            component /ring_angle known not {
+                component /ring_angle angle put
+            } if
+            /c_ring component /ring get def
+            /sub_offset
+                c_ring /full_radius get component /offset get add 
+                def
+            sub_offset max_sub gt {
+                /max_sub sub_offset def
+            } if
+            % for figuring out angle positions we need:
+            % angle
+            % center_offset (ring radius plus offset)
+            % angle span (radius in either direction)
+            % none of this is needed if wrapper
+            Ring /wrapper known not {
+                /center_offset radius component /offset get add def
+                /angle_span c_ring /full_radius get sibling_hs add center_offset div asin def
+                /ring_span <<
+                    /ring c_ring
+                    /full_radius c_ring /full_radius get
+                    /ring_angle angle
+                    /center_offset center_offset
+                    /angle_span angle_span
+                >> def
+                ring_spans rci [component ring_span] put
+                /rci 1 adddef
             } if
         } forall
 
@@ -560,11 +559,11 @@ mystical_dict begin
                     parent_center_offset div asin def
             } if
 
-            /ring_components ring_components 0 rci getinterval def
-            ring_components length 1 gt {
+            /ring_spans ring_spans 0 rci getinterval def
+            ring_spans length 1 gt {
                 % check for everyone having room
                 /total_spans 0 def
-                ring_components { aload pop /ring_span arg /component arg
+                ring_spans { aload pop /ring_span arg /component arg
                     ring_span /angle_span get 2 mul total_spans add
                     /total_spans arg
                 } forall
@@ -576,7 +575,7 @@ mystical_dict begin
                     % not enough room, push everyone out and space evenly
                     /adjustment 360 total_spans div def
                     /angle_tracker 0 def
-                    ring_components { aload pop /ring_span arg /component arg
+                    ring_spans { aload pop /ring_span arg /component arg
                         /full_radius ring_span /full_radius get def
                         /new_span ring_span /angle_span get adjustment mul def
                         /increase
@@ -608,26 +607,26 @@ mystical_dict begin
                         /end_angle 360 parent_span sub def
                     } if
                     % create differential list
-                    /diff_list ring_components length 1 add array def
-                    /last_component ring_components length 1 sub def
-                    /last_diff ring_components length def
+                    /diff_list ring_spans length 1 add array def
+                    /last_span ring_spans length 1 sub def
+                    /last_diff ring_spans length def
                     % first entry diffs from start_angle
                     diff_list 0 
-                        ring_components 0 get 1 get
+                        ring_spans 0 get 1 get
                         dup /ring_angle get exch /angle_span get sub
                         start_angle sub
                     put
                     % middle entries diff from previous neighbor
-                    1 1 last_component { /i arg
+                    1 1 last_span { /i arg
                         diff_list i
-                        /span_a ring_components i 1 sub get 1 get def
-                        /span_b ring_components i get 1 get def
+                        /span_a ring_spans i 1 sub get 1 get def
+                        /span_b ring_spans i get 1 get def
                         span_b dup /ring_angle get exch /angle_span get sub
                         span_a dup /ring_angle get exch /angle_span get add sub 
                         put
                     } for
                     % last entry diff from end_angle
-                    diff_list last_diff ring_components last_component get 1 get
+                    diff_list last_diff ring_spans last_span get 1 get
                         dup /ring_angle get exch /angle_span get add
                         end_angle exch sub
                     put
@@ -684,12 +683,12 @@ mystical_dict begin
                     % spread negative centers to positive neighbors
                     % update ring_angles to match diff_list
                     /ring_cursor start_angle def
-                    0 1 last_component { /i arg
-                        /current_component ring_components i get def
+                    0 1 last_span { /i arg
+                        /current_span ring_spans i get def
                         /ring_cursor diff_list i get adddef
-                        /ring_cursor current_component 1 get /angle_span get adddef
-                        current_component 0 get /ring_angle ring_cursor put
-                        /ring_cursor current_component 1 get /angle_span get adddef
+                        /ring_cursor current_span 1 get /angle_span get adddef
+                        current_span 0 get /ring_angle ring_cursor put
+                        /ring_cursor current_span 1 get /angle_span get adddef
                     } for
 
                 } ifelse
