@@ -408,6 +408,7 @@ mystical_dict begin
                 Ring /cursor -1 addput
             } if
         } if
+
         /circumference Ring /circumference get def
         /cursor Ring /cursor get def
         /components Ring /components get def
@@ -423,6 +424,26 @@ mystical_dict begin
         components cursor end_token put
         /cursor 1 adddef
 
+        % also make ring_components
+        /ring_component_count 0 def
+        components {
+            /aflag get {
+                /ring_component_count 1 adddef
+            } if
+        } forall
+        /ring_components ring_component_count array def
+        /rci 0 def
+        components {
+            dup /aflag get {
+                ring_components exch rci exch put
+                /rci 1 adddef
+            } {
+                pop
+            } ifelse
+        } forall
+        rci ring_component_count ne {
+            [(rci ring_component_count mismatch) rci ring_component_count] == die
+        } if
         % determine ring dimensions
         /components components 0 cursor getinterval def
         /circumference 0.5 adddef
@@ -440,6 +461,7 @@ mystical_dict begin
         Ring /circumference circumference put
         Ring /radius radius put
         Ring /components components put
+        Ring /ring_components ring_components put
         code_pos
     end
 } 1 false dict_safe_func

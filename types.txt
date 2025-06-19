@@ -2,6 +2,7 @@
 
 /Ring: <<
     /components         [ Token ]
+    /ring_components    [ Token ] for all tokens with aflag
     /circumference      float
     /radius             float
     /full_radius        float
