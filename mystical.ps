@@ -30,7 +30,7 @@ mystical_dict begin
 /nonsigil_spacing 0.125 def
 /cartouche_radius 0.25 def
 /kerning true def
-/compact_wrapper false def
+/compact_wrapper true def
 /nib_angle -60 def
 
 /nib_matrix matrix currentmatrix def
@@ -309,17 +309,18 @@ mystical_dict begin
                     cursor 2 ge {
                         % prev is true circle
                         /previous components cursor 1 sub get def
-                        /prevprev components cursor 2 sub get def
+                        /candidate components cursor 2 sub get def
                         previous /aflag get previous isname not and {
-                            prevprev /aflag get not prevprev isname and {
+                            candidate /aflag get not candidate isname and {
                                 % set up ligature - add ring info to name
                                 [/ring /aflag] { /field arg
-                                    prevprev field
+                                    candidate field
                                     previous field get 
                                     put
                                 } forall
+                                candidate /ring get /container candidate put
                                 Ring /circumference previous /width get neg addput
-                                prevprev /defligature true put
+                                candidate /defligature true put
                                 /cursor -2 adddef
                                 /skip_token true def
                                 /code_pos 1 adddef
