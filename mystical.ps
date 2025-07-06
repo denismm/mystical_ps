@@ -424,10 +424,13 @@ mystical_dict begin
         components cursor end_token put
         /cursor 1 adddef
 
+        % trim components to correct size
+        /components components 0 cursor getinterval def
+
         % also make ring_components
         /ring_component_count 0 def
-        components {
-            /aflag get {
+        components { /component arg
+            component /aflag get {
                 /ring_component_count 1 adddef
             } if
         } forall
