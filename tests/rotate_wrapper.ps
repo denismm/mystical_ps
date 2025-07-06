@@ -1,0 +1,30 @@
+%!
+(mystical.ps) run
+
+mystical_dict /compact_wrapper true put
+
+72 softscale
+4.25 5.5 translate
+4 dup scale
+gsave
+    0 0.5 translate
+    {
+        {
+            { /b /b /b /b } 
+            { /b /b /b } 
+            /a /a /a /a 
+        }
+        /name /name /name /name /name /name
+    } mystical
+grestore
+gsave
+    0 -0.5 translate
+    {
+        /name /name /name /name /name /name
+        {
+            /a /a /a /a 
+            { /b /b /b } 
+            { /b /b /b /b } 
+        }
+    } mystical
+grestore
