@@ -3,10 +3,10 @@
 /Ring: <<
     /components         [ Token ]
     /ring_components    [ Token ] for all tokens with aflag
-    /circumference      float
-    /radius             float
-    /full_radius        float
-    /rtype              name         % options: array dict xarray
+    /circumference      float   % circumference of center of band
+    /radius             float   % radius of center of band
+    /full_radius        float   % radius including ring and all subrings
+    /rtype              name    % options: array dict xarray
     /container          Token or undefined
 >>
 
@@ -28,3 +28,24 @@
 >>
 
 name-ring-def ligature has type name but also aflag/xflag and ring data
+
+% constants:
+/ring_debug false def
+/type_debug false def
+% ring_spacing is distance from parent ring radius to child ring full_radius
+% ring_spacing needs to be at least 1
+/ring_spacing 2 def
+/ring_width 1 def
+/std_sigil_width 1.25 def
+% sibling_spacing is distance between rings with same parent
+/sibling_spacing 0.5 def
+/sibling_hs sibling_spacing half def
+/ring_halfwidth ring_width half def
+/buffer 100 string def
+/Zapf-Chancery 0.5 selectfont
+/nonsigil_spacing 0.125 def
+/cartouche_radius 0.25 def
+/kerning true def
+/compact_wrapper false def
+/nib_angle -60 def
+

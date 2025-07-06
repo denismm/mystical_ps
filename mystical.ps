@@ -697,21 +697,65 @@ mystical_dict begin
 
         /full_radius radius max_sub add def
         Ring /wrapped known {
+            container /ring_angle container /angle get put
             % pass parent_center_offset out
             container /offset 
                 parent_center_offset parent_ring /radius get sub
             put
-            % also set this ring's ring_angle
-            /local_span 
-                full_radius half 
-                parent_center_offset div 
-                asin 2 mul def
-            container /angle get local_span sub 0 lt {
-                container /ring_angle local_span put
+            % also set this ring's ring_angle:
+            % * make sure ring itself doesn't run into return line
+            % * also check that subrings don't run into return line
+            /container_angle container /ring_angle get def
+            /central_span
+                radius sibling_spacing add
+                parent_center_offset div
+                asin def
+            container_angle central_span sub 0 lt {
+                container /ring_angle central_span put
             } if
-            container /angle get local_span add 360 gt {
-                container /ring_angle 360 local_span sub put
+            container_angle central_span add 360 gt {
+                container /ring_angle 360 central_span sub put
             } if
+            ring_components { /subring arg
+                /container_angle container /ring_angle get def
+                % distance to center of subring using law of cosines
+                % wrapper -a- wrapped -b- subring -c- wrapper
+                /a parent_center_offset def
+                /b subring /offset get radius add def
+                /gamma subring /ring_angle get def
+                /c
+                    a dup mul
+                    b dup mul add
+                    2 a mul b mul gamma cos mul sub
+                sqrt def
+                % angle to center with law of sins
+                /subring_angle gamma sin c div b mul asin def
+                % we want how subring_angle goes forward or back from wrapped
+                % negative if gamma is less than 180
+                % otherwise we want to negate and mymod it
+                gamma 180 lt {
+                    /subring_angle subring_angle neg def
+                } {
+                    /subring_angle subring_angle neg 360 mymod def
+                } ifelse
+
+                /subring_span subring /ring get /full_radius get sibling_hs add c div asin def
+                /overlap container_angle subring_angle add subring_span sub def
+                overlap 0 lt {
+                    /new_angle container_angle overlap sub def
+                    container /ring_angle get new_angle lt {
+                        container /ring_angle new_angle put
+                    } if
+                } if
+                /poke container_angle subring_angle add subring_span add def
+                /overlap poke 360 sub def
+                overlap 0 gt {
+                    /new_angle container_angle overlap sub def
+                    container /ring_angle get new_angle gt {
+                        container /ring_angle new_angle put
+                    } if
+                } if
+            } forall
         } if
 
         Ring /components components put
@@ -749,8 +793,9 @@ end     % now out of mystical_dict
     Spell /full_radius get recip dup scale
 } def
 
-/mystical_draw_spell { /Spell arg
+/mystical_draw_spell {
     mystical_dict begin
+        /Spell arg
         gsave
             Spell mystical_scale_spell
             Spell draw_ring
