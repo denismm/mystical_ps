@@ -475,7 +475,8 @@ mystical_dict begin
 
         % calculate positions for all tokens
         /circumference 0.5 def
-        components { /component arg
+        /cursor Ring /cursor get def
+        components 0 cursor getinterval { /component arg
             % skip extraneous null at end
             component type cvlit /dicttype eq {
                 /width component /width get def
@@ -483,7 +484,6 @@ mystical_dict begin
                 /circumference width adddef
             } if
         } forall
-        /cursor Ring /cursor get def
         /components Ring /components get def
 
         /end_token <<
