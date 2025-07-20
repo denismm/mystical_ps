@@ -6,8 +6,11 @@
     /circumference      float   % circumference of center of band
     /radius             float   % radius of center of band
     /full_radius        float   % radius including ring and all subrings
-    /rtype              name    % options: array dict xarray
+    /rtype              name    % options: array dict xarray comment
     /container          Token or undefined
+
+    (if rtype is comment)
+    /comment_text       string
 >>
 
 /Token: <<
@@ -17,6 +20,7 @@
         if return and parent is /root, draw return stem
     /xflag      bool
     /aflag      bool
+    /width      float
     /position   float
     /angle      float
     /parent     Ring
