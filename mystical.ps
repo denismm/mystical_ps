@@ -29,6 +29,7 @@ mystical_dict begin
 /Zapf-Chancery 0.5 selectfont
 /nonsigil_spacing 0.125 def
 /cartouche_radius 0.25 def
+/comment_shrink_factor 2 def
 /kerning true def
 /compact_wrapper true def
 /nib_angle -60 def
@@ -84,9 +85,9 @@ mystical_dict begin
         rtype /comment eq {
             gsave
                 -90 rotate
-                0.5 softscale
+                comment_shrink_factor recip softscale
                 X_center
-                comment_text 0.75 radius 2 mul circular_balloon_show pop
+                comment_text 0.75 radius comment_shrink_factor mul circular_balloon_show pop
             grestore
         } {
             % draw each ring element
@@ -359,16 +360,16 @@ mystical_dict begin
                 literal /mystical_comment_flag eq {
                     % we are checking 1 back and 2 forward
                     % expected syntax: (comment) /mystical_comment_flag pop pop
-                    cursor 1 ge cursor 2 add code_len lt and {
+                    cursor 1 ge code_pos 2 add code_len lt and {
                         /comment_ok true def
                         /candidate components cursor 1 sub get def
                         candidate /otype get /stringtype ne {
                             /comment_ok false def
                         } if
-                        code cursor 1 add get /pop ne {
+                        code code_pos 1 add get /pop ne {
                             /comment_ok false def
                         } if
-                        code cursor 2 add get /pop ne {
+                        code code_pos 2 add get /pop ne {
                             /comment_ok false def
                         } if
                         comment_ok {
@@ -380,7 +381,7 @@ mystical_dict begin
                                 /ring_components []
                                 /comment_text comment_text
                                 /container candidate
-                                /radius comment_text 0.75 find_circular_balloon_radius 2 div
+                                /radius comment_text 0.75 find_circular_balloon_radius comment_shrink_factor div
                             >> def
                             comment_ring /circumference comment_ring /radius get 2 mul PI mul put
                             candidate /aflag true put
