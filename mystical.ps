@@ -74,7 +74,6 @@ mystical_dict begin
             closepath nstroke
         } {
             rtype /comment eq {
-                % 0 0 radius ring_halfwidth add circle whitefill nstroke
                 0 0 radius 0 90 sparc boltstroke
                 0 0 radius 0 -90 sparcn boltstroke
             } {
@@ -122,16 +121,16 @@ mystical_dict begin
                     } for
                 } ifelse
             } if
-            % debug ring positions
-            ring_debug {
-                gsave
-                    1 0 0 setrgbcolor
-                    0 0 radius circle stroke
-                    0 1 0 setrgbcolor
-                    0 0 full_radius circle stroke
-                grestore
-            } if
         } ifelse
+        % debug ring positions
+        ring_debug {
+            gsave
+                1 0 0 setrgbcolor
+                0 0 radius circle stroke
+                0 1 0 setrgbcolor
+                0 0 full_radius circle stroke
+            grestore
+        } if
     end
 } 0 false dict_safe_func
 
@@ -247,7 +246,11 @@ mystical_dict begin
     gsave
         /r4 parent /radius get Token /offset get add def
         /r0 get_r0 def
-        /r3 r4 ring /radius get sub ring_halfwidth sub def
+        /r3 r4 ring /radius get sub 
+            ring /rtype get /comment ne {
+                ring_halfwidth sub 
+            } if
+        def
         /rstep r3 r0 sub 3 div def
         /r1 r0 rstep add def
         /r2 r1 rstep add def
@@ -259,7 +262,6 @@ mystical_dict begin
         r2 local_angle polar
         r3 local_angle polar curveto
         ring /rtype get /comment eq {
-            r3 ring_halfwidth add local_angle polar lineto
             reversepath boltstroke
         } {
             nstroke
@@ -579,8 +581,18 @@ mystical_dict begin
         } forall
 
         % layout
+
         % find largest dependent ring
-        /max_sub ring_halfwidth def
+        % also find how much bigger an envelope must be
+        % defaulting to ring thickess for rings
+        % and to 0 for comments
+        /max_sub 
+            Ring /rtype get /comment eq {
+                0
+            } {
+                ring_halfwidth 
+            } ifelse
+        def
         % ordered list of components and their span info
         /ring_spans ring_components length array def
         /rci 0 def
