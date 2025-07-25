@@ -89,6 +89,15 @@ sigil_bank /dot {
         grestore
     end
 } def
+
+/comment_example {
+    {
+        (Show a standard message, centered horizontally) /mystical_comment_flag pop pop
+        gsave
+            (Mystical) dup stringwidth pop 2 div neg 0 moveto show
+        grestore
+    } mystical_unscaled
+} def
 /operator_array { /array /nametype true draw_token } def
 /name_array { /array /nametype false draw_token } def
 /string_array { (array) /stringtype false draw_token } def
@@ -174,9 +183,13 @@ sigil_bank /dot {
 4.25 5.5 translate
 % -4 -4.25 3.5 2.75 box stroke
 % quicksort_example
-0 3 translate
-array_example
--1.5 -7.5 2 -1 box stroke
+% 0 3 translate
+% array_example
+% -1.5 -7.5 2 -1 box stroke
+
+0.5 softscale
+comment_example
+-3 -3 6.5 3 box stroke
 
 % 1 softscale
 % gcd_example

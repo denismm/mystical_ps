@@ -9,7 +9,7 @@ I wanted to make a programming language that resembled magical circles. This is 
 There is an [installation](INSTALL.md) document and a [getting started](docs/intro.md) document available.  Read on for a language specification.
 
 ## Rings
-The structure of Mystical is based on rings. These are circular bands of text and sigils, with an inner and outer border. The content of the main ring of a program starts at the rightmost (3:00) point and flow continues widdershins (counter-clockwise) both to respect postscript's angles and to reflect the assumption that these rings should be written from the outside.  Subsidiary rings start from their attachment point to their caller. 
+The structure of Mystical is based on rings. These are circular bands of text and sigils, with an inner and outer border. The content of the main ring of a program starts at the rightmost (3:00) point and flow continues widdershins (counter-clockwise) both to respect PostScript's angles and to reflect the assumption that these rings should be written from the outside.  Subsidiary rings start from their attachment point to their caller. 
 
 There are three types of rings in Mystical:
 * executable arrays, written in `{` `}` in PostScript, are represented with simple circular borders on the inside and outside of the ring, with a star of some sort inside. The start/end point is marked by a symbol based on the "work complete" symbol from alchemy. 
@@ -43,7 +43,7 @@ so don't do that.
 Other commands like `gsave/grestore` and `begin/end` are more likely to be used in non-balanced or loop-crossing ways so those are treated as normal sigils below.
 
 ## Text and Sigils
-The rings' rims contain text or sigils.  Sigils are symbols that stand in for operators, variables, or other keywords. Any name, written in PostScript as `/name`, is instead written with a triangle surrounding or superimposing the text of the name or its sigil.  Any strings, written in () in Postscript, are cartouche-like shapes containing the string text.
+The rings' rims contain text or sigils.  Sigils are symbols that stand in for operators, variables, or other keywords. Any name, written in PostScript as `/name`, is instead written with a triangle surrounding or superimposing the text of the name or its sigil.  Any strings, written in () in PostScript, are cartouche-like shapes containing the string text.
 
 | array | /array | (array) | foo | /foo | /foobar |
 |--|--|--|--|--|--|
@@ -89,6 +89,28 @@ There is a sigil for `def` but a very common pattern is to push a name, push a f
 
 This only applies inside of executable arrays. I considered a similar ligature for /name { ring } in dictionaries but there's too much chance of getting it wrong.
 
+## Comments
+
+![comment example](images/comment_example.png)
+```
+    {
+        % Show a standard message, centered horizontally
+        gsave
+            (Mystical) dup stringwidth pop 2 div neg 0 moveto show
+        grestore
+    }
+```
+A comment in Mystical is smaller text in an incomplete text balloon, pointing
+to the point in the program where it appears.
+
+Comments in actual PostScript will be dropped before the mystical renderer
+can see them, so the mystify.py script changes them to sequences like the
+following:
+
+`(Show a standard message, centered horizontally) /mystical_comment_flag pop pop`
+
+which the renderer can detect and display.
+
 ## Sample Algorithms
 
 Quicksort is the illustration at the top of this page. 
@@ -110,6 +132,13 @@ All of these are defined in "mystical.ps".
 All of these have versions with `_unscaled` appended to them that skip the scaling step.  The rings will be 1 unit thick so the image will be quite large.
 
 For more information on how to use mystical.ps, see [Mystical usage notes](docs/usage.md).
+
+## Programs to generate Mystical images
+
+Currently there is just `mystify.py`, a python script that does two things:
+
+* wraps a PostScript program in code to draw the entire script as a Mystical program, centered on an 8.5x11 page and 8 inches wide
+* transform PostScript comments (lines starting with %) into Mystical comments.  Any comments at the very start (such as `%!PS`) will not be transformed, and adjacent lines of comments that are indented the same will be treated as one long comment with newlines in it.
 
 ### layout issues
 Currently the code figures out the layout of the subcircles so that nothing collides, but it's overly safe so most programs will be very spread out.  For the examples on this page I ran the parsing/layout functions (`mystical_get_spell` and `mystical_make_evocation_ligature`) and then adjusted the results before calling the draw functions `draw_sigil` and `draw_link`.  I'm intending to improve the default layout somewhat.
