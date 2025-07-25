@@ -39,6 +39,7 @@ for line in unprocessed_lines:
     lines.append(line)
 
 output_lines = []
+header = True
 for line in lines:
     if header and line.startswith('%'):
         continue
@@ -88,10 +89,9 @@ print("""%!
 4.25 5.5 translate
 4 dup scale
 
-{
-""")
+{ """)
 
 for line_out in output_lines:
     print(line_out, end="")
 
-print("} mystical\nshowpage\n")
+print("} mystical\n\nshowpage\n")
