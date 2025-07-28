@@ -1,0 +1,1263 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> spell
+Rule 1     spell -> statements
+Rule 2     statements -> statements statement
+Rule 3     statements -> statement
+Rule 4     invoke -> INVOCATION
+Rule 5     array -> LARRAY statements RARRAY
+Rule 6     nullop -> NULLOP
+Rule 7     xarray -> LXARRAY statements RXARRAY
+Rule 8     expression -> NUMBER
+Rule 9     expression -> xarray
+Rule 10    binop -> NUMBER NUMBER BINOP
+Rule 11    binop -> NUMBER binop BINOP
+Rule 12    inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF
+Rule 13    inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF
+Rule 14    cast -> IDENTIFIER
+Rule 15    import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN
+Rule 16    scale -> NUMBER SOFTSCALE
+Rule 17    translate -> NUMBER NUMBER TRANSLATE
+Rule 18    show -> SHOW
+Rule 19    statement -> NEWLINE
+Rule 20    statement -> nullop
+Rule 21    statement -> binop
+Rule 22    statement -> expression
+Rule 23    statement -> cast
+Rule 24    statement -> inscription
+Rule 25    statement -> invoke
+Rule 26    statement -> show
+Rule 27    statement -> scale
+Rule 28    statement -> translate
+Rule 29    statement -> array
+Rule 30    statement -> import
+
+Terminals, with rules where they appear
+
+BINOP                : 10 11
+DEF                  : 12 13
+IDENTIFIER           : 12 13 14 15
+INSCRIBE             : 12
+INVOCATION           : 4
+LARRAY               : 5
+LPAREN               : 15
+LXARRAY              : 7 12 13
+NEWLINE              : 19
+NULLOP               : 6
+NUMBER               : 8 10 10 11 16 17 17
+PERIOD               : 15
+PS                   : 15
+RARRAY               : 5
+RPAREN               : 15
+RUN                  : 15
+RXARRAY              : 7 12 13
+SHOW                 : 18
+SLASH                : 12 13
+SOFTSCALE            : 16
+TRANSLATE            : 17
+error                : 
+
+Nonterminals, with rules where they appear
+
+array                : 29
+binop                : 11 21
+cast                 : 23
+expression           : 22
+import               : 30
+inscription          : 24
+invoke               : 25
+nullop               : 20
+scale                : 27
+show                 : 26
+spell                : 0
+statement            : 2 3
+statements           : 1 2 5 7 12 13
+translate            : 28
+xarray               : 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . spell
+    (1) spell -> . statements
+    (2) statements -> . statements statement
+    (3) statements -> . statement
+    (19) statement -> . NEWLINE
+    (20) statement -> . nullop
+    (21) statement -> . binop
+    (22) statement -> . expression
+    (23) statement -> . cast
+    (24) statement -> . inscription
+    (25) statement -> . invoke
+    (26) statement -> . show
+    (27) statement -> . scale
+    (28) statement -> . translate
+    (29) statement -> . array
+    (30) statement -> . import
+    (6) nullop -> . NULLOP
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+    (8) expression -> . NUMBER
+    (9) expression -> . xarray
+    (14) cast -> . IDENTIFIER
+    (12) inscription -> . SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF
+    (13) inscription -> . SLASH IDENTIFIER LXARRAY statements RXARRAY DEF
+    (4) invoke -> . INVOCATION
+    (18) show -> . SHOW
+    (16) scale -> . NUMBER SOFTSCALE
+    (17) translate -> . NUMBER NUMBER TRANSLATE
+    (5) array -> . LARRAY statements RARRAY
+    (15) import -> . LPAREN IDENTIFIER PERIOD PS RPAREN RUN
+    (7) xarray -> . LXARRAY statements RXARRAY
+
+    NEWLINE         shift and go to state 4
+    NULLOP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    IDENTIFIER      shift and go to state 19
+    SLASH           shift and go to state 20
+    INVOCATION      shift and go to state 22
+    SHOW            shift and go to state 23
+    LARRAY          shift and go to state 24
+    LPAREN          shift and go to state 25
+    LXARRAY         shift and go to state 21
+
+    spell                          shift and go to state 1
+    statements                     shift and go to state 2
+    statement                      shift and go to state 3
+    nullop                         shift and go to state 5
+    binop                          shift and go to state 6
+    expression                     shift and go to state 7
+    cast                           shift and go to state 8
+    inscription                    shift and go to state 9
+    invoke                         shift and go to state 10
+    show                           shift and go to state 11
+    scale                          shift and go to state 12
+    translate                      shift and go to state 13
+    array                          shift and go to state 14
+    import                         shift and go to state 15
+    xarray                         shift and go to state 18
+
+state 1
+
+    (0) S' -> spell .
+
+
+
+state 2
+
+    (1) spell -> statements .
+    (2) statements -> statements . statement
+    (19) statement -> . NEWLINE
+    (20) statement -> . nullop
+    (21) statement -> . binop
+    (22) statement -> . expression
+    (23) statement -> . cast
+    (24) statement -> . inscription
+    (25) statement -> . invoke
+    (26) statement -> . show
+    (27) statement -> . scale
+    (28) statement -> . translate
+    (29) statement -> . array
+    (30) statement -> . import
+    (6) nullop -> . NULLOP
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+    (8) expression -> . NUMBER
+    (9) expression -> . xarray
+    (14) cast -> . IDENTIFIER
+    (12) inscription -> . SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF
+    (13) inscription -> . SLASH IDENTIFIER LXARRAY statements RXARRAY DEF
+    (4) invoke -> . INVOCATION
+    (18) show -> . SHOW
+    (16) scale -> . NUMBER SOFTSCALE
+    (17) translate -> . NUMBER NUMBER TRANSLATE
+    (5) array -> . LARRAY statements RARRAY
+    (15) import -> . LPAREN IDENTIFIER PERIOD PS RPAREN RUN
+    (7) xarray -> . LXARRAY statements RXARRAY
+
+    $end            reduce using rule 1 (spell -> statements .)
+    NEWLINE         shift and go to state 4
+    NULLOP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    IDENTIFIER      shift and go to state 19
+    SLASH           shift and go to state 20
+    INVOCATION      shift and go to state 22
+    SHOW            shift and go to state 23
+    LARRAY          shift and go to state 24
+    LPAREN          shift and go to state 25
+    LXARRAY         shift and go to state 21
+
+    statement                      shift and go to state 26
+    nullop                         shift and go to state 5
+    binop                          shift and go to state 6
+    expression                     shift and go to state 7
+    cast                           shift and go to state 8
+    inscription                    shift and go to state 9
+    invoke                         shift and go to state 10
+    show                           shift and go to state 11
+    scale                          shift and go to state 12
+    translate                      shift and go to state 13
+    array                          shift and go to state 14
+    import                         shift and go to state 15
+    xarray                         shift and go to state 18
+
+state 3
+
+    (3) statements -> statement .
+
+    NEWLINE         reduce using rule 3 (statements -> statement .)
+    NULLOP          reduce using rule 3 (statements -> statement .)
+    NUMBER          reduce using rule 3 (statements -> statement .)
+    IDENTIFIER      reduce using rule 3 (statements -> statement .)
+    SLASH           reduce using rule 3 (statements -> statement .)
+    INVOCATION      reduce using rule 3 (statements -> statement .)
+    SHOW            reduce using rule 3 (statements -> statement .)
+    LARRAY          reduce using rule 3 (statements -> statement .)
+    LPAREN          reduce using rule 3 (statements -> statement .)
+    LXARRAY         reduce using rule 3 (statements -> statement .)
+    $end            reduce using rule 3 (statements -> statement .)
+    RXARRAY         reduce using rule 3 (statements -> statement .)
+    RARRAY          reduce using rule 3 (statements -> statement .)
+    INSCRIBE        reduce using rule 3 (statements -> statement .)
+
+
+state 4
+
+    (19) statement -> NEWLINE .
+
+    NEWLINE         reduce using rule 19 (statement -> NEWLINE .)
+    NULLOP          reduce using rule 19 (statement -> NEWLINE .)
+    NUMBER          reduce using rule 19 (statement -> NEWLINE .)
+    IDENTIFIER      reduce using rule 19 (statement -> NEWLINE .)
+    SLASH           reduce using rule 19 (statement -> NEWLINE .)
+    INVOCATION      reduce using rule 19 (statement -> NEWLINE .)
+    SHOW            reduce using rule 19 (statement -> NEWLINE .)
+    LARRAY          reduce using rule 19 (statement -> NEWLINE .)
+    LPAREN          reduce using rule 19 (statement -> NEWLINE .)
+    LXARRAY         reduce using rule 19 (statement -> NEWLINE .)
+    $end            reduce using rule 19 (statement -> NEWLINE .)
+    RXARRAY         reduce using rule 19 (statement -> NEWLINE .)
+    RARRAY          reduce using rule 19 (statement -> NEWLINE .)
+    INSCRIBE        reduce using rule 19 (statement -> NEWLINE .)
+
+
+state 5
+
+    (20) statement -> nullop .
+
+    NEWLINE         reduce using rule 20 (statement -> nullop .)
+    NULLOP          reduce using rule 20 (statement -> nullop .)
+    NUMBER          reduce using rule 20 (statement -> nullop .)
+    IDENTIFIER      reduce using rule 20 (statement -> nullop .)
+    SLASH           reduce using rule 20 (statement -> nullop .)
+    INVOCATION      reduce using rule 20 (statement -> nullop .)
+    SHOW            reduce using rule 20 (statement -> nullop .)
+    LARRAY          reduce using rule 20 (statement -> nullop .)
+    LPAREN          reduce using rule 20 (statement -> nullop .)
+    LXARRAY         reduce using rule 20 (statement -> nullop .)
+    $end            reduce using rule 20 (statement -> nullop .)
+    RXARRAY         reduce using rule 20 (statement -> nullop .)
+    RARRAY          reduce using rule 20 (statement -> nullop .)
+    INSCRIBE        reduce using rule 20 (statement -> nullop .)
+
+
+state 6
+
+    (21) statement -> binop .
+
+    NEWLINE         reduce using rule 21 (statement -> binop .)
+    NULLOP          reduce using rule 21 (statement -> binop .)
+    NUMBER          reduce using rule 21 (statement -> binop .)
+    IDENTIFIER      reduce using rule 21 (statement -> binop .)
+    SLASH           reduce using rule 21 (statement -> binop .)
+    INVOCATION      reduce using rule 21 (statement -> binop .)
+    SHOW            reduce using rule 21 (statement -> binop .)
+    LARRAY          reduce using rule 21 (statement -> binop .)
+    LPAREN          reduce using rule 21 (statement -> binop .)
+    LXARRAY         reduce using rule 21 (statement -> binop .)
+    $end            reduce using rule 21 (statement -> binop .)
+    RXARRAY         reduce using rule 21 (statement -> binop .)
+    RARRAY          reduce using rule 21 (statement -> binop .)
+    INSCRIBE        reduce using rule 21 (statement -> binop .)
+
+
+state 7
+
+    (22) statement -> expression .
+
+    NEWLINE         reduce using rule 22 (statement -> expression .)
+    NULLOP          reduce using rule 22 (statement -> expression .)
+    NUMBER          reduce using rule 22 (statement -> expression .)
+    IDENTIFIER      reduce using rule 22 (statement -> expression .)
+    SLASH           reduce using rule 22 (statement -> expression .)
+    INVOCATION      reduce using rule 22 (statement -> expression .)
+    SHOW            reduce using rule 22 (statement -> expression .)
+    LARRAY          reduce using rule 22 (statement -> expression .)
+    LPAREN          reduce using rule 22 (statement -> expression .)
+    LXARRAY         reduce using rule 22 (statement -> expression .)
+    $end            reduce using rule 22 (statement -> expression .)
+    RXARRAY         reduce using rule 22 (statement -> expression .)
+    RARRAY          reduce using rule 22 (statement -> expression .)
+    INSCRIBE        reduce using rule 22 (statement -> expression .)
+
+
+state 8
+
+    (23) statement -> cast .
+
+    NEWLINE         reduce using rule 23 (statement -> cast .)
+    NULLOP          reduce using rule 23 (statement -> cast .)
+    NUMBER          reduce using rule 23 (statement -> cast .)
+    IDENTIFIER      reduce using rule 23 (statement -> cast .)
+    SLASH           reduce using rule 23 (statement -> cast .)
+    INVOCATION      reduce using rule 23 (statement -> cast .)
+    SHOW            reduce using rule 23 (statement -> cast .)
+    LARRAY          reduce using rule 23 (statement -> cast .)
+    LPAREN          reduce using rule 23 (statement -> cast .)
+    LXARRAY         reduce using rule 23 (statement -> cast .)
+    $end            reduce using rule 23 (statement -> cast .)
+    RXARRAY         reduce using rule 23 (statement -> cast .)
+    RARRAY          reduce using rule 23 (statement -> cast .)
+    INSCRIBE        reduce using rule 23 (statement -> cast .)
+
+
+state 9
+
+    (24) statement -> inscription .
+
+    NEWLINE         reduce using rule 24 (statement -> inscription .)
+    NULLOP          reduce using rule 24 (statement -> inscription .)
+    NUMBER          reduce using rule 24 (statement -> inscription .)
+    IDENTIFIER      reduce using rule 24 (statement -> inscription .)
+    SLASH           reduce using rule 24 (statement -> inscription .)
+    INVOCATION      reduce using rule 24 (statement -> inscription .)
+    SHOW            reduce using rule 24 (statement -> inscription .)
+    LARRAY          reduce using rule 24 (statement -> inscription .)
+    LPAREN          reduce using rule 24 (statement -> inscription .)
+    LXARRAY         reduce using rule 24 (statement -> inscription .)
+    $end            reduce using rule 24 (statement -> inscription .)
+    RXARRAY         reduce using rule 24 (statement -> inscription .)
+    RARRAY          reduce using rule 24 (statement -> inscription .)
+    INSCRIBE        reduce using rule 24 (statement -> inscription .)
+
+
+state 10
+
+    (25) statement -> invoke .
+
+    NEWLINE         reduce using rule 25 (statement -> invoke .)
+    NULLOP          reduce using rule 25 (statement -> invoke .)
+    NUMBER          reduce using rule 25 (statement -> invoke .)
+    IDENTIFIER      reduce using rule 25 (statement -> invoke .)
+    SLASH           reduce using rule 25 (statement -> invoke .)
+    INVOCATION      reduce using rule 25 (statement -> invoke .)
+    SHOW            reduce using rule 25 (statement -> invoke .)
+    LARRAY          reduce using rule 25 (statement -> invoke .)
+    LPAREN          reduce using rule 25 (statement -> invoke .)
+    LXARRAY         reduce using rule 25 (statement -> invoke .)
+    $end            reduce using rule 25 (statement -> invoke .)
+    RXARRAY         reduce using rule 25 (statement -> invoke .)
+    RARRAY          reduce using rule 25 (statement -> invoke .)
+    INSCRIBE        reduce using rule 25 (statement -> invoke .)
+
+
+state 11
+
+    (26) statement -> show .
+
+    NEWLINE         reduce using rule 26 (statement -> show .)
+    NULLOP          reduce using rule 26 (statement -> show .)
+    NUMBER          reduce using rule 26 (statement -> show .)
+    IDENTIFIER      reduce using rule 26 (statement -> show .)
+    SLASH           reduce using rule 26 (statement -> show .)
+    INVOCATION      reduce using rule 26 (statement -> show .)
+    SHOW            reduce using rule 26 (statement -> show .)
+    LARRAY          reduce using rule 26 (statement -> show .)
+    LPAREN          reduce using rule 26 (statement -> show .)
+    LXARRAY         reduce using rule 26 (statement -> show .)
+    $end            reduce using rule 26 (statement -> show .)
+    RXARRAY         reduce using rule 26 (statement -> show .)
+    RARRAY          reduce using rule 26 (statement -> show .)
+    INSCRIBE        reduce using rule 26 (statement -> show .)
+
+
+state 12
+
+    (27) statement -> scale .
+
+    NEWLINE         reduce using rule 27 (statement -> scale .)
+    NULLOP          reduce using rule 27 (statement -> scale .)
+    NUMBER          reduce using rule 27 (statement -> scale .)
+    IDENTIFIER      reduce using rule 27 (statement -> scale .)
+    SLASH           reduce using rule 27 (statement -> scale .)
+    INVOCATION      reduce using rule 27 (statement -> scale .)
+    SHOW            reduce using rule 27 (statement -> scale .)
+    LARRAY          reduce using rule 27 (statement -> scale .)
+    LPAREN          reduce using rule 27 (statement -> scale .)
+    LXARRAY         reduce using rule 27 (statement -> scale .)
+    $end            reduce using rule 27 (statement -> scale .)
+    RXARRAY         reduce using rule 27 (statement -> scale .)
+    RARRAY          reduce using rule 27 (statement -> scale .)
+    INSCRIBE        reduce using rule 27 (statement -> scale .)
+
+
+state 13
+
+    (28) statement -> translate .
+
+    NEWLINE         reduce using rule 28 (statement -> translate .)
+    NULLOP          reduce using rule 28 (statement -> translate .)
+    NUMBER          reduce using rule 28 (statement -> translate .)
+    IDENTIFIER      reduce using rule 28 (statement -> translate .)
+    SLASH           reduce using rule 28 (statement -> translate .)
+    INVOCATION      reduce using rule 28 (statement -> translate .)
+    SHOW            reduce using rule 28 (statement -> translate .)
+    LARRAY          reduce using rule 28 (statement -> translate .)
+    LPAREN          reduce using rule 28 (statement -> translate .)
+    LXARRAY         reduce using rule 28 (statement -> translate .)
+    $end            reduce using rule 28 (statement -> translate .)
+    RXARRAY         reduce using rule 28 (statement -> translate .)
+    RARRAY          reduce using rule 28 (statement -> translate .)
+    INSCRIBE        reduce using rule 28 (statement -> translate .)
+
+
+state 14
+
+    (29) statement -> array .
+
+    NEWLINE         reduce using rule 29 (statement -> array .)
+    NULLOP          reduce using rule 29 (statement -> array .)
+    NUMBER          reduce using rule 29 (statement -> array .)
+    IDENTIFIER      reduce using rule 29 (statement -> array .)
+    SLASH           reduce using rule 29 (statement -> array .)
+    INVOCATION      reduce using rule 29 (statement -> array .)
+    SHOW            reduce using rule 29 (statement -> array .)
+    LARRAY          reduce using rule 29 (statement -> array .)
+    LPAREN          reduce using rule 29 (statement -> array .)
+    LXARRAY         reduce using rule 29 (statement -> array .)
+    $end            reduce using rule 29 (statement -> array .)
+    RXARRAY         reduce using rule 29 (statement -> array .)
+    RARRAY          reduce using rule 29 (statement -> array .)
+    INSCRIBE        reduce using rule 29 (statement -> array .)
+
+
+state 15
+
+    (30) statement -> import .
+
+    NEWLINE         reduce using rule 30 (statement -> import .)
+    NULLOP          reduce using rule 30 (statement -> import .)
+    NUMBER          reduce using rule 30 (statement -> import .)
+    IDENTIFIER      reduce using rule 30 (statement -> import .)
+    SLASH           reduce using rule 30 (statement -> import .)
+    INVOCATION      reduce using rule 30 (statement -> import .)
+    SHOW            reduce using rule 30 (statement -> import .)
+    LARRAY          reduce using rule 30 (statement -> import .)
+    LPAREN          reduce using rule 30 (statement -> import .)
+    LXARRAY         reduce using rule 30 (statement -> import .)
+    $end            reduce using rule 30 (statement -> import .)
+    RXARRAY         reduce using rule 30 (statement -> import .)
+    RARRAY          reduce using rule 30 (statement -> import .)
+    INSCRIBE        reduce using rule 30 (statement -> import .)
+
+
+state 16
+
+    (6) nullop -> NULLOP .
+
+    NEWLINE         reduce using rule 6 (nullop -> NULLOP .)
+    NULLOP          reduce using rule 6 (nullop -> NULLOP .)
+    NUMBER          reduce using rule 6 (nullop -> NULLOP .)
+    IDENTIFIER      reduce using rule 6 (nullop -> NULLOP .)
+    SLASH           reduce using rule 6 (nullop -> NULLOP .)
+    INVOCATION      reduce using rule 6 (nullop -> NULLOP .)
+    SHOW            reduce using rule 6 (nullop -> NULLOP .)
+    LARRAY          reduce using rule 6 (nullop -> NULLOP .)
+    LPAREN          reduce using rule 6 (nullop -> NULLOP .)
+    LXARRAY         reduce using rule 6 (nullop -> NULLOP .)
+    $end            reduce using rule 6 (nullop -> NULLOP .)
+    RXARRAY         reduce using rule 6 (nullop -> NULLOP .)
+    RARRAY          reduce using rule 6 (nullop -> NULLOP .)
+    INSCRIBE        reduce using rule 6 (nullop -> NULLOP .)
+
+
+state 17
+
+    (10) binop -> NUMBER . NUMBER BINOP
+    (11) binop -> NUMBER . binop BINOP
+    (8) expression -> NUMBER .
+    (16) scale -> NUMBER . SOFTSCALE
+    (17) translate -> NUMBER . NUMBER TRANSLATE
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+
+  ! shift/reduce conflict for NUMBER resolved as shift
+    NUMBER          shift and go to state 27
+    NEWLINE         reduce using rule 8 (expression -> NUMBER .)
+    NULLOP          reduce using rule 8 (expression -> NUMBER .)
+    IDENTIFIER      reduce using rule 8 (expression -> NUMBER .)
+    SLASH           reduce using rule 8 (expression -> NUMBER .)
+    INVOCATION      reduce using rule 8 (expression -> NUMBER .)
+    SHOW            reduce using rule 8 (expression -> NUMBER .)
+    LARRAY          reduce using rule 8 (expression -> NUMBER .)
+    LPAREN          reduce using rule 8 (expression -> NUMBER .)
+    LXARRAY         reduce using rule 8 (expression -> NUMBER .)
+    $end            reduce using rule 8 (expression -> NUMBER .)
+    RXARRAY         reduce using rule 8 (expression -> NUMBER .)
+    RARRAY          reduce using rule 8 (expression -> NUMBER .)
+    INSCRIBE        reduce using rule 8 (expression -> NUMBER .)
+    SOFTSCALE       shift and go to state 29
+
+  ! NUMBER          [ reduce using rule 8 (expression -> NUMBER .) ]
+
+    binop                          shift and go to state 28
+
+state 18
+
+    (9) expression -> xarray .
+
+    NEWLINE         reduce using rule 9 (expression -> xarray .)
+    NULLOP          reduce using rule 9 (expression -> xarray .)
+    NUMBER          reduce using rule 9 (expression -> xarray .)
+    IDENTIFIER      reduce using rule 9 (expression -> xarray .)
+    SLASH           reduce using rule 9 (expression -> xarray .)
+    INVOCATION      reduce using rule 9 (expression -> xarray .)
+    SHOW            reduce using rule 9 (expression -> xarray .)
+    LARRAY          reduce using rule 9 (expression -> xarray .)
+    LPAREN          reduce using rule 9 (expression -> xarray .)
+    LXARRAY         reduce using rule 9 (expression -> xarray .)
+    $end            reduce using rule 9 (expression -> xarray .)
+    RXARRAY         reduce using rule 9 (expression -> xarray .)
+    RARRAY          reduce using rule 9 (expression -> xarray .)
+    INSCRIBE        reduce using rule 9 (expression -> xarray .)
+
+
+state 19
+
+    (14) cast -> IDENTIFIER .
+
+    NEWLINE         reduce using rule 14 (cast -> IDENTIFIER .)
+    NULLOP          reduce using rule 14 (cast -> IDENTIFIER .)
+    NUMBER          reduce using rule 14 (cast -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 14 (cast -> IDENTIFIER .)
+    SLASH           reduce using rule 14 (cast -> IDENTIFIER .)
+    INVOCATION      reduce using rule 14 (cast -> IDENTIFIER .)
+    SHOW            reduce using rule 14 (cast -> IDENTIFIER .)
+    LARRAY          reduce using rule 14 (cast -> IDENTIFIER .)
+    LPAREN          reduce using rule 14 (cast -> IDENTIFIER .)
+    LXARRAY         reduce using rule 14 (cast -> IDENTIFIER .)
+    $end            reduce using rule 14 (cast -> IDENTIFIER .)
+    RXARRAY         reduce using rule 14 (cast -> IDENTIFIER .)
+    RARRAY          reduce using rule 14 (cast -> IDENTIFIER .)
+    INSCRIBE        reduce using rule 14 (cast -> IDENTIFIER .)
+
+
+state 20
+
+    (12) inscription -> SLASH . IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF
+    (13) inscription -> SLASH . IDENTIFIER LXARRAY statements RXARRAY DEF
+
+    IDENTIFIER      shift and go to state 30
+
+
+state 21
+
+    (7) xarray -> LXARRAY . statements RXARRAY
+    (2) statements -> . statements statement
+    (3) statements -> . statement
+    (19) statement -> . NEWLINE
+    (20) statement -> . nullop
+    (21) statement -> . binop
+    (22) statement -> . expression
+    (23) statement -> . cast
+    (24) statement -> . inscription
+    (25) statement -> . invoke
+    (26) statement -> . show
+    (27) statement -> . scale
+    (28) statement -> . translate
+    (29) statement -> . array
+    (30) statement -> . import
+    (6) nullop -> . NULLOP
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+    (8) expression -> . NUMBER
+    (9) expression -> . xarray
+    (14) cast -> . IDENTIFIER
+    (12) inscription -> . SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF
+    (13) inscription -> . SLASH IDENTIFIER LXARRAY statements RXARRAY DEF
+    (4) invoke -> . INVOCATION
+    (18) show -> . SHOW
+    (16) scale -> . NUMBER SOFTSCALE
+    (17) translate -> . NUMBER NUMBER TRANSLATE
+    (5) array -> . LARRAY statements RARRAY
+    (15) import -> . LPAREN IDENTIFIER PERIOD PS RPAREN RUN
+    (7) xarray -> . LXARRAY statements RXARRAY
+
+    NEWLINE         shift and go to state 4
+    NULLOP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    IDENTIFIER      shift and go to state 19
+    SLASH           shift and go to state 20
+    INVOCATION      shift and go to state 22
+    SHOW            shift and go to state 23
+    LARRAY          shift and go to state 24
+    LPAREN          shift and go to state 25
+    LXARRAY         shift and go to state 21
+
+    statements                     shift and go to state 31
+    statement                      shift and go to state 3
+    nullop                         shift and go to state 5
+    binop                          shift and go to state 6
+    expression                     shift and go to state 7
+    cast                           shift and go to state 8
+    inscription                    shift and go to state 9
+    invoke                         shift and go to state 10
+    show                           shift and go to state 11
+    scale                          shift and go to state 12
+    translate                      shift and go to state 13
+    array                          shift and go to state 14
+    import                         shift and go to state 15
+    xarray                         shift and go to state 18
+
+state 22
+
+    (4) invoke -> INVOCATION .
+
+    NEWLINE         reduce using rule 4 (invoke -> INVOCATION .)
+    NULLOP          reduce using rule 4 (invoke -> INVOCATION .)
+    NUMBER          reduce using rule 4 (invoke -> INVOCATION .)
+    IDENTIFIER      reduce using rule 4 (invoke -> INVOCATION .)
+    SLASH           reduce using rule 4 (invoke -> INVOCATION .)
+    INVOCATION      reduce using rule 4 (invoke -> INVOCATION .)
+    SHOW            reduce using rule 4 (invoke -> INVOCATION .)
+    LARRAY          reduce using rule 4 (invoke -> INVOCATION .)
+    LPAREN          reduce using rule 4 (invoke -> INVOCATION .)
+    LXARRAY         reduce using rule 4 (invoke -> INVOCATION .)
+    $end            reduce using rule 4 (invoke -> INVOCATION .)
+    RXARRAY         reduce using rule 4 (invoke -> INVOCATION .)
+    RARRAY          reduce using rule 4 (invoke -> INVOCATION .)
+    INSCRIBE        reduce using rule 4 (invoke -> INVOCATION .)
+
+
+state 23
+
+    (18) show -> SHOW .
+
+    NEWLINE         reduce using rule 18 (show -> SHOW .)
+    NULLOP          reduce using rule 18 (show -> SHOW .)
+    NUMBER          reduce using rule 18 (show -> SHOW .)
+    IDENTIFIER      reduce using rule 18 (show -> SHOW .)
+    SLASH           reduce using rule 18 (show -> SHOW .)
+    INVOCATION      reduce using rule 18 (show -> SHOW .)
+    SHOW            reduce using rule 18 (show -> SHOW .)
+    LARRAY          reduce using rule 18 (show -> SHOW .)
+    LPAREN          reduce using rule 18 (show -> SHOW .)
+    LXARRAY         reduce using rule 18 (show -> SHOW .)
+    $end            reduce using rule 18 (show -> SHOW .)
+    RXARRAY         reduce using rule 18 (show -> SHOW .)
+    RARRAY          reduce using rule 18 (show -> SHOW .)
+    INSCRIBE        reduce using rule 18 (show -> SHOW .)
+
+
+state 24
+
+    (5) array -> LARRAY . statements RARRAY
+    (2) statements -> . statements statement
+    (3) statements -> . statement
+    (19) statement -> . NEWLINE
+    (20) statement -> . nullop
+    (21) statement -> . binop
+    (22) statement -> . expression
+    (23) statement -> . cast
+    (24) statement -> . inscription
+    (25) statement -> . invoke
+    (26) statement -> . show
+    (27) statement -> . scale
+    (28) statement -> . translate
+    (29) statement -> . array
+    (30) statement -> . import
+    (6) nullop -> . NULLOP
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+    (8) expression -> . NUMBER
+    (9) expression -> . xarray
+    (14) cast -> . IDENTIFIER
+    (12) inscription -> . SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF
+    (13) inscription -> . SLASH IDENTIFIER LXARRAY statements RXARRAY DEF
+    (4) invoke -> . INVOCATION
+    (18) show -> . SHOW
+    (16) scale -> . NUMBER SOFTSCALE
+    (17) translate -> . NUMBER NUMBER TRANSLATE
+    (5) array -> . LARRAY statements RARRAY
+    (15) import -> . LPAREN IDENTIFIER PERIOD PS RPAREN RUN
+    (7) xarray -> . LXARRAY statements RXARRAY
+
+    NEWLINE         shift and go to state 4
+    NULLOP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    IDENTIFIER      shift and go to state 19
+    SLASH           shift and go to state 20
+    INVOCATION      shift and go to state 22
+    SHOW            shift and go to state 23
+    LARRAY          shift and go to state 24
+    LPAREN          shift and go to state 25
+    LXARRAY         shift and go to state 21
+
+    statements                     shift and go to state 32
+    statement                      shift and go to state 3
+    nullop                         shift and go to state 5
+    binop                          shift and go to state 6
+    expression                     shift and go to state 7
+    cast                           shift and go to state 8
+    inscription                    shift and go to state 9
+    invoke                         shift and go to state 10
+    show                           shift and go to state 11
+    scale                          shift and go to state 12
+    translate                      shift and go to state 13
+    array                          shift and go to state 14
+    import                         shift and go to state 15
+    xarray                         shift and go to state 18
+
+state 25
+
+    (15) import -> LPAREN . IDENTIFIER PERIOD PS RPAREN RUN
+
+    IDENTIFIER      shift and go to state 33
+
+
+state 26
+
+    (2) statements -> statements statement .
+
+    NEWLINE         reduce using rule 2 (statements -> statements statement .)
+    NULLOP          reduce using rule 2 (statements -> statements statement .)
+    NUMBER          reduce using rule 2 (statements -> statements statement .)
+    IDENTIFIER      reduce using rule 2 (statements -> statements statement .)
+    SLASH           reduce using rule 2 (statements -> statements statement .)
+    INVOCATION      reduce using rule 2 (statements -> statements statement .)
+    SHOW            reduce using rule 2 (statements -> statements statement .)
+    LARRAY          reduce using rule 2 (statements -> statements statement .)
+    LPAREN          reduce using rule 2 (statements -> statements statement .)
+    LXARRAY         reduce using rule 2 (statements -> statements statement .)
+    $end            reduce using rule 2 (statements -> statements statement .)
+    RXARRAY         reduce using rule 2 (statements -> statements statement .)
+    RARRAY          reduce using rule 2 (statements -> statements statement .)
+    INSCRIBE        reduce using rule 2 (statements -> statements statement .)
+
+
+state 27
+
+    (10) binop -> NUMBER NUMBER . BINOP
+    (17) translate -> NUMBER NUMBER . TRANSLATE
+    (10) binop -> NUMBER . NUMBER BINOP
+    (11) binop -> NUMBER . binop BINOP
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+
+    BINOP           shift and go to state 35
+    TRANSLATE       shift and go to state 36
+    NUMBER          shift and go to state 34
+
+    binop                          shift and go to state 28
+
+state 28
+
+    (11) binop -> NUMBER binop . BINOP
+
+    BINOP           shift and go to state 37
+
+
+state 29
+
+    (16) scale -> NUMBER SOFTSCALE .
+
+    NEWLINE         reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    NULLOP          reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    NUMBER          reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    IDENTIFIER      reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    SLASH           reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    INVOCATION      reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    SHOW            reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    LARRAY          reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    LPAREN          reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    LXARRAY         reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    $end            reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    RXARRAY         reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    RARRAY          reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+    INSCRIBE        reduce using rule 16 (scale -> NUMBER SOFTSCALE .)
+
+
+state 30
+
+    (12) inscription -> SLASH IDENTIFIER . LXARRAY statements INSCRIBE RXARRAY DEF
+    (13) inscription -> SLASH IDENTIFIER . LXARRAY statements RXARRAY DEF
+
+    LXARRAY         shift and go to state 38
+
+
+state 31
+
+    (7) xarray -> LXARRAY statements . RXARRAY
+    (2) statements -> statements . statement
+    (19) statement -> . NEWLINE
+    (20) statement -> . nullop
+    (21) statement -> . binop
+    (22) statement -> . expression
+    (23) statement -> . cast
+    (24) statement -> . inscription
+    (25) statement -> . invoke
+    (26) statement -> . show
+    (27) statement -> . scale
+    (28) statement -> . translate
+    (29) statement -> . array
+    (30) statement -> . import
+    (6) nullop -> . NULLOP
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+    (8) expression -> . NUMBER
+    (9) expression -> . xarray
+    (14) cast -> . IDENTIFIER
+    (12) inscription -> . SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF
+    (13) inscription -> . SLASH IDENTIFIER LXARRAY statements RXARRAY DEF
+    (4) invoke -> . INVOCATION
+    (18) show -> . SHOW
+    (16) scale -> . NUMBER SOFTSCALE
+    (17) translate -> . NUMBER NUMBER TRANSLATE
+    (5) array -> . LARRAY statements RARRAY
+    (15) import -> . LPAREN IDENTIFIER PERIOD PS RPAREN RUN
+    (7) xarray -> . LXARRAY statements RXARRAY
+
+    RXARRAY         shift and go to state 39
+    NEWLINE         shift and go to state 4
+    NULLOP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    IDENTIFIER      shift and go to state 19
+    SLASH           shift and go to state 20
+    INVOCATION      shift and go to state 22
+    SHOW            shift and go to state 23
+    LARRAY          shift and go to state 24
+    LPAREN          shift and go to state 25
+    LXARRAY         shift and go to state 21
+
+    statement                      shift and go to state 26
+    nullop                         shift and go to state 5
+    binop                          shift and go to state 6
+    expression                     shift and go to state 7
+    cast                           shift and go to state 8
+    inscription                    shift and go to state 9
+    invoke                         shift and go to state 10
+    show                           shift and go to state 11
+    scale                          shift and go to state 12
+    translate                      shift and go to state 13
+    array                          shift and go to state 14
+    import                         shift and go to state 15
+    xarray                         shift and go to state 18
+
+state 32
+
+    (5) array -> LARRAY statements . RARRAY
+    (2) statements -> statements . statement
+    (19) statement -> . NEWLINE
+    (20) statement -> . nullop
+    (21) statement -> . binop
+    (22) statement -> . expression
+    (23) statement -> . cast
+    (24) statement -> . inscription
+    (25) statement -> . invoke
+    (26) statement -> . show
+    (27) statement -> . scale
+    (28) statement -> . translate
+    (29) statement -> . array
+    (30) statement -> . import
+    (6) nullop -> . NULLOP
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+    (8) expression -> . NUMBER
+    (9) expression -> . xarray
+    (14) cast -> . IDENTIFIER
+    (12) inscription -> . SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF
+    (13) inscription -> . SLASH IDENTIFIER LXARRAY statements RXARRAY DEF
+    (4) invoke -> . INVOCATION
+    (18) show -> . SHOW
+    (16) scale -> . NUMBER SOFTSCALE
+    (17) translate -> . NUMBER NUMBER TRANSLATE
+    (5) array -> . LARRAY statements RARRAY
+    (15) import -> . LPAREN IDENTIFIER PERIOD PS RPAREN RUN
+    (7) xarray -> . LXARRAY statements RXARRAY
+
+    RARRAY          shift and go to state 40
+    NEWLINE         shift and go to state 4
+    NULLOP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    IDENTIFIER      shift and go to state 19
+    SLASH           shift and go to state 20
+    INVOCATION      shift and go to state 22
+    SHOW            shift and go to state 23
+    LARRAY          shift and go to state 24
+    LPAREN          shift and go to state 25
+    LXARRAY         shift and go to state 21
+
+    statement                      shift and go to state 26
+    nullop                         shift and go to state 5
+    binop                          shift and go to state 6
+    expression                     shift and go to state 7
+    cast                           shift and go to state 8
+    inscription                    shift and go to state 9
+    invoke                         shift and go to state 10
+    show                           shift and go to state 11
+    scale                          shift and go to state 12
+    translate                      shift and go to state 13
+    array                          shift and go to state 14
+    import                         shift and go to state 15
+    xarray                         shift and go to state 18
+
+state 33
+
+    (15) import -> LPAREN IDENTIFIER . PERIOD PS RPAREN RUN
+
+    PERIOD          shift and go to state 41
+
+
+state 34
+
+    (10) binop -> NUMBER NUMBER . BINOP
+    (10) binop -> NUMBER . NUMBER BINOP
+    (11) binop -> NUMBER . binop BINOP
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+
+    BINOP           shift and go to state 35
+    NUMBER          shift and go to state 34
+
+    binop                          shift and go to state 28
+
+state 35
+
+    (10) binop -> NUMBER NUMBER BINOP .
+
+    NEWLINE         reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    NULLOP          reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    NUMBER          reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    IDENTIFIER      reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    SLASH           reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    INVOCATION      reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    SHOW            reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    LARRAY          reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    LPAREN          reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    LXARRAY         reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    $end            reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    BINOP           reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    RXARRAY         reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    RARRAY          reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+    INSCRIBE        reduce using rule 10 (binop -> NUMBER NUMBER BINOP .)
+
+
+state 36
+
+    (17) translate -> NUMBER NUMBER TRANSLATE .
+
+    NEWLINE         reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    NULLOP          reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    NUMBER          reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    IDENTIFIER      reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    SLASH           reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    INVOCATION      reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    SHOW            reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    LARRAY          reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    LPAREN          reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    LXARRAY         reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    $end            reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    RXARRAY         reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    RARRAY          reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+    INSCRIBE        reduce using rule 17 (translate -> NUMBER NUMBER TRANSLATE .)
+
+
+state 37
+
+    (11) binop -> NUMBER binop BINOP .
+
+    NEWLINE         reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    NULLOP          reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    NUMBER          reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    IDENTIFIER      reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    SLASH           reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    INVOCATION      reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    SHOW            reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    LARRAY          reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    LPAREN          reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    LXARRAY         reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    $end            reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    BINOP           reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    RXARRAY         reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    RARRAY          reduce using rule 11 (binop -> NUMBER binop BINOP .)
+    INSCRIBE        reduce using rule 11 (binop -> NUMBER binop BINOP .)
+
+
+state 38
+
+    (12) inscription -> SLASH IDENTIFIER LXARRAY . statements INSCRIBE RXARRAY DEF
+    (13) inscription -> SLASH IDENTIFIER LXARRAY . statements RXARRAY DEF
+    (2) statements -> . statements statement
+    (3) statements -> . statement
+    (19) statement -> . NEWLINE
+    (20) statement -> . nullop
+    (21) statement -> . binop
+    (22) statement -> . expression
+    (23) statement -> . cast
+    (24) statement -> . inscription
+    (25) statement -> . invoke
+    (26) statement -> . show
+    (27) statement -> . scale
+    (28) statement -> . translate
+    (29) statement -> . array
+    (30) statement -> . import
+    (6) nullop -> . NULLOP
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+    (8) expression -> . NUMBER
+    (9) expression -> . xarray
+    (14) cast -> . IDENTIFIER
+    (12) inscription -> . SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF
+    (13) inscription -> . SLASH IDENTIFIER LXARRAY statements RXARRAY DEF
+    (4) invoke -> . INVOCATION
+    (18) show -> . SHOW
+    (16) scale -> . NUMBER SOFTSCALE
+    (17) translate -> . NUMBER NUMBER TRANSLATE
+    (5) array -> . LARRAY statements RARRAY
+    (15) import -> . LPAREN IDENTIFIER PERIOD PS RPAREN RUN
+    (7) xarray -> . LXARRAY statements RXARRAY
+
+    NEWLINE         shift and go to state 4
+    NULLOP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    IDENTIFIER      shift and go to state 19
+    SLASH           shift and go to state 20
+    INVOCATION      shift and go to state 22
+    SHOW            shift and go to state 23
+    LARRAY          shift and go to state 24
+    LPAREN          shift and go to state 25
+    LXARRAY         shift and go to state 21
+
+    statements                     shift and go to state 42
+    statement                      shift and go to state 3
+    nullop                         shift and go to state 5
+    binop                          shift and go to state 6
+    expression                     shift and go to state 7
+    cast                           shift and go to state 8
+    inscription                    shift and go to state 9
+    invoke                         shift and go to state 10
+    show                           shift and go to state 11
+    scale                          shift and go to state 12
+    translate                      shift and go to state 13
+    array                          shift and go to state 14
+    import                         shift and go to state 15
+    xarray                         shift and go to state 18
+
+state 39
+
+    (7) xarray -> LXARRAY statements RXARRAY .
+
+    NEWLINE         reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    NULLOP          reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    NUMBER          reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    IDENTIFIER      reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    SLASH           reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    INVOCATION      reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    SHOW            reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    LARRAY          reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    LPAREN          reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    LXARRAY         reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    $end            reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    RXARRAY         reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    RARRAY          reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+    INSCRIBE        reduce using rule 7 (xarray -> LXARRAY statements RXARRAY .)
+
+
+state 40
+
+    (5) array -> LARRAY statements RARRAY .
+
+    NEWLINE         reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    NULLOP          reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    NUMBER          reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    IDENTIFIER      reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    SLASH           reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    INVOCATION      reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    SHOW            reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    LARRAY          reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    LPAREN          reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    LXARRAY         reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    $end            reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    RXARRAY         reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    RARRAY          reduce using rule 5 (array -> LARRAY statements RARRAY .)
+    INSCRIBE        reduce using rule 5 (array -> LARRAY statements RARRAY .)
+
+
+state 41
+
+    (15) import -> LPAREN IDENTIFIER PERIOD . PS RPAREN RUN
+
+    PS              shift and go to state 43
+
+
+state 42
+
+    (12) inscription -> SLASH IDENTIFIER LXARRAY statements . INSCRIBE RXARRAY DEF
+    (13) inscription -> SLASH IDENTIFIER LXARRAY statements . RXARRAY DEF
+    (2) statements -> statements . statement
+    (19) statement -> . NEWLINE
+    (20) statement -> . nullop
+    (21) statement -> . binop
+    (22) statement -> . expression
+    (23) statement -> . cast
+    (24) statement -> . inscription
+    (25) statement -> . invoke
+    (26) statement -> . show
+    (27) statement -> . scale
+    (28) statement -> . translate
+    (29) statement -> . array
+    (30) statement -> . import
+    (6) nullop -> . NULLOP
+    (10) binop -> . NUMBER NUMBER BINOP
+    (11) binop -> . NUMBER binop BINOP
+    (8) expression -> . NUMBER
+    (9) expression -> . xarray
+    (14) cast -> . IDENTIFIER
+    (12) inscription -> . SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF
+    (13) inscription -> . SLASH IDENTIFIER LXARRAY statements RXARRAY DEF
+    (4) invoke -> . INVOCATION
+    (18) show -> . SHOW
+    (16) scale -> . NUMBER SOFTSCALE
+    (17) translate -> . NUMBER NUMBER TRANSLATE
+    (5) array -> . LARRAY statements RARRAY
+    (15) import -> . LPAREN IDENTIFIER PERIOD PS RPAREN RUN
+    (7) xarray -> . LXARRAY statements RXARRAY
+
+    INSCRIBE        shift and go to state 44
+    RXARRAY         shift and go to state 45
+    NEWLINE         shift and go to state 4
+    NULLOP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    IDENTIFIER      shift and go to state 19
+    SLASH           shift and go to state 20
+    INVOCATION      shift and go to state 22
+    SHOW            shift and go to state 23
+    LARRAY          shift and go to state 24
+    LPAREN          shift and go to state 25
+    LXARRAY         shift and go to state 21
+
+    statement                      shift and go to state 26
+    nullop                         shift and go to state 5
+    binop                          shift and go to state 6
+    expression                     shift and go to state 7
+    cast                           shift and go to state 8
+    inscription                    shift and go to state 9
+    invoke                         shift and go to state 10
+    show                           shift and go to state 11
+    scale                          shift and go to state 12
+    translate                      shift and go to state 13
+    array                          shift and go to state 14
+    import                         shift and go to state 15
+    xarray                         shift and go to state 18
+
+state 43
+
+    (15) import -> LPAREN IDENTIFIER PERIOD PS . RPAREN RUN
+
+    RPAREN          shift and go to state 46
+
+
+state 44
+
+    (12) inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE . RXARRAY DEF
+
+    RXARRAY         shift and go to state 47
+
+
+state 45
+
+    (13) inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY . DEF
+
+    DEF             shift and go to state 48
+
+
+state 46
+
+    (15) import -> LPAREN IDENTIFIER PERIOD PS RPAREN . RUN
+
+    RUN             shift and go to state 49
+
+
+state 47
+
+    (12) inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY . DEF
+
+    DEF             shift and go to state 50
+
+
+state 48
+
+    (13) inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .
+
+    NEWLINE         reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    NULLOP          reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    NUMBER          reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    IDENTIFIER      reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    SLASH           reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    INVOCATION      reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    SHOW            reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    LARRAY          reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    LPAREN          reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    LXARRAY         reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    $end            reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    RXARRAY         reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    RARRAY          reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+    INSCRIBE        reduce using rule 13 (inscription -> SLASH IDENTIFIER LXARRAY statements RXARRAY DEF .)
+
+
+state 49
+
+    (15) import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .
+
+    NEWLINE         reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    NULLOP          reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    NUMBER          reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    IDENTIFIER      reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    SLASH           reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    INVOCATION      reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    SHOW            reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    LARRAY          reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    LPAREN          reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    LXARRAY         reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    $end            reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    RXARRAY         reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    RARRAY          reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+    INSCRIBE        reduce using rule 15 (import -> LPAREN IDENTIFIER PERIOD PS RPAREN RUN .)
+
+
+state 50
+
+    (12) inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .
+
+    NEWLINE         reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    NULLOP          reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    NUMBER          reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    IDENTIFIER      reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    SLASH           reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    INVOCATION      reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    SHOW            reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    LARRAY          reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    LPAREN          reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    LXARRAY         reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    $end            reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    RXARRAY         reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    RARRAY          reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+    INSCRIBE        reduce using rule 12 (inscription -> SLASH IDENTIFIER LXARRAY statements INSCRIBE RXARRAY DEF .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for NUMBER in state 17 resolved as shift

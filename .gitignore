@@ -5,3 +5,4 @@ dmmlib
 push.sh
 .venv
 rsync.ignore
+__pycache__
